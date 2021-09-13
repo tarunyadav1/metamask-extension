@@ -45,7 +45,7 @@ module.exports = {
     'prettier',
   ],
 
-  plugins: ['@babel', 'import', 'prettier'],
+  plugins: ['@babel', 'import', 'jsdoc', 'prettier'],
 
   globals: {
     document: 'readonly',
@@ -87,6 +87,10 @@ module.exports = {
 
     'node/no-process-env': 'off',
 
+    // Allow tag `jest-environment` to work around Jest bug
+    // See: https://github.com/facebook/jest/issues/7780
+    'jsdoc/check-tag-names': ['error', { definedTags: ['jest-environment'] }],
+
     // TODO: remove this override
     'padding-line-between-statements': [
       'error',
@@ -112,6 +116,15 @@ module.exports = {
     'node/no-sync': 'off',
     'node/no-unpublished-import': 'off',
     'node/no-unpublished-require': 'off',
+    'jsdoc/match-description': 'off',
+    'jsdoc/require-description': 'off',
+    'jsdoc/require-jsdoc': 'off',
+    'jsdoc/require-param-description': 'off',
+    'jsdoc/require-param-type': 'off',
+    'jsdoc/require-returns-description': 'off',
+    'jsdoc/require-returns-type': 'off',
+    'jsdoc/require-returns': 'off',
+    'jsdoc/valid-types': 'off',
   },
   overrides: [
     {
@@ -243,6 +256,9 @@ module.exports = {
   ],
 
   settings: {
+    jsdoc: {
+      mode: 'typescript',
+    },
     react: {
       // If this is set to 'detect', ESLint will import React in order to find
       // its version. Because we run ESLint in the build system under LavaMoat,
