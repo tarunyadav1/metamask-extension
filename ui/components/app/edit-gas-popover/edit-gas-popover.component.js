@@ -35,6 +35,7 @@ import LoadingHeartBeat from '../../ui/loading-heartbeat';
 import { checkNetworkAndAccountSupports1559 } from '../../../selectors';
 import { useIncrementedGasFees } from '../../../hooks/useIncrementedGasFees';
 import { isLegacyTransaction } from '../../../helpers/utils/transactions.util';
+import { getGasFeeEstimates } from '../../../ducks/metamask/metamask';
 
 export default function EditGasPopover({
   popoverTitle = '',
@@ -54,6 +55,7 @@ export default function EditGasPopover({
   const gasLoadingAnimationIsShowing = useSelector(
     getGasLoadingAnimationIsShowing,
   );
+  const gasFeeEstimates = useSelector(getGasFeeEstimates);
 
   const showEducationButton =
     (mode === EDIT_GAS_MODES.MODIFY_IN_PLACE ||
@@ -61,7 +63,8 @@ export default function EditGasPopover({
     supportsEIP1559;
   const [showEducationContent, setShowEducationContent] = useState(false);
 
-  const [warning] = useState(null);
+  const warning =
+    gasFeeEstimates?.networkCongestion >= 0.66 ? t('networkIsBusy') : '';
 
   const [
     dappSuggestedGasFeeAcknowledged,

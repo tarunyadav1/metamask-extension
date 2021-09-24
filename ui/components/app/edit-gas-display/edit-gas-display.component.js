@@ -93,7 +93,7 @@ export default function EditGasDisplay({
 
   useLayoutEffect(() => {
     if (showAdvancedForm && scrollRef.current) {
-      scrollRef.current.scrollIntoView();
+      scrollRef.current.scrollIntoView?.();
     }
   }, [showAdvancedForm]);
 
