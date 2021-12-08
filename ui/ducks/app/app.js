@@ -364,7 +364,7 @@ export default function reduceApp(state = {}, action) {
         },
       };
 
-    case actionConstants.REMOVE_TRANSACTIONS_DISPLAYED_ON_FAILURE:
+    case actionConstants.REMOVE_TRANSACTION_TO_DISPLAY_ON_FAILURE:
       delete appState.transactionsToDisplayOnFailure[action.value];
       return {
         ...appState,
@@ -412,9 +412,9 @@ export function addTransactionToDisplayOnFailure(txId) {
   };
 }
 
-export function removeTransactionsDisplayedOnFailure(txId) {
+export function removeTransactionToDisplayOnFailure(txId) {
   return {
-    type: actionConstants.REMOVE_TRANSACTIONS_DISPLAYED_ON_FAILURE,
+    type: actionConstants.REMOVE_TRANSACTION_TO_DISPLAY_ON_FAILURE,
     value: txId,
   };
 }

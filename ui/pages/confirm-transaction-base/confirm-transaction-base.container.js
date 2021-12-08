@@ -42,7 +42,7 @@ import {
 
 import {
   addTransactionToDisplayOnFailure,
-  removeTransactionsDisplayedOnFailure,
+  removeTransactionToDisplayOnFailure,
   getGasLoadingAnimationIsShowing,
 } from '../../ducks/app/app';
 import { toChecksumHexAddress } from '../../../shared/modules/hexstring-utils';
@@ -287,8 +287,8 @@ export const mapDispatchToProps = (dispatch) => {
     },
     addTransactionToDisplayOnFailure: (id) =>
       dispatch(addTransactionToDisplayOnFailure(id)),
-    removeTransactionsDisplayedOnFailure: (id) =>
-      dispatch(removeTransactionsDisplayedOnFailure(id)),
+      removeTransactionToDisplayOnFailure: (id) =>
+      dispatch(removeTransactionToDisplayOnFailure(id)),
   };
 };
 
