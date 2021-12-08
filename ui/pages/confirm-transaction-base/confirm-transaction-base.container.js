@@ -287,7 +287,7 @@ export const mapDispatchToProps = (dispatch) => {
     },
     addTransactionToDisplayOnFailure: (id) =>
       dispatch(addTransactionToDisplayOnFailure(id)),
-      removeTransactionToDisplayOnFailure: (id) =>
+    removeTransactionToDisplayOnFailure: (id) =>
       dispatch(removeTransactionToDisplayOnFailure(id)),
   };
 };

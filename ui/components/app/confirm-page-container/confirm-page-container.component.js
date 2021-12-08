@@ -85,7 +85,7 @@ export default class ConfirmPageContainer extends Component {
     currentTransaction: PropTypes.object.isRequired,
     contact: PropTypes.object,
     isOwnedAccount: PropTypes.bool,
-    supportsEIP1559V2: PropTypes.bool,    
+    supportsEIP1559V2: PropTypes.bool,
   };
 
   render() {
