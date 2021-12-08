@@ -34,7 +34,7 @@ import {
   LEDGER_USB_VENDOR_ID,
 } from '../../shared/constants/hardware-wallets';
 import { TRANSACTION_STATUSES } from '../../shared/constants/transaction';
-import { removeTxFromFailedTxesToDisplay } from '../ducks/app/app';
+import { removeTransactionsDisplayedOnFailure } from '../ducks/app/app';
 import * as actionConstants from './actionConstants';
 
 let background = null;
@@ -1132,7 +1132,7 @@ export function updateMetamaskState(newState) {
     });
 
     transactionIdsToRemove.forEach((id) => {
-      dispatch(removeTxFromFailedTxesToDisplay(id));
+      dispatch(removeTransactionsDisplayedOnFailure(id));
     });
   };
 }
