@@ -80,12 +80,12 @@ export default class ConfirmPageContainer extends Component {
     disabled: PropTypes.bool,
     editingGas: PropTypes.bool,
     handleCloseEditGas: PropTypes.func,
+    isFailedTransaction: PropTypes.bool,
     // Gas Popover
     currentTransaction: PropTypes.object.isRequired,
     contact: PropTypes.object,
     isOwnedAccount: PropTypes.bool,
-    supportsEIP1559V2: PropTypes.bool,
-    isFailedTransaction: PropTypes.bool,
+    supportsEIP1559V2: PropTypes.bool,    
   };
 
   render() {
