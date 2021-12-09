@@ -14,6 +14,7 @@ import {
   FLEX_DIRECTION,
   OVERFLOW_WRAP,
   DISPLAY,
+  BLOCK_SIZES,
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
@@ -29,7 +30,7 @@ import {
 } from '../../../selectors';
 import AssetNavigation from '../../../pages/asset/components/asset-navigation';
 import { getCollectibleContracts } from '../../../ducks/metamask/metamask';
-import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
+import { DEFAULT_ROUTE, SEND_ROUTE } from '../../../helpers/constants/routes';
 import { removeAndIgnoreCollectible } from '../../../store/actions';
 import {
   GOERLI_CHAIN_ID,
@@ -42,11 +43,14 @@ import {
 import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../shared/constants/app';
 import CollectibleOptions from '../collectible-options/collectible-options';
+import Button from '../../ui/button';
+import { ASSET_TYPES, updateSendAsset } from '../../../ducks/send';
 
 export default function CollectibleDetails({ collectible }) {
   const { image, name, description, address, tokenId } = collectible;
   const t = useI18nContext();
   const history = useHistory();
+  const dispatch = useDispatch();
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider);
   const ipfsGateway = useSelector(getIpfsGateway);
   const collectibleContracts = useSelector(getCollectibleContracts);
@@ -60,7 +64,6 @@ export default function CollectibleDetails({ collectible }) {
     (state) => getSelectedIdentity(state).name,
   );
   const collectibleImageURL = getAssetImageURL(image, ipfsGateway);
-  const dispatch = useDispatch();
 
   const onRemove = () => {
     dispatch(removeAndIgnoreCollectible(address, tokenId));
@@ -84,6 +87,17 @@ export default function CollectibleDetails({ collectible }) {
   };
 
   const openSeaLink = getOpenSeaLink();
+
+  const onSend = () => {
+    dispatch(
+      updateSendAsset({
+        type: ASSET_TYPES.COLLECTIBLE,
+        details: collectible,
+      }),
+    ).then(() => {
+      history.push(SEND_ROUTE);
+    });
+  };
   return (
     <>
       <AssetNavigation
@@ -149,6 +163,19 @@ export default function CollectibleDetails({ collectible }) {
             >
               {description}
             </Typography>
+            <Box
+              marginTop={6}
+              justifyContent={JUSTIFY_CONTENT.CENTER}
+              width={
+                getEnvironmentType() === ENVIRONMENT_TYPE_POPUP
+                  ? BLOCK_SIZES.THREE_FOURTHS
+                  : BLOCK_SIZES.HALF
+              }
+            >
+              <Button type="primary" onClick={onSend}>
+                {t('send')}
+              </Button>
+            </Box>
           </Box>
         </div>
         <Box>

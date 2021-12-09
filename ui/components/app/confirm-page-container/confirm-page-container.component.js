@@ -103,6 +103,7 @@ export default class ConfirmPageContainer extends Component {
       contentComponent,
       action,
       title,
+      image,
       titleComponent,
       subtitleComponent,
       hideSubtitle,
@@ -206,6 +207,7 @@ export default class ConfirmPageContainer extends Component {
             <ConfirmPageContainerContent
               action={action}
               title={title}
+              image={image}
               titleComponent={titleComponent}
               subtitleComponent={subtitleComponent}
               hideSubtitle={hideSubtitle}

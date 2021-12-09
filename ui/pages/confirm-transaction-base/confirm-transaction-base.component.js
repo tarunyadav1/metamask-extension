@@ -1012,6 +1012,7 @@ export default class ConfirmTransactionBase extends Component {
       gasFeeIsCustom,
       nativeCurrency,
       hardwareWalletRequiresConnection,
+      image,
     } = this.props;
     const {
       submitting,
@@ -1068,6 +1069,7 @@ export default class ConfirmTransactionBase extends Component {
           showEdit={Boolean(onEdit)}
           action={functionType}
           title={title}
+          image={image}
           titleComponent={this.renderTitleComponent()}
           subtitleComponent={this.renderSubtitleComponent()}
           hideSubtitle={hideSubtitle}

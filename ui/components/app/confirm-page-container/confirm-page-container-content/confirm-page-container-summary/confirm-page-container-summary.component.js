@@ -17,6 +17,7 @@ const ConfirmPageContainerSummary = (props) => {
     nonce,
     origin,
     hideTitle,
+    image,
   } = props;
 
   const { supportsEIP1559V2 } = useGasFeeContext();
@@ -40,6 +41,7 @@ const ConfirmPageContainerSummary = (props) => {
             className="confirm-page-container-summary__identicon"
             diameter={36}
             address={identiconAddress}
+            image={image}
           />
         )}
         {!hideTitle ? (

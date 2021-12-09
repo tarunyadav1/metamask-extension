@@ -48,6 +48,7 @@ import TransactionStateManager from './tx-state-manager';
 import TxGasUtil from './tx-gas-utils';
 import PendingTransactionTracker from './pending-tx-tracker';
 import * as txUtils from './lib/util';
+import { isEqualCaseInsensitive } from '../../../../ui/helpers/utils/util';
 
 const hstInterface = new ethers.utils.Interface(abi);
 
@@ -1252,7 +1253,7 @@ export default class TransactionController extends EventEmitter {
       TRANSACTION_TYPES.TOKEN_METHOD_APPROVE,
       TRANSACTION_TYPES.TOKEN_METHOD_TRANSFER,
       TRANSACTION_TYPES.TOKEN_METHOD_TRANSFER_FROM,
-    ].find((methodName) => methodName === name && name.toLowerCase());
+    ].find((methodName) => isEqualCaseInsensitive(methodName, name));
 
     let result;
     if (data && tokenMethodName) {

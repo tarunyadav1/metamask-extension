@@ -42,7 +42,7 @@
   }
 
   &__title-text {
-    @include H1;
+    @include H4;
 
     white-space: nowrap;
     overflow: hidden;
@@ -50,6 +50,7 @@
   }
 
   &__subtitle {
+    @include H6;
     color: $oslo-gray;
     white-space: nowrap;
     overflow: hidden;

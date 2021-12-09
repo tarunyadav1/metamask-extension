@@ -191,6 +191,11 @@ export default class ConfirmTransaction extends Component {
           path={`${CONFIRM_TRANSACTION_ROUTE}/:id?${CONFIRM_TRANSFER_FROM_PATH}`}
           component={ConfirmTokenTransactionBaseContainer}
         />
+        {/* <Route
+          exact
+          path={`${CONFIRM_TRANSACTION_ROUTE}/:id?${CONFIRM_TRANSFER_FROM_COLLECTIBLE_PATH}`}
+          component={ConfirmTokenTransactionBaseContainer}
+        /> */}
         <Route
           exact
           path={`${CONFIRM_TRANSACTION_ROUTE}/:id?${SIGNATURE_REQUEST_PATH}`}

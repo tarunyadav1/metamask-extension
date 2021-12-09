@@ -87,6 +87,7 @@ export default class ConfirmPageContainerContent extends Component {
       errorMessage,
       hasSimulationError,
       title,
+      image,
       titleComponent,
       subtitleComponent,
       hideSubtitle,
@@ -140,6 +141,7 @@ export default class ConfirmPageContainerContent extends Component {
           })}
           action={action}
           title={title}
+          image={image}
           titleComponent={titleComponent}
           subtitleComponent={subtitleComponent}
           hideSubtitle={hideSubtitle}

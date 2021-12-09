@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import abi from 'human-standard-token-abi';
+import abiERC721 from 'human-standard-collectible-abi';
 import BigNumber from 'bignumber.js';
 import { addHexPrefix } from 'ethereumjs-util';
 import { debounce } from 'lodash';
@@ -25,6 +26,7 @@ import {
   addGasBuffer,
   calcGasTotal,
   generateTokenTransferData,
+  generateCollectibleTransferData,
   isBalanceSufficient,
   isTokenBalanceSufficient,
 } from '../../pages/send/send.utils';
@@ -155,10 +157,12 @@ export const GAS_INPUT_MODES = {
  * The types of assets that a user can send
  * 1. NATIVE - The native asset for the current network, such as ETH
  * 2. TOKEN - An ERC20 token.
+ * 2. COLLECTIBLE - An ERC721 or ERC1155 token.
  */
 export const ASSET_TYPES = {
   NATIVE: 'NATIVE',
   TOKEN: 'TOKEN',
+  COLLECTIBLE: 'COLLECTIBLE',
 };
 
 /**
@@ -218,13 +222,22 @@ async function estimateGasLimitForSend({
       return GAS_LIMITS.BASE_TOKEN_ESTIMATE;
     }
     paramsForGasEstimate.value = '0x0';
-    // We have to generate the erc20 contract call to transfer tokens in
+
+    // We have to generate the erc20/erc721 contract call to transfer tokens in
     // order to get a proper estimate for gasLimit.
-    paramsForGasEstimate.data = generateTokenTransferData({
-      toAddress: to,
-      amount: value,
-      sendToken,
-    });
+    paramsForGasEstimate.data =
+      sendToken?.standard === 'ERC721'
+        ? generateCollectibleTransferData({
+            toAddress: to,
+            fromAddress: selectedAddress,
+            tokenId: sendToken.tokenId,
+          })
+        : generateTokenTransferData({
+            toAddress: to,
+            amount: value,
+            sendToken,
+          });
+
     paramsForGasEstimate.to = sendToken.address;
   } else {
     if (!data) {
@@ -289,6 +302,8 @@ async function estimateGasLimitForSend({
     bufferMultiplier = CHAIN_ID_TO_GAS_LIMIT_BUFFER_MAP[chainId];
   }
 
+  // paramsForGasEstimate.chainId = chainId;
+  
   try {
     // call into the background process that will simulate transaction
     // execution on the node and return an estimate of gasLimit
@@ -304,6 +319,10 @@ async function estimateGasLimitForSend({
       error.message.includes('Transaction execution error.') ||
       error.message.includes(
         'gas required exceeds allowance or always failing transaction',
+      ) ||
+      // TODO determine whether there is a way to estimate gas for a collectible transfer without signing the data?
+      error.message.includes(
+        'ERC721: transfer caller is not owner nor approved',
       );
     if (simulationFailed) {
       const estimateWithBuffer = addGasBuffer(
@@ -843,6 +862,9 @@ const slice = createSlice({
       state.asset.balance = action.payload.balance;
       if (state.asset.type === ASSET_TYPES.TOKEN) {
         state.asset.details = action.payload.details;
+      } else if (state.asset.type === ASSET_TYPES.COLLECTIBLE) {
+        state.asset.details = action.payload.details;
+        // TODO ANYTHING ELSE? (IF NOT JUST FOLD INTO IF BLOCK ABOVE)
       } else {
         // clear the details object when sending native currency
         state.asset.details = null;
@@ -919,6 +941,21 @@ const slice = createSlice({
               sendToken: state.asset.details,
             });
             break;
+          case ASSET_TYPES.COLLECTIBLE:
+            // When sending a token the to address is the contract address of
+            // the token being sent. The value is set to '0x0' and the data
+            // is generated from the recipient address, token being sent and
+            // amount.
+            state.draftTransaction.txParams.to = state.asset.details.address;
+            state.draftTransaction.txParams.value = '0x0';
+            state.draftTransaction.txParams.data = generateCollectibleTransferData(
+              {
+                toAddress: state.recipient.address,
+                fromAddress: state.account.address,
+                tokenId: state.asset.details.tokenId,
+              },
+            );
+            break;
           case ASSET_TYPES.NATIVE:
           default:
             // When sending native currency the to and value fields use the
@@ -992,7 +1029,9 @@ const slice = createSlice({
         recipient.error = null;
         recipient.warning = null;
       } else {
-        const isSendingToken = asset.type === ASSET_TYPES.TOKEN;
+        const isSendingToken =
+          asset.type === ASSET_TYPES.TOKEN ||
+          asset.type === ASSET_TYPES.COLLECTIBLE;
         const { chainId, tokens, tokenAddressList } = action.payload;
         if (
           isBurnAddress(recipient.userInput) ||
@@ -1046,6 +1085,14 @@ const slice = createSlice({
         // set error to INSUFFICIENT_FUNDS_ERROR if the token balance is lower
         // than the amount of token the user is attempting to send.
         case state.asset.type === ASSET_TYPES.TOKEN &&
+          !isTokenBalanceSufficient({
+            tokenBalance: state.asset.balance ?? '0x0',
+            amount: state.amount.value,
+            decimals: state.asset.details.decimals,
+          }):
+          state.amount.error = INSUFFICIENT_TOKENS_ERROR;
+          break;
+        case state.asset.type === ASSET_TYPES.COLLECTIBLE &&
           !isTokenBalanceSufficient({
             tokenBalance: state.asset.balance ?? '0x0',
             amount: state.amount.value,
@@ -1364,12 +1411,16 @@ export function updateSendAsset({ type, details }) {
         details,
         state.send.account.address ?? getSelectedAddress(state),
       );
-      if (details && details.isERC721 === undefined) {
-        const updatedAssetDetails = await updateTokenType(details.address);
-        details.isERC721 = updatedAssetDetails.isERC721;
-      }
+      // TODO delete
+      // if (details && details.isERC721 === undefined) {
+      //   const updatedAssetDetails = await updateTokenType(details.address);
+      //   details.isERC721 = updatedAssetDetails.isERC721;
+      // }
 
       await dispatch(hideLoadingIndication());
+    } else if (type === ASSET_TYPES.COLLECTIBLE) {
+      // TODO update balance?
+      balance = '0x1';
     } else {
       // if changing to native currency, get it from the account key in send
       // state which is kept in sync when accounts change.
@@ -1531,6 +1582,7 @@ export function signTransaction() {
       draftTransaction: { id, txParams },
       recipient: { address },
       amount: { value },
+      account: { address: selectedAddress },
       eip1559support,
     } = state[name];
     if (stage === SEND_STAGES.EDIT) {
@@ -1570,6 +1622,37 @@ export function signTransaction() {
           to: undefined,
           data: undefined,
         });
+        dispatch(showConfTxPage());
+        dispatch(hideLoadingIndication());
+      } catch (error) {
+        dispatch(hideLoadingIndication());
+        dispatch(displayWarning(error.message));
+      }
+    } else if (asset.type === ASSET_TYPES.COLLECTIBLE) {
+      // When sending a collectible transaction we have to use the collectible.transferFrom method
+      // on the collectible contract to construct the transaction. This results in
+      // the proper transaction data and properties being set and a new
+      // transaction being added to background state. Once the new transaction
+      // is added to state a subsequent confirmation will be queued.
+      try {
+        const collectibleContract = global.eth
+          .contract(abiERC721)
+          .at(asset.details.address);
+        try {
+          collectibleContract.transferFrom(
+            selectedAddress,
+            address,
+            asset?.details?.tokenId,
+            {
+              ...txParams,
+              // gas: '200B20',
+              to: undefined,
+              data: undefined,
+            },
+          );
+        } catch (error) {
+          console.log('errror', error);
+        }
         dispatch(showConfTxPage());
         dispatch(hideLoadingIndication());
       } catch (error) {

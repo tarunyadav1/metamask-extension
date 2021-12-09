@@ -3112,6 +3112,9 @@
   "tokenDetectionAnnouncement": {
     "message": "New! Improved token detection is available on Ethereum Mainnet as an experimental feature. $1"
   },
+  "tokenId": {
+    "message": "Token ID"
+  },
   "tokenSymbol": {
     "message": "Token Symbol"
   },

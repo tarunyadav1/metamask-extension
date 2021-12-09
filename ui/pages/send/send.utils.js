@@ -11,12 +11,17 @@ import {
 import { calcTokenAmount } from '../../helpers/utils/token-util';
 import { addHexPrefix } from '../../../app/scripts/lib/util';
 
-import { TOKEN_TRANSFER_FUNCTION_SIGNATURE } from './send.constants';
+import {
+  TOKEN_TRANSFER_FUNCTION_SIGNATURE,
+  COLLECTIBLE_TRANSFER_FROM_FUNCTION_SIGNATURE,
+} from './send.constants';
+import { toHex } from '../../helpers/utils/conversions.util';
 
 export {
   addGasBuffer,
   calcGasTotal,
   generateTokenTransferData,
+  generateCollectibleTransferData,
   isBalanceSufficient,
   isTokenBalanceSufficient,
   ellipsify,
@@ -138,6 +143,28 @@ function generateTokenTransferData({
         abi.rawEncode(
           ['address', 'uint256'],
           [toAddress, addHexPrefix(amount)],
+        ),
+        (x) => `00${x.toString(16)}`.slice(-2),
+      )
+      .join('')
+  );
+}
+
+function generateCollectibleTransferData({
+  toAddress = '0x0',
+  fromAddress = '0x0',
+  tokenId,
+}) {
+  if (!tokenId) {
+    return undefined;
+  }
+  return (
+    COLLECTIBLE_TRANSFER_FROM_FUNCTION_SIGNATURE +
+    Array.prototype.map
+      .call(
+        abi.rawEncode(
+          ['address', 'address', 'uint256'],
+          [fromAddress, toAddress, toHex(tokenId)],
         ),
         (x) => `00${x.toString(16)}`.slice(-2),
       )

@@ -60,7 +60,9 @@ export default class SendContent extends Component {
     else if (getIsBalanceInsufficient)
       gasError = INSUFFICIENT_FUNDS_FOR_GAS_ERROR_KEY;
     const showHexData =
-      this.props.showHexData && asset.type !== ASSET_TYPES.TOKEN;
+      this.props.showHexData &&
+      asset.type !== ASSET_TYPES.TOKEN &&
+      asset.type !== ASSET_TYPES.COLLECTIBLE;
 
     return (
       <PageContainerContent>
@@ -68,9 +70,6 @@ export default class SendContent extends Component {
           {gasError ? this.renderError(gasError) : null}
           {isEthGasPrice
             ? this.renderWarning(ETH_GAS_PRICE_FETCH_WARNING_KEY)
-            : null}
-          {isAssetSendable === false
-            ? this.renderError(UNSENDABLE_ASSET_ERROR_KEY)
             : null}
           {error ? this.renderError(error) : null}
           {warning ? this.renderWarning() : null}
