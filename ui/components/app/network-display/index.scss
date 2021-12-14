@@ -11,6 +11,7 @@
     cursor: not-allowed;
   }
 
+  /*
   &--colored {
     background-color: lighten(rgb(125, 128, 130), 45%);
   }
@@ -38,6 +39,7 @@
   &--localhost {
     background-color: lighten( var(--blue-lagoon), 68%);
   }
+  */
 
   &.chip {
     margin: 0;

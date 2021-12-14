@@ -1,6 +1,5 @@
- var(--sub-mid-size-breakpoint): 667px;
- var(--sub-mid-size-breakpoint-range): "screen and (min-width: #{ $break-large}) and (max-width: #{ var(--sub-mid-size-breakpoint)})";
-
+$sub-mid-size-breakpoint: 667px;
+$sub-mid-size-breakpoint-range: "screen and (min-width: #{$break-large}) and (max-width: #{$sub-mid-size-breakpoint})";
 /*
   NewUI Container Elements
  */

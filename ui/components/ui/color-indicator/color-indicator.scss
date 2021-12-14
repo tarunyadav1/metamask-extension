@@ -1,7 +1,7 @@
 @use "utilities";
 @use "design-system";
 
- var(--sizes): (
+ $sizes: (
   'xl': 8,
   'lg': 6,
   'md': 5,
@@ -21,43 +21,43 @@
     background-color: transparent;
   }
 
-  @each  var(--variant),  var(--size) in  var(--sizes) {
-    &--size-#{ var(--variant)} {
-      height: #{2 *  var(--size)}px;
-      width: #{2 *  var(--size)}px;
-      border-radius: #{ var(--size)}px;
+  @each $variant, $size in $sizes {
+    &--size-#{ $variant} {
+      height: #{2 *  $size}px;
+      width: #{2 *  $size}px;
+      border-radius: #{$size}px;
 
       #{  $self }__inner-circle {
-        border-radius: #{ var(--size)}px;
-        height: #{ var(--size)}px;
-        width: #{ var(--size)}px;
+        border-radius: #{ $size}px;
+        height: #{ $size}px;
+        width: #{ $size}px;
       }
 
       #{  $self }__icon {
-        font-size: #{1.25 *  var(--size)}px;
+        font-size: #{1.25 * $size}px;
       }
     }
   }
 
-  @each  var(--variant),  var(--color) in design-system. var(--color-map) {
-    &--color-#{ var(--variant)} {
-      border-color: var( var(--color));
+  @each  $variant, $color in design-system.$color-map {
+    &--color-#{ $variant} {
+      border-color: var($color);
       &#{  $self }--partial-filled #{  $self }__inner-circle {
-        background-color: var( var(--color));
+        background-color: var($color);
       }
       &#{  $self }--filled {
-        background-color: var( var(--color));
+        background-color: var($color);
       }
       & #{  $self }__icon {
-        color: #{utilities.choose-contrast-color(var( var(--color)))};
+        color: var($color);
       }
     }
   }
 
   // separate iterator to ensure borderColor takes precedence
-  @each  var(--variant),  var(--color) in design-system. var(--color-map) {
-    &--border-color-#{ var(--variant)} {
-      border-color: var( var(--color));
+  @each  $variant, $color in design-system.$color-map {
+    &--border-color-#{$variant} {
+      border-color: var($color);
     }
   }
 }

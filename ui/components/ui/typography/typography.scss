@@ -9,39 +9,39 @@
     font-weight: 700;
   }
 
-  @each  var(--variant) in map.keys(design-system. var(--typography-variants)) {
-    &--#{ var(--variant)} {
-      @include design-system.typography( var(--variant));
+  @each  $variant in map.keys(design-system.$typography-variants) {
+    &--#{ $variant} {
+      @include design-system.typography( $variant);
     }
   }
 
-  @each  var(--variant),  var(--color) in design-system. var(--color-map) {
-    &--color-#{ var(--variant)} {
-      color: var( var(--color));
+  @each  $variant,  $color in design-system.$color-map {
+    &--color-#{ $variant} {
+      color: var($color);
     }
   }
 
-  @each  var(--weight) in design-system. var(--font-weight) {
-    &--weight-#{ var(--weight)} {
-      font-weight:  var(--weight);
+  @each  $weight in design-system.$font-weight {
+    &--weight-#{ $weight} {
+      font-weight:  $weight;
     }
   }
 
-  @each  var(--style) in design-system. var(--font-style) {
-    &--style-#{ var(--style)} {
-      font-style:  var(--style);
+  @each  $style in design-system.$font-style {
+    &--style-#{ $style} {
+      font-style:  $style;
     }
   }
 
-  @each  var(--alignment) in design-system. var(--text-align) {
-    &--align-#{ var(--alignment)} {
-      text-align:  var(--alignment);
+  @each $alignment in design-system.$text-align {
+    &--align-#{$alignment} {
+      text-align:  $alignment;
     }
   }
 
-  @for  var(--i) from 1 through 8 {
-    &--spacing-#{ var(--i)} {
-      margin: #{ var(--i) * 4}px auto;
+  @for $i from 1 through 8 {
+    &--spacing-#{$i} {
+      margin: #{$i * 4}px auto;
     }
   }
 }

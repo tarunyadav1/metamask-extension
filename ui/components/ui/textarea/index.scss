@@ -3,7 +3,7 @@
 .textarea {
   display: block;
   box-shadow: none;
-  color: design-system. var(--black);
+  color: var(--black);
 
   @include design-system.H6;
 
@@ -17,9 +17,9 @@
     overflow-y: hidden;
   }
 
-  @each  var(--size) in design-system. var(--resize) {
-    &--resize-#{ var(--size)} {
-      resize:  var(--size);
+  @each $size in design-system.$resize {
+    &--resize-#{ $size} {
+      resize: $size;
     }
   }
 }

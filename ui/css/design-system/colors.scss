@@ -113,8 +113,9 @@
   --localhost: #29b6af;
 
   --flask-purple: #8b45b6;
+}
 
-  --color-map: (
+$color-map: (
     'ui-1': --ui-1,
     'ui-2': --ui-2,
     'ui-3': --ui-3,
@@ -148,4 +149,3 @@
     'transparent': transparent,
     'flask-purple': --flask-purple
   );
-}

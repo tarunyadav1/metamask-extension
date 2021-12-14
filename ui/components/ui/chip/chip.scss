@@ -3,12 +3,12 @@
 .chip {
     $self : &;
 
-  border-radius: 100px;
-  border: 1px solid design-system. var(--ui-1);
-  padding: 8px 16px;
-  margin: 0 4px;
-  display: flex;
-  align-items: center;
+    border-radius: 100px;
+    border: 1px solid var(--ui-1);
+    padding: 8px 16px;
+    margin: 0 4px;
+    display: flex;
+    align-items: center;
 
   &__left-icon,
   &__right-icon {
@@ -16,12 +16,12 @@
     align-items: center;
   }
 
-  @each  var(--variant),  var(--color) in design-system. var(--color-map) {
-    &--border-color-#{ var(--variant)} {
-      border-color: var( var(--color));
+  @each  $variant, $color in design-system.$color-map {
+    &--border-color-#{ $variant } {
+      border-color: var($color);
     }
-    &--background-color-#{ var(--variant)} {
-      background-color: var var(--color);
+    &--background-color-#{ $variant} {
+      background-color: var($color);
     }
   }
 
@@ -45,7 +45,7 @@
     background: transparent;
     text-align: center;
     width: 100%;
-    font-size: design-system. var(--font-size-h5);
+    font-size: var(--font-size-h5);
 
     &:focus {
       text-align: left;

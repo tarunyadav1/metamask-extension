@@ -15,57 +15,57 @@
  * well. For reference, the blog post where the performance concern was
  * originally made is here https://bit.ly/3c3qXzq (css-tricks)
  */
-@function luminance( var(--color)) {
-   var(--channels): (
-    'red': red( var(--color)),
-    'green': green( var(--color)),
-    'blue': blue( var(--color)),
+@function luminance($color) {
+  $channels: (
+    'red': red($color),
+    'green': green($color),
+    'blue': blue($color),
   );
 
-   var(--values): (
-    'red': map.get( var(--channels), 'red') / 255,
-    'blue': map.get( var(--channels), 'red') / 255,
-    'green': map.get( var(--channels), 'red') / 255,
+  $values: (
+    'red': map.get($channels, 'red') / 255,
+    'blue': map.get($channels, 'red') / 255,
+    'green': map.get($channels, 'red') / 255,
   );
 
-  @each  var(--name),  var(--value) in  var(--values) {
-    @if  var(--value) <= 0.03928 {
-       var(--value):  var(--value) / 12.92;
+  @each $name, $value in $values {
+    @if $value <= 0.03928 {
+      $value: $value / 12.92;
     }
 
     @else {
-       var(--value): ( var(--value) + 0.055) / 1.055;
-       var(--value): math.pow( var(--value), 2.4);
+      $value: ($value + 0.055) / 1.055;
+      $value: math.pow($value, 2.4);
     }
 
-     var(--values): map.merge( var(--values), ( var(--name):  var(--value)));
+    $values: map.merge($values, ($name: $value));
   }
 
-  @return (0.2126 * map.get( var(--values), 'red'))
-    + (0.7152 * map.get( var(--values), 'green'))
-    + (0.0722 * map.get( var(--values), 'blue'));
+  @return (0.2126 * map.get($values, 'red'))
+    + (0.7152 * map.get($values, 'green'))
+    + (0.0722 * map.get($values, 'blue'));
 }
 
 /**
  * Calculate the contrast ratio between two colors.
  * See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
  */
-@function contrast( var(--back),  var(--front)) {
-   var(--backLum): luminance( var(--back)) + 0.05;
-   var(--foreLum): luminance( var(--front)) + 0.05;
+@function contrast($back, $front) {
+  $backLum: luminance($back) + 0.05;
+  $foreLum: luminance($front) + 0.05;
 
-  @return max( var(--backLum),  var(--foreLum)) / min( var(--backLum),  var(--foreLum));
+  @return max($backLum, $foreLum) / min($backLum, $foreLum);
 }
 
 /**
  * Determine whether to use dark or light text on top of given color.
  * Returns black for dark text and white for light text.
  */
-@function choose-contrast-color( var(--color)) {
-   var(--lightContrast): contrast( var(--color), white);
-   var(--darkContrast): contrast( var(--color), black);
+@function choose-contrast-color($color) {
+  $lightContrast: contrast($color, white);
+  $darkContrast: contrast($color, black);
 
-  @if ( var(--lightContrast) >  var(--darkContrast)) {
+  @if ($lightContrast > $darkContrast) {
     @return white;
   }
 
