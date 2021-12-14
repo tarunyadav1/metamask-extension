@@ -48,6 +48,7 @@ import {
   RESTORE_VAULT_ROUTE,
   REVEAL_SEED_ROUTE,
   SEND_ROUTE,
+  CREATE_NFT_ROUTE,
   SWAPS_ROUTE,
   SETTINGS_ROUTE,
   UNLOCK_ROUTE,
@@ -149,6 +150,11 @@ export default class Routes extends Component {
         />
         <Authenticated
           path={SEND_ROUTE}
+          component={SendTransactionScreen}
+          exact
+        />
+        <Authenticated
+          path={CREATE_NFT_ROUTE}
           component={SendTransactionScreen}
           exact
         />

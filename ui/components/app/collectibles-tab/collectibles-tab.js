@@ -23,7 +23,10 @@ import {
   getCollectiblesDetectionNoticeDismissed,
 } from '../../../ducks/metamask/metamask';
 import { getIsMainnet, getUseCollectibleDetection } from '../../../selectors';
-import { EXPERIMENTAL_ROUTE } from '../../../helpers/constants/routes';
+import {
+  CREATE_NFT_ROUTE,
+  EXPERIMENTAL_ROUTE,
+} from '../../../helpers/constants/routes';
 import { detectCollectibles } from '../../../store/actions';
 
 export default function CollectiblesTab({ onAddNFT }) {
@@ -99,6 +102,16 @@ export default function CollectiblesTab({ onAddNFT }) {
           </Box>
         </Box>
       )}
+      <Box padding={[6, 12, 6, 12]}>
+        <Button
+          onClick={() => {
+            history.push(CREATE_NFT_ROUTE);
+          }}
+          style={{ padding: 0, fontSize: '1rem' }}
+        >
+          Create NFT
+        </Button>
+      </Box>
       <Box
         marginBottom={4}
         justifyContent={JUSTIFY_CONTENT.CENTER}
