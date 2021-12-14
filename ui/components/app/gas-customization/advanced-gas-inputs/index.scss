@@ -18,17 +18,17 @@
       justify-content: space-between;
       align-items: center;
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         @include H8;
       }
 
       .fa-info-circle {
-        color:  var(--silver);
+        color: var(--silver);
         cursor: pointer;
       }
 
       .fa-info-circle:hover {
-        color:  var(--mid-gray);
+        color: var(--mid-gray);
       }
     }
 
@@ -55,7 +55,7 @@
       direction: ltr;
       border: 1px solid  var(--dusty-gray);
       border-radius: 4px;
-      color:  var(--mid-gray);
+      color: var(--mid-gray);
       height: 24px;
       width: 100%;
       padding-left: 8px;
@@ -99,7 +99,7 @@
 
       &__i-wrap:hover {
         background: #4eade7;
-        color:  var(--white);
+        color: var(--white);
       }
 
       i:hover {
@@ -107,7 +107,7 @@
       }
 
       i {
-        font-size:  var(--font-size-h8);
+        font-size: var(--font-size-h8);
       }
 
       &--hidden {
@@ -145,7 +145,7 @@
       position: absolute;
       top: 8px;
       right: 10px;
-      color:  var(--dusty-gray);
+      color: var(--dusty-gray);
     }
 
     &__custom-text {

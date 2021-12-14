@@ -7,7 +7,7 @@
   &__header {
     width: 100%;
     border-radius: 8px 8px 0 0;
-    background-color:  var(--mid-gray);
+    background-color: var(--mid-gray);
     display: flex;
     position: relative;
     padding: 25px;
@@ -17,20 +17,20 @@
     &__title {
       @include H3;
 
-      color:  var(--white);
+      color: var(--white);
     }
 
     &__description {
       @include Paragraph;
 
-      color:  var(--white);
+      color: var(--white);
       margin-top: 10px;
     }
 
     &__close::after {
       content: '\00D7';
       font-size: 2em;
-      color:  var(--white);
+      color: var(--white);
       position: absolute;
       top: 20.8px;
       right: 28px;
@@ -46,7 +46,7 @@
     flex: 1;
     align-items: center;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       height: 0;
     }
   }
@@ -71,7 +71,7 @@
     padding: 30px 0 20px;
     min-height: 170px;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       min-height: 270px;
       flex-flow: column;
       justify-content: flex-start;
@@ -89,11 +89,11 @@
       flex: 0 0 auto;
       padding: 0 20px;
 
-      @media screen and (min-width:  $break-large) {
+      @media screen and (min-width: $break-large) {
         width: 12rem;
       }
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         width: 100%;
         max-height: 6rem;
         padding-bottom: 20px;
@@ -105,11 +105,11 @@
     }
 
     &__description {
-      color:  var(--cape-cod);
+      color: var(--cape-cod);
       padding-bottom: 20px;
       align-self: flex-start;
 
-      @media screen and (min-width:  $break-large) {
+      @media screen and (min-width: $break-large) {
         width: 15rem;
       }
 
@@ -128,7 +128,7 @@
       display: flex;
       justify-content: flex-end;
 
-      @media screen and (min-width:  $break-large) {
+      @media screen and (min-width: $break-large) {
         min-width: 300px;
       }
     }

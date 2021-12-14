@@ -13,7 +13,7 @@
     justify-content: center;
     padding: 20px;
     border-radius: 4px;
-    background:  var(--alabaster);
+    background: var(--alabaster);
   }
 
   &__text {
@@ -21,7 +21,7 @@
 
     resize: none;
     border: none;
-    background:  var(--alabaster);
+    background: var(--alabaster);
     text-align: center;
   }
 
@@ -41,7 +41,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color:  var(--primary-blue);
+    color: var(--primary-blue);
 
     &--copy {
       border-right: 1px solid  var(--alto);

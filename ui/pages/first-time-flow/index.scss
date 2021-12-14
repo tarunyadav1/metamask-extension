@@ -7,12 +7,12 @@
 
 .first-time-flow {
   width: 100%;
-  background-color:  var(--white);
+  background-color: var(--white);
   display: flex;
   justify-content: center;
 
   &__wrapper {
-    @media screen and (min-width:  $break-large) {
+    @media screen and (min-width: $break-large) {
       max-width: 742px;
       display: flex;
       flex-direction: column;
@@ -23,7 +23,7 @@
     .app-header__metafox-logo {
       margin-bottom: 40px;
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         margin-bottom: 0;
       }
     }
@@ -94,7 +94,7 @@
     margin-bottom: 24px;
     color: black;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       @include H6;
 
       margin-bottom: 16px;
@@ -140,12 +140,12 @@
   }
 
   &__link-text {
-    color:  var(--primary-blue);
+    color: var(--primary-blue);
   }
 }
 
 .first-time-flow__wrapper.intro {
-  @media screen and (min-width:  $break-large) {
+  @media screen and (min-width: $break-large) {
     max-width: 1010px;
   }
 

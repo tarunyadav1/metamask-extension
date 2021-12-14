@@ -18,7 +18,7 @@
   }
 
   @each $size in design-system.$resize {
-    &--resize-#{ $size} {
+    &--resize-#{$size} {
       resize: $size;
     }
   }

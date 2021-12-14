@@ -10,13 +10,13 @@
   }
 
   &__text {
-    color:  var(--silver-chalice);
+    color: var(--silver-chalice);
     width: 50%;
     text-align: center;
     margin-top: 8px;
     opacity: 0.5;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       width: 60%;
     }
   }

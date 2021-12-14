@@ -1,14 +1,14 @@
 @use "design-system";
 
 .chip {
-    $self : &;
+  $self : &;
 
-    border-radius: 100px;
-    border: 1px solid var(--ui-1);
-    padding: 8px 16px;
-    margin: 0 4px;
-    display: flex;
-    align-items: center;
+  border-radius: 100px;
+  border: 1px solid var(--ui-1);
+  padding: 8px 16px;
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
 
   &__left-icon,
   &__right-icon {
@@ -16,11 +16,11 @@
     align-items: center;
   }
 
-  @each  $variant, $color in design-system.$color-map {
-    &--border-color-#{ $variant } {
+  @each $variant, $color in design-system.$color-map {
+    &--border-color-#{$variant } {
       border-color: var($color);
     }
-    &--background-color-#{ $variant} {
+    &--background-color-#{$variant} {
       background-color: var($color);
     }
   }

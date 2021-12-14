@@ -60,8 +60,8 @@ html {
   flex-direction: column;
   background: #f7f7f7;
 
-  @media screen and (max-width:  $break-small) {
-    background-color:  var(--white);
+  @media screen and (max-width: $break-small) {
+    background-color: var(--white);
   }
 }
 /* stylelint-enable */
@@ -104,22 +104,22 @@ input.form-control {
 
   &::-webkit-input-placeholder {
     font-weight: 100;
-    color:  var(--dusty-gray);
+    color: var(--dusty-gray);
   }
 
   &::-moz-placeholder {
     font-weight: 100;
-    color:  var(--dusty-gray);
+    color: var(--dusty-gray);
   }
 
   &:-ms-input-placeholder {
     font-weight: 100;
-    color:  var(--dusty-gray);
+    color: var(--dusty-gray);
   }
 
   &:-moz-placeholder {
     font-weight: 100;
-    color:  var(--dusty-gray);
+    color: var(--dusty-gray);
   }
 
   &--error {
@@ -129,6 +129,6 @@ input.form-control {
 
 /** Default Typography on base elements **/
 * {
-  font-family:  var(--font-family);
+  font-family: var(--font-family);
 }
 

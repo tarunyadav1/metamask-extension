@@ -5,24 +5,24 @@
     margin-top: 0;
 
     &--danger {
-      border-color:  var(--Red-300);
-      background:  var(--Red-000);
+      border-color: var(--Red-300);
+      background: var(--Red-000);
     }
 
     &__message {
-      color:  var(--Black-100);
+      color: var(--Black-100);
       text-align: left;
     }
   }
 
   &__contract-address {
     border-radius: 8px;
-    background-color:  var(--Grey-000);
+    background-color: var(--Grey-000);
     padding: 5px 10px;
   }
 
   &__token-icon {
-    font-size:  var(--font-size-h2);
+    font-size: var(--font-size-h2);
     margin-top: 24px;
     width: 69px;
     height: 69px;

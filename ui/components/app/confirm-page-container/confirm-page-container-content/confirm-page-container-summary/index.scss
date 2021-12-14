@@ -19,7 +19,7 @@
     @include H7;
 
     text-transform: uppercase;
-    color:  var(--oslo-gray);
+    color: var(--oslo-gray);
     padding: 3px 8px;
     border: 1px solid  var(--oslo-gray);
     border-radius: 4px;
@@ -27,7 +27,7 @@
   }
 
   &__nonce {
-    color:  var(--oslo-gray);
+    color: var(--oslo-gray);
   }
 
   &__title {
@@ -50,7 +50,7 @@
   }
 
   &__subtitle {
-    color:  var(--oslo-gray);
+    color: var(--oslo-gray);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

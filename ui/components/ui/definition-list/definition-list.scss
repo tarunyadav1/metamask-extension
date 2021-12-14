@@ -1,14 +1,14 @@
 .definition-list {
-    $self : &;
+  $self : &;
 
   &__term {
     display: flex;
     align-items: center;
 
     & i {
-      color:  var(--ui-3);
+      color: var(--ui-3);
       margin-left: 6px;
-      font-size:  var(--font-size-h8);
+      font-size: var(--font-size-h8);
     }
 
     & #{  $self }__tooltip-wrapper {

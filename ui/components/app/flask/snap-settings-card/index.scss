@@ -22,7 +22,7 @@
     overflow: hidden;
     /* stylelint-disable */
     display: -webkit-box;
-    -webkit-line-clamp:  var(--body-line-clamp);
+    -webkit-line-clamp: var(--body-line-clamp);
     -webkit-box-orient: vertical;
     /* stylelint-enable */
   }
@@ -32,7 +32,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width:  var(--version-max-width);
+    min-width: var(--version-max-width);
     flex: 0 0  var(--version-max-width);
     text-align: right;
   }

@@ -1,5 +1,5 @@
 .searchable-item-list {
-  background:  var(--white);
+  background: var(--white);
   width: 100%;
   position: relative;
 
@@ -14,26 +14,26 @@
       input {
         @include H6;
 
-        color:  var(--Grey-500);
+        color: var(--Grey-500);
         line-height: 100%;
 
         &::-webkit-input-placeholder {
-          color:  var(--Grey-500);
+          color: var(--Grey-500);
           opacity: 1;
         }
 
         &:-moz-placeholder {
-          color:  var(--Grey-500);
+          color: var(--Grey-500);
           opacity: 1;
         }
 
         &::-moz-placeholder {
-          color:  var(--Grey-500);
+          color: var(--Grey-500);
           opacity: 1;
         }
 
         &::placeholder {
-          color:  var(--Grey-500);
+          color: var(--Grey-500);
           opacity: 1;
         }
       }
@@ -68,7 +68,7 @@
 
     &:hover,
     &:focus {
-      background:  var(--Grey-000);
+      background: var(--Grey-000);
     }
 
     &--selected {
@@ -94,7 +94,7 @@
 
         &__message {
           text-align: left;
-          color:  var(--Black-100);
+          color: var(--Black-100);
         }
 
         a {
@@ -170,7 +170,7 @@
     @include H7;
 
     line-height: 100%;
-    color:  var(--Grey-500);
+    color: var(--Grey-500);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -185,7 +185,7 @@
     @include H7;
 
     line-height: 100%;
-    color:  var(--Grey-500);
+    color: var(--Grey-500);
     opacity: 0.5;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -202,7 +202,7 @@
   }
 
   &__item--highlighted {
-    background:  var(--Grey-000);
+    background: var(--Grey-000);
   }
 
   &__identicon {

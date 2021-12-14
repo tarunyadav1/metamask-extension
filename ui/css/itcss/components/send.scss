@@ -3,7 +3,7 @@
   flex-flow: column nowrap;
   z-index: 25;
 
-  @media screen and (max-width:  $break-small) {
+  @media screen and (max-width: $break-small) {
     width: 100%;
     overflow-y: auto;
   }
@@ -24,7 +24,7 @@
   width: 498px;
   flex: 1 0 auto;
 
-  @media screen and (max-width:  $break-small) {
+  @media screen and (max-width: $break-small) {
     top: 0;
     width: 100%;
     box-shadow: none;
@@ -54,9 +54,9 @@
   top: -35px;
   z-index: 25;
   padding: 4px;
-  background-color:  var(--white);
+  background-color: var(--white);
 
-  @media screen and (max-width:  $break-small) {
+  @media screen and (max-width: $break-small) {
     position: relative;
     top: 0;
   }
@@ -89,7 +89,7 @@
   &--error {
     input,
     .send-screen-gas-input {
-      border-color:  var(--red) !important;
+      border-color: var(--red) !important;
     }
 
     .send-screen-input-wrapper__error-message {
@@ -99,7 +99,7 @@
       position: absolute;
       bottom: 4px;
       left: 8px;
-      color:  var(--red);
+      color: var(--red);
     }
   }
 
@@ -110,7 +110,7 @@
     position: absolute;
     bottom: 4px;
     left: 8px;
-    color:  var(--red);
+    color: var(--red);
   }
 }
 
@@ -132,7 +132,7 @@
   align-items: center;
   padding-left: 10px;
   padding-right: 12px;
-  color:  var(--scorpion);
+  color: var(--scorpion);
 }
 
 .send-screen-amount-labels {
@@ -149,11 +149,11 @@
 
 .currency-toggle {
   &__item {
-    color:  var(--primary-blue);
+    color: var(--primary-blue);
     cursor: pointer;
 
     &--selected {
-      color:  var(--black);
+      color: var(--black);
       cursor: default;
     }
   }
@@ -162,7 +162,7 @@
 .send-screen-gas-input-customize {
   @include H7;
 
-  color:  var(--primary-blue);
+  color: var(--primary-blue);
   cursor: pointer;
 }
 
@@ -182,9 +182,9 @@
   bottom: 50px;
   width: 237px;
   height: 307px;
-  background-color:  var(--white);
+  background-color: var(--white);
   opacity: 1;
-  box-shadow:  var(--alto) 0 0 5px;
+  box-shadow: var(--alto) 0 0 5px;
   z-index: 1050;
   padding: 13px 19px;
   border-radius: 4px;
@@ -195,7 +195,7 @@
   height: 25px;
   width: 25px;
   z-index: 1200;
-  background:  var(--white);
+  background: var(--white);
   position: absolute;
   transform: rotate(45deg);
   left: 107px;
@@ -225,7 +225,7 @@
 .gas-tooltip-label {
   @include Paragraph;
 
-  color:  var(--tundora);
+  color: var(--tundora);
 }
 
 .gas-tooltip-header {
@@ -237,7 +237,7 @@
 }
 
 .gas-tooltip-input-label i {
-  color:  var(--silver-chalice);
+  color: var(--silver-chalice);
   margin-left: 6px;
 }
 
@@ -247,7 +247,7 @@
   width: 178px;
   height: 28px;
   border: 1px solid  var(--alto);
-  color:  var(--nile-blue);
+  color: var(--nile-blue);
   padding-left: 8px;
 }
 
@@ -261,7 +261,7 @@
   position: absolute;
   top: 4px;
   right: 26px;
-  color:  var(--silver-chalice);
+  color: var(--silver-chalice);
 }
 
 .gas-tooltip-input-arrows {
@@ -296,7 +296,7 @@
   &__title {
     @include H4;
 
-    color:  var(--scorpion);
+    color: var(--scorpion);
   }
 
   &__subtitle {
@@ -334,7 +334,7 @@
     flex-flow: column nowrap;
     flex: 1 0 auto;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       top: 0;
       width: 100%;
       box-shadow: none;
@@ -347,7 +347,7 @@
     top: -35px;
     z-index: 25;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       position: relative;
       top: 0;
       flex: 0 0 auto;
@@ -357,7 +357,7 @@
   &__title {
     @include H4;
 
-    color:  var(--scorpion);
+    color: var(--scorpion);
   }
 
   &__description,
@@ -385,7 +385,7 @@
     align-items: center;
     flex: 0 0 auto;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       margin-top: 24px;
     }
 
@@ -405,7 +405,7 @@
   &__container {
     width: 380px;
     border-radius: 8px;
-    background-color:  var(--white);
+    background-color: var(--white);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
     display: flex;
     flex-flow: column nowrap;
@@ -413,7 +413,7 @@
     align-items: center;
     position: relative;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       width: 100%;
       top: 0;
       box-shadow: none;
@@ -424,7 +424,7 @@
   &__send-header-icon-container {
     z-index: 25;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       position: relative;
       top: 0;
     }
@@ -437,7 +437,7 @@
     border: 1px solid  var(--alto);
     z-index: 25;
     padding: 4px;
-    background-color:  var(--white);
+    background-color: var(--white);
   }
 
   &__send-arrow-icon {
@@ -451,7 +451,7 @@
   }
 
   &__arrow-background {
-    background-color:  var(--white);
+    background-color: var(--white);
     height: 14px;
     width: 14px;
     position: absolute;
@@ -460,7 +460,7 @@
     border-radius: 50%;
     z-index: 100;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       top: 36px;
     }
   }
@@ -468,13 +468,13 @@
   &__header {
     height: 88px;
     width: 380px;
-    background-color:  var(--athens-grey);
+    background-color: var(--athens-grey);
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       height: 59px;
       width: 100vw;
     }
@@ -483,13 +483,13 @@
   &__header-tip {
     height: 25px;
     width: 25px;
-    background:  var(--athens-grey);
+    background: var(--athens-grey);
     position: absolute;
     transform: rotate(45deg);
     left: 178px;
     top: 75px;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       top: 46px;
       left: 0;
       right: 0;
@@ -500,7 +500,7 @@
   &__title {
     @include H3;
 
-    color:  var(--scorpion);
+    color: var(--scorpion);
     text-align: center;
     margin-top: 25px;
   }
@@ -508,7 +508,7 @@
   &__copy {
     @include H6;
 
-    color:  var(--gray);
+    color: var(--gray);
     text-align: center;
     margin-top: 10px;
     width: 287px;
@@ -518,7 +518,7 @@
     @include H7;
 
     left: 8px;
-    color:  var(--red);
+    color: var(--red);
   }
 
   &__error-amount {
@@ -529,15 +529,15 @@
     @include H7;
 
     left: 8px;
-    color:  var(--orange);
+    color: var(--orange);
   }
 
   &__error-border {
-    color:  var(--red);
+    color: var(--red);
   }
 
   &__form {
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       margin: 0;
       flex: 1 1 auto;
     }
@@ -572,21 +572,21 @@
     min-width: 0;
 
     .currency-display {
-      color:  var(--tundora);
+      color: var(--tundora);
 
       &__currency-symbol {
-        color:  var(--tundora);
+        color: var(--tundora);
       }
 
       &__converted-value,
       &__converted-currency {
-        color:  var(--tundora);
+        color: var(--tundora);
       }
     }
 
     .account-list-item {
       &__account-secondary-balance {
-        color:  var(--tundora);
+        color: var(--tundora);
       }
     }
   }
@@ -594,7 +594,7 @@
   &__form-label {
     @include Paragraph;
 
-    color:  var(--scorpion);
+    color: var(--scorpion);
     width: 95px;
     flex: 0 0 auto;
   }
@@ -606,8 +606,8 @@
     width: 100%;
     border: 1px solid  var(--alto);
     border-radius: 4px;
-    background-color:  var(--white);
-    color:  var(--tundora);
+    background-color: var(--white);
+    color: var(--tundora);
     position: relative;
 
     &__close-area {
@@ -626,7 +626,7 @@
       width: 100%;
       border: 1px solid  var(--geyser);
       border-radius: 4px;
-      background-color:  var(--white);
+      background-color: var(--white);
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
       margin-top: 11px;
       margin-left: -1px;
@@ -650,12 +650,12 @@
       padding: 8px 8px;
 
       &:hover {
-        background-color: rgba( var(--alto), 0.2);
+        background-color: rgba(var(--alto), 0.2);
       }
     }
 
     &__caret {
-      color:  var(--silver);
+      color: var(--silver);
       padding: 0 10px;
     }
 
@@ -667,7 +667,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: rgba( var(--alto), 0.2);
+        background-color: rgba(var(--alto), 0.2);
       }
     }
 
@@ -712,7 +712,7 @@
       width: 100%;
       border: 1px solid  var(--geyser);
       border-radius: 4px;
-      background-color:  var(--white);
+      background-color: var(--white);
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
       top: 65px;
       left: 0;
@@ -740,7 +740,7 @@
         height: 100%;
 
         &:hover {
-          background-color:  var(--white);
+          background-color: var(--white);
         }
       }
     }
@@ -754,8 +754,8 @@
       width: 100%;
       border: none;
       border-radius: 4px;
-      background-color:  var(--white);
-      color:  var(--tundora);
+      background-color: var(--white);
+      color: var(--tundora);
       padding: 10px;
     }
   }
@@ -771,8 +771,8 @@
       width: 100%;
       border: 1px solid  var(--alto);
       border-radius: 4px;
-      background-color:  var(--white);
-      color:  var(--tundora);
+      background-color: var(--white);
+      color: var(--tundora);
       padding: 10px;
     }
   }
@@ -811,7 +811,7 @@
     }
 
     input:checked + &__button {
-      background-color:  var(--primary-blue);
+      background-color: var(--primary-blue);
       border: 1px solid  var(--primary-blue);
       color: #fff;
     }
@@ -844,7 +844,7 @@
     width: 24px;
     border: 1px solid  var(--primary-blue);
     border-radius: 4px;
-    background-color:  var(--white);
+    background-color: var(--white);
     position: absolute;
     right: 15px;
     top: 14px;
@@ -852,7 +852,7 @@
   }
 
   &__sliders-icon {
-    color:  var(--primary-blue);
+    color: var(--primary-blue);
   }
 
   &__memo-text-area {
@@ -868,7 +868,7 @@
     justify-content: space-evenly;
     align-items: center;
     border-top: 1px solid  var(--alto);
-    background:  var(--white);
+    background: var(--white);
     padding: 0 12px;
     flex-shrink: 0;
   }
@@ -887,7 +887,7 @@
     display: flex;
     flex-flow: column;
 
-    @media screen and (max-width:  $break-small) {
+    @media screen and (max-width: $break-small) {
       width: 100vw;
       height: 100vh;
     }
@@ -901,7 +901,7 @@
       align-items: center;
       justify-content: space-between;
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         flex: 0 0 auto;
       }
     }
@@ -913,7 +913,7 @@
     &__close::after {
       content: '\00D7';
       font-size: 1.8em;
-      color:  var(--dusty-gray);
+      color: var(--dusty-gray);
       cursor: pointer;
       margin-right: 19.25px;
     }
@@ -928,7 +928,7 @@
       display: flex;
       margin-bottom: 24px;
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         flex-flow: column;
         flex: 1 1 auto;
       }
@@ -944,7 +944,7 @@
       justify-content: space-between;
       position: relative;
 
-      @media screen and (max-width:  $break-small) {
+      @media screen and (max-width: $break-small) {
         flex: 0 0 auto;
       }
     }
@@ -969,7 +969,7 @@
     &__revert {
       @include Paragraph;
 
-      color:  var(--silver-chalice);
+      color: var(--silver-chalice);
       margin-left: 21.25px;
     }
 
@@ -992,7 +992,7 @@
       position: absolute;
       top: -18px;
       right: 0;
-      color:  var(--red);
+      color: var(--red);
       width: 100%;
       text-align: center;
     }
@@ -1013,7 +1013,7 @@
       @include H4;
 
       height: 26px;
-      color:  var(--tundora);
+      color: var(--tundora);
       margin-top: 17px;
     }
 
@@ -1022,7 +1022,7 @@
 
       height: 38px;
       width: 314px;
-      color:  var(--tundora);
+      color: var(--tundora);
       margin-top: 17px;
     }
 
@@ -1034,7 +1034,7 @@
       height: 54px;
       width: 315px;
       border: 1px solid  var(--geyser);
-      background-color:  var(--white);
+      background-color: var(--white);
       padding-left: 15px;
     }
 
@@ -1044,7 +1044,7 @@
       width: 32px;
       height: 54px;
       border-left: 1px solid #dadada;
-      color:  var(--tundora);
+      color: var(--tundora);
       right: 0;
       padding: 0;
       display: flex;
@@ -1093,7 +1093,7 @@
   width: 24px;
   border: 1px solid  var(--primary-blue);
   border-radius: 4px;
-  background-color:  var(--white);
+  background-color: var(--white);
   position: absolute;
   right: 15px;
   top: 14px;
@@ -1117,5 +1117,5 @@
 }
 
 .sliders-icon {
-  color:  var(--primary-blue);
+  color: var(--primary-blue);
 }

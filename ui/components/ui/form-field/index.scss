@@ -18,7 +18,7 @@
 
   &__error,
   &__error h6 {
-    color:  var(--error-1) !important;
+    color: var(--error-1) !important;
     padding-top: 6px;
   }
 
@@ -29,7 +29,7 @@
 
   i {
     color: #dadada;
-    font-size:  var(--font-size-h7);
+    font-size: var(--font-size-h7);
   }
 
   &__input {
@@ -43,7 +43,7 @@
     }
 
     &--error {
-      border-color:  var(--error-1);
+      border-color: var(--error-1);
     }
   }
 }

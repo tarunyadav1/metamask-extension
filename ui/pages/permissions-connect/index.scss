@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width:  $break-large) {
+  @media screen and (min-width: $break-large) {
     .page-container {
       max-height: none;
       min-height: auto;
@@ -26,7 +26,7 @@
   &__back {
     @include H7;
 
-    color:  var(--Grey-500);
+    color: var(--Grey-500);
     font-weight: bold;
     cursor: pointer;
 
@@ -38,7 +38,7 @@
   &__page-count {
     @include H7;
 
-    color:  var(--Grey-500);
+    color: var(--Grey-500);
     grid-column: 2;
     justify-self: end;
     font-weight: bold;

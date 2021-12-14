@@ -1,7 +1,7 @@
 @use "utilities";
 @use "design-system";
 
- $sizes: (
+$sizes: (
   'xl': 8,
   'lg': 6,
   'md': 5,
@@ -10,7 +10,7 @@
 );
 
 .color-indicator {
-    $self : &;
+  $self : &;
 
   border: 1px solid transparent;
   display: flex;
@@ -22,7 +22,7 @@
   }
 
   @each $variant, $size in $sizes {
-    &--size-#{ $variant} {
+    &--size-#{$variant} {
       height: #{2 *  $size}px;
       width: #{2 *  $size}px;
       border-radius: #{$size}px;
@@ -39,8 +39,8 @@
     }
   }
 
-  @each  $variant, $color in design-system.$color-map {
-    &--color-#{ $variant} {
+  @each $variant, $color in design-system.$color-map {
+    &--color-#{$variant} {
       border-color: var($color);
       &#{  $self }--partial-filled #{  $self }__inner-circle {
         background-color: var($color);
@@ -55,7 +55,7 @@
   }
 
   // separate iterator to ensure borderColor takes precedence
-  @each  $variant, $color in design-system.$color-map {
+  @each $variant, $color in design-system.$color-map {
     &--border-color-#{$variant} {
       border-color: var($color);
     }

@@ -12,7 +12,7 @@
   }
 
   &__back {
-    color:  var(--dusty-gray);
+    color: var(--dusty-gray);
     position: absolute;
     top: 13px;
     left: 17px;
@@ -31,7 +31,7 @@
     @include H1;
 
     background-color: transparent;
-    color:  var(--ui-black);
+    color: var(--ui-black);
     position: absolute;
     cursor: pointer;
     top: -10px;
