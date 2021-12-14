@@ -33,7 +33,7 @@
   }
 }
 
-@media only screen and (max-width: $break-small) {
+@media only screen and (max-width:  $break-small) {
   .import-account {
     margin: 24px;
     display: flex;
@@ -68,7 +68,7 @@
   }
 }
 
-@media only screen and (max-width: $break-small) {
+@media only screen and (max-width:  $break-small) {
   .import-account__input {
     width: 100%;
   }
@@ -189,7 +189,7 @@
   &__error {
     @include H6;
 
-    color: $crimson;
+    color:  var(--crimson);
     padding-top: 5px;
   }
 }

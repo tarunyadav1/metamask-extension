@@ -2,42 +2,42 @@
 @use "design-system";
 @use "utilities";
 
-$attributes: padding, margin, gap;
+ $attributes: padding, margin, gap;
 
 .box {
   // Padding, Margin, and Gap
-  @each $attribute in $attributes {
-    @each $size in design-system.$sizes-numeric {
-      &--#{$attribute}-#{$size} {
-        #{$attribute}: utilities.get-spacing($size);
+  @each  $attribute in  $attributes {
+    @each  $size in design-system.$sizes-numeric {
+      &--#{ $attribute}-#{ $size} {
+        #{ $attribute}: utilities.get-spacing( $size);
       }
     }
 
-    @each $size in design-system.$sizes-numeric {
-      @each $direction in design-system.$directions {
-        &--#{$attribute}-#{$direction}-#{$size} {
-          #{$attribute}-#{$direction}: utilities.get-spacing($size);
+    @each  $size in design-system.$sizes-numeric {
+      @each  $direction in design-system.$directions {
+        &--#{ $attribute}-#{ $direction}-#{ $size} {
+          #{ $attribute}-#{ $direction}: utilities.get-spacing( $size);
         }
       }
     }
   }
 
   // Borders
-  @each $size in design-system.$sizes-numeric {
-    &--border-size-#{$size} {
+  @each  $size in design-system.$sizes-numeric {
+    &--border-size-#{ $size} {
       border-width: #{$size}px;
     }
   }
 
-  @each $variant, $color in design-system.$color-map {
-    &--border-color-#{$variant} {
-      border-color: $color;
+  @each  $variant,  $color in design-system.$color-map {
+    &--border-color-#{ $variant} {
+      border-color: var($color);
     }
   }
 
-  @each $border-style in design-system.$border-style {
-    &--border-style-#{$border-style} {
-      border-style: $border-style;
+  @each  $border-style in design-system.$border-style {
+    &--border-style-#{ $border-style} {
+      border-style:  $border-style;
     }
   }
 
@@ -66,33 +66,33 @@ $attributes: padding, margin, gap;
   }
 
   // Display and Flex/Grid alignment
-  @each $display in design-system.$display {
-    &--display-#{$display} {
-      display: $display;
+  @each  $display in design-system.$display {
+    &--display-#{ $display} {
+      display:  $display;
     }
   }
 
-  @each $alignment in design-system.$align-items {
-    &--align-items-#{$alignment} {
-      align-items: $alignment;
+  @each  $alignment in design-system.$align-items {
+    &--align-items-#{ $alignment} {
+      align-items:  $alignment;
     }
   }
 
-  @each $justification in design-system.$justify-content {
-    &--justify-content-#{$justification} {
-      justify-content: $justification;
+  @each  $justification in design-system.$justify-content {
+    &--justify-content-#{ $justification} {
+      justify-content:  $justification;
     }
   }
 
-  @each $direction in design-system.$flex-direction {
-    &--flex-direction-#{$direction} {
-      flex-direction: $direction;
+  @each  $direction in design-system.$flex-direction {
+    &--flex-direction-#{ $direction} {
+      flex-direction:  $direction;
     }
   }
 
-  @each $wrap in design-system.$flex-wrap {
-    &--flex-wrap-#{$wrap} {
-      flex-wrap: $wrap;
+  @each  $wrap in design-system.$flex-wrap {
+    &--flex-wrap-#{ $wrap} {
+      flex-wrap:  $wrap;
     }
   }
 
@@ -105,13 +105,13 @@ $attributes: padding, margin, gap;
     height: 100%;
   }
 
-  @each $fraction, $value in design-system.$fractions {
-    &--width-#{$fraction} {
-      width: $value;
+  @each  $fraction,  $value in design-system.$fractions {
+    &--width-#{ $fraction} {
+      width:  $value;
     }
 
-    &--height-#{$fraction} {
-      height: $value;
+    &--height-#{ $fraction} {
+      height:  $value;
     }
   }
 
@@ -140,16 +140,16 @@ $attributes: padding, margin, gap;
   }
 
   // text
-  @each $alignment in design-system.$text-align {
-    &--text-align-#{$alignment} {
-      text-align: $alignment;
+  @each  $alignment in design-system.$text-align {
+    &--text-align-#{ $alignment} {
+      text-align:  $alignment;
     }
   }
 
   // background
-  @each $variant, $color in design-system.$color-map {
-    &--background-color-#{$variant} {
-      background-color: $color;
+  @each  $variant,  $color in design-system.$color-map {
+    &--background-color-#{ $variant} {
+      background-color: var( $color);
     }
   }
 }

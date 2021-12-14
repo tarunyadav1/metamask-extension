@@ -1,10 +1,10 @@
 @use "design-system";
 
 .chip {
-  $self: &;
+    $self : &;
 
   border-radius: 100px;
-  border: 1px solid design-system.$ui-1;
+  border: 1px solid design-system. var(--ui-1);
   padding: 8px 16px;
   margin: 0 4px;
   display: flex;
@@ -16,12 +16,12 @@
     align-items: center;
   }
 
-  @each $variant, $color in design-system.$color-map {
-    &--border-color-#{$variant} {
-      border-color: $color;
+  @each  var(--variant),  var(--color) in design-system. var(--color-map) {
+    &--border-color-#{ var(--variant)} {
+      border-color: var( var(--color));
     }
-    &--background-color-#{$variant} {
-      background-color: $color;
+    &--background-color-#{ var(--variant)} {
+      background-color: var var(--color);
     }
   }
 
@@ -34,7 +34,7 @@
   &--with-left-icon {
     padding-left: 4px;
 
-    #{$self}__label {
+    #{  $self }__label {
       margin-left: 8px;
     }
   }
@@ -45,7 +45,7 @@
     background: transparent;
     text-align: center;
     width: 100%;
-    font-size: design-system.$font-size-h5;
+    font-size: design-system. var(--font-size-h5);
 
     &:focus {
       text-align: left;
@@ -58,7 +58,7 @@
 
   &--with-right-icon {
     padding-right: 4px;
-    #{$self}__label {
+    #{  $self }__label {
       margin-right: 8px;
     }
   }

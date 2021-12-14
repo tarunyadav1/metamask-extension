@@ -7,7 +7,7 @@
     min-height: 585px;
     overflow-y: initial;
 
-    @media screen and (max-width: $break-small) {
+    @media screen and (max-width:  $break-small) {
       &__content {
         display: flex;
         overflow-y: initial;
@@ -46,7 +46,7 @@
     &__title {
       @include H5;
 
-      color: $black;
+      color:  var(--black);
       font-weight: 500;
       display: flex;
       justify-content: center;
@@ -80,14 +80,14 @@
       }
 
       &.tab--active button {
-        color: $primary-blue;
+        color:  var(--primary-blue);
       }
     }
   }
 }
 
 .gas-modal-content {
-  @media screen and (max-width: $break-small) {
+  @media screen and (max-width:  $break-small) {
     width: 100%;
   }
 
@@ -101,11 +101,11 @@
     @include H7;
 
     width: 100%;
-    background: $polar;
+    background:  var(--polar);
     padding: 15px 21px;
     display: flex;
     flex-flow: column;
-    color: $scorpion;
+    color:  var(--scorpion);
 
     &__send-info,
     &__transaction-info,
@@ -124,7 +124,7 @@
       &__label {
         @include Paragraph;
 
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width:  $break-small) {
           @include H6;
         }
       }
@@ -134,7 +134,7 @@
 
         font-weight: bold;
 
-        @media screen and (max-width: $break-small) {
+        @media screen and (max-width:  $break-small) {
           @include H6;
         }
       }
@@ -154,7 +154,7 @@
 
   &__info-row--fade {
     background: white;
-    color: $dusty-gray;
-    border-top: 1px solid $mischka;
+    color:  var(--dusty-gray);
+    border-top: 1px solid  var(--mischka);
   }
 }

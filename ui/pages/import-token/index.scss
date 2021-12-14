@@ -1,7 +1,7 @@
 @import 'token-list/index';
 
 .import-token {
-  $self: &;
+   $self: &;
 
   &__custom-token-form {
     padding: 8px 16px 16px;
@@ -15,7 +15,7 @@
       -webkit-appearance: none;
       display: none;
     }
-    & #{$self}__decimal-warning {
+    & #{ $self }__decimal-warning {
       margin-top: 5px;
     }
   }
@@ -41,7 +41,7 @@
     &__edit {
       flex: 1 1 auto;
       text-align: right;
-      color: $primary-blue;
+      color:  var(--primary-blue);
       padding-right: 4px;
       cursor: pointer;
     }
@@ -51,7 +51,7 @@
     @include H7;
 
     display: inline;
-    color: $primary-blue;
+    color:  var(--primary-blue);
     padding-left: 0;
   }
 
