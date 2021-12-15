@@ -13,14 +13,43 @@
   }
 
   &__upload-area {
-    background: #037dd603;
+    background: #037dd617;
     border: 2px dashed #037DD6;
     border-radius: 4px;
     height: 150px;
     width: 100%;
     margin-bottom: 40px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
   }
+
+  &__cancel-btn-wrapper,
+  &__continue-btn {
+      width: 50%;
+  }
+
+  &__drag-text {
+    color: #6A737D;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  &__file-upload-input {
+    visibility: hidden;
+  }
+
+  &__upload-text {
+    color: #037DD6;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 8px;
+    text-decoration: underline;
+  }
+}
+
+.page-container__header-row {
+  margin-bottom: -32px;
+  margin-left: 16px;
 }

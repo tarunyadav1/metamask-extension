@@ -105,12 +105,12 @@ export default function CollectiblesTab({ onAddNFT }) {
       )}
       <Box
         display={DISPLAY.FLEX}
-        flexDirection={FLEX_DIRECTION.COLUMN}
-        padding={[6, 12, 12]}
+        padding={[0, 12, 12]}
         className="collectibles-tab__create-nft"
+        justifyContent="center"
       >
-        <Box justifyContent={JUSTIFY_CONTENT.CENTER}>
-          <img src="./images/no-nfts.svg" />
+        <Box justifyContent={JUSTIFY_CONTENT.CENTER} marginRight={2}>
+          <img src="./images/camera.svg" />
         </Box>
         <button
           onClick={() => {

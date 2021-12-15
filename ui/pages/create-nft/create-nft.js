@@ -18,10 +18,7 @@ import PageContainerHeader from '../../components/ui/page-container/page-contain
 export default function CreateNft() {
   const history = useHistory();
   const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);
-  const [attributes, setAttributes] = useState([
-    { name: null, value: null },
-    { name: null, value: null },
-  ]);
+  const [attributes, setAttributes] = useState([{ name: null, value: null }]);
 
   const addAttribute = () => {
     setAttributes([...attributes, { name: null, value: null }]);
@@ -38,15 +35,30 @@ export default function CreateNft() {
         headerCloseText="Cancel"
         onClose={onClose}
         title="Create NFT"
+        showBackButton
       />
       <Box
         className="create-nft"
         display={DISPLAY.FLEX}
         flexDirection={FLEX_DIRECTION.COLUMN}
       >
-        <div className="create-nft__upload-area">
-          <img src="./images/file-upload.svg" />
-        </div>
+        <label htmlFor="file">
+          <div className="create-nft__upload-area">
+            <img src="./images/file-upload.svg" />
+            <Box className="create-nft__drag-text">Drag a photo, video or</Box>
+            <Box className="create-nft__upload-text">
+              browse files from your computer.
+            </Box>
+          </div>
+        </label>
+        <input
+          type="file"
+          id="file"
+          onChange={(event) => {
+            console.log(event.target.files);
+          }}
+          className="create-nft__file-upload-input"
+        />
         <Box
           display={DISPLAY.FLEX}
           alignItems={ALIGN_ITEMS.CENTER}
@@ -55,7 +67,10 @@ export default function CreateNft() {
           <label htmlFor="name" className="create-nft__label">
             Name
           </label>
-          <InfoTooltip position="top" />
+          <InfoTooltip
+            position="top"
+            contentText="The name is public and will most often be shown along with your NFT."
+          />
         </Box>
         <TextField id="name" placeholder="Name of your NFT" />
       </Box>
@@ -84,7 +99,10 @@ export default function CreateNft() {
           <label htmlFor="name" className="create-nft__label">
             Attributes
           </label>
-          <InfoTooltip position="top" />
+          <InfoTooltip
+            position="top"
+            contentText="Attributes help describe your NFT. They are public and will most often be shown along with your NFT."
+          />
         </Box>
         {attributes.map(({ name, value }, index) => (
           <Box
@@ -98,10 +116,11 @@ export default function CreateNft() {
               <TextField
                 id="type"
                 className="create-nft__attr-type"
+                placeholder="Type"
                 value={name}
               />
             </Box>
-            <TextField id="value" value={value} />
+            <TextField id="value" placeholder="Value" value={value} />
           </Box>
         ))}
         <Button
@@ -111,8 +130,17 @@ export default function CreateNft() {
         >
           + Add Attribute
         </Button>
-        <Box marginTop={10}>
-          <Button type="primary">Continue</Button>
+        <Box
+          display={DISPLAY.FLEX}
+          alignItems={ALIGN_ITEMS.CENTER}
+          marginTop={10}
+        >
+          <Box marginRight={1} className="create-nft__cancel-btn-wrapper">
+            <Button type="secondary">Cancel</Button>
+          </Box>
+          <Button type="primary" className="create-nft__continue-btn">
+            Continue
+          </Button>
         </Box>
       </Box>
     </div>
