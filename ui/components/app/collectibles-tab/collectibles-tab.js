@@ -9,6 +9,7 @@ import CollectiblesDetectionNotice from '../collectibles-detection-notice';
 import CollectiblesItems from '../collectibles-items';
 import {
   COLORS,
+  DISPLAY,
   TYPOGRAPHY,
   TEXT_ALIGN,
   JUSTIFY_CONTENT,
@@ -102,15 +103,23 @@ export default function CollectiblesTab({ onAddNFT }) {
           </Box>
         </Box>
       )}
-      <Box padding={[6, 12, 6, 12]}>
-        <Button
+      <Box
+        display={DISPLAY.FLEX}
+        flexDirection={FLEX_DIRECTION.COLUMN}
+        padding={[6, 12, 12]}
+        className="collectibles-tab__create-nft"
+      >
+        <Box justifyContent={JUSTIFY_CONTENT.CENTER}>
+          <img src="./images/no-nfts.svg" />
+        </Box>
+        <button
           onClick={() => {
             history.push(CREATE_NFT_ROUTE);
           }}
-          style={{ padding: 0, fontSize: '1rem' }}
+          className="collectibles-tab__create-nft__button"
         >
           Create NFT
-        </Button>
+        </button>
       </Box>
       <Box
         marginBottom={4}

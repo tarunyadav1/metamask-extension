@@ -6,6 +6,7 @@ import IdleTimer from 'react-idle-timer';
 
 import FirstTimeFlow from '../first-time-flow';
 import SendTransactionScreen from '../send';
+import CreateNFT from '../create-nft';
 import Swaps from '../swaps';
 import ConfirmTransaction from '../confirm-transaction';
 import Home from '../home';
@@ -153,11 +154,7 @@ export default class Routes extends Component {
           component={SendTransactionScreen}
           exact
         />
-        <Authenticated
-          path={CREATE_NFT_ROUTE}
-          component={SendTransactionScreen}
-          exact
-        />
+        <Authenticated path={CREATE_NFT_ROUTE} component={CreateNFT} exact />
         <Authenticated path={SWAPS_ROUTE} component={Swaps} />
         <Authenticated
           path={IMPORT_TOKEN_ROUTE}

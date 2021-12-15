@@ -5,4 +5,18 @@
       font-size: 1rem;
     }
   }
+
+  &__create-nft {
+    align-items: center;
+    margin: 0 auto;
+    flex-direction: column;
+
+    &__button {
+      background: none;
+      border: none;
+      color: #037dd6;
+      font-size: 16px;
+      padding: 0;
+    }
+  }
 }

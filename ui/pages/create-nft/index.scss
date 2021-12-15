@@ -1,0 +1,26 @@
+.create-nft {
+  padding: 24px;
+
+  &__label {
+    margin-right: 4px;
+  }
+
+  &__add-attr-btn {
+    display: inline;
+    font-size: 14px;
+    padding: 0;
+    margin-top: 16px;
+  }
+
+  &__upload-area {
+    background: #037dd603;
+    border: 2px dashed #037DD6;
+    border-radius: 4px;
+    height: 150px;
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
