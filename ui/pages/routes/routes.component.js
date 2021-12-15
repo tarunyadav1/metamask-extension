@@ -313,7 +313,7 @@ export default class Routes extends Component {
 
     return (
       <div
-        className={classnames('app', {
+        className={classnames('app', 'theme-dark', {
           [`os-${os}`]: os,
           [`browser-${browser}`]: browser,
           'mouse-user-styles': isMouseUser,

@@ -71,7 +71,7 @@
   --accent-purple: #6f42c1;
   --accent-pink: #ff45d8;
   // Neutrals
-  --neutral-white: #fff;
+  --neutral-white: var(--white);
   --neutral-black: var(--Black-100);
   --neutral-grey: var(--Grey-500);
   // Everything below this line is part of the new color system
@@ -92,7 +92,7 @@
   --success-3: #219e37;
   --ui-black: #24292e;
   --ui-grey: #d6d9dc;
-  --ui-white: #fff;
+  --ui-white: var(--white);
   --ui-1: #f2f3f4;
   --ui-2: #d6d9dc;
   --ui-3: #bbc0c5;
@@ -105,6 +105,16 @@
   --goerli: #3099f2;
   --localhost: #29b6af;
   --flask-purple: #8b45b6;
+
+  /* Colors that were used standalone in the UI */
+  --app-background: #f7f7f7;
+}
+
+:root .theme-dark {
+  --app-background: var(--neutral-black);
+
+  --Black-100: #ffffff;
+  --Grey-000: #24292e;
 }
 
 $color-map: (

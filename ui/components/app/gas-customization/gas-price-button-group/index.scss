@@ -114,7 +114,7 @@
 
   .button-group__button,
   .button-group__button--active {
-    background: white;
+    background: var(--white);
     color: var(--scorpion);
     padding: 4px;
 
@@ -191,7 +191,7 @@
   .button-group__button,
   .button-group__button--active {
     height: 78px;
-    background: white;
+    background: var(--white);
     color: #2a4055;
     width: 108px;
     height: 97px;

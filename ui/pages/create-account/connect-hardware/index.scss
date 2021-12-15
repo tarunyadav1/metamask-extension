@@ -236,7 +236,7 @@
   &__button {
     @include H6;
 
-    background: #fff;
+    background: var(--white);
     height: 19px;
     display: flex;
     color: #33a4e7;
