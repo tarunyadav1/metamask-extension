@@ -650,7 +650,7 @@
       padding: 8px 8px;
 
       &:hover {
-        background-color: rgba(var(--alto), 0.2);
+        background-color: rgba($alto, 0.2);
       }
     }
 
@@ -667,13 +667,13 @@
       cursor: pointer;
 
       &:hover {
-        background-color: rgba(var(--alto), 0.2);
+        background-color: rgba($alto, 0.2);
       }
     }
 
     &__asset-icon {
       .identicon {
-        border: 1px solid  var(--alto);
+        border: 1px solid var(--alto);
       }
     }
 

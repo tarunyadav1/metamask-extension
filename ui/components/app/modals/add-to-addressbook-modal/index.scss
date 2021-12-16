@@ -3,7 +3,7 @@
   flex-flow: column nowrap;
   background-color: var(--white);
   border-radius: 10px;
-  box-shadow: 0 5px 16px rgba(var(--black), 0.25);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.25);
 
   &__content {
     @extend %col-nowrap;

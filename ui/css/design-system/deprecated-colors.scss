@@ -14,12 +14,25 @@
     Colors
     http://chir.ag/projects/name-that-color
   */
+  --gallery: #efefef;
+  --wild-sand: #f6f6f6;
+  --dusty-gray: #9b9b9b;
+  --alto: #dedede;
+  $alto: #dedede; /* used with rgba() */
+  --alabaster: #fafafa;
+  --silver-chalice: #aeaeae;
+  --tundora: #4d4d4d;
+  --nile-blue: #1b344d;
+  --scorpion: #5d5d5d;
+  --silver: #cdcdcd;
+  --caribbean-green: #02c9b1;
   --monzo: #d0021b;
   --crimson: #e91550;
   --blue-lagoon: #038789;
   --purple: #690496;
   --tulip-tree: #ebb33f;
   --malibu-blue: #7ac9fd;
+  $malibu-blue: #7ac9fd; /* used with rgba() */
   --athens-grey: #e9edf0;
   --geyser: #d2d8dd;
   --manatee: #93949d;

@@ -119,7 +119,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: rgba(var(--alto), 0.2);
+        background-color: rgba($alto, 0.2);
       }
 
       .identicon {
