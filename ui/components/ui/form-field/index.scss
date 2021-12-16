@@ -34,12 +34,12 @@
 
   &__input {
     width: 100%;
-    border: solid 1px  var(--ui-3);
+    border: solid 1px var(--ui-3);
     padding: 10px;
     border-radius: 6px;
 
     &:focus {
-      border: solid 2px  var(--primary-1);
+      border: solid 2px var(--primary-1);
     }
 
     &--error {

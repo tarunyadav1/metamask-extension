@@ -15,7 +15,7 @@
     width: 65%;
     margin-top: 16px;
     padding: 12px 12px 14px 12px;
-    border: 1px solid  var(--ui-1);
+    border: 1px solid var(--ui-1);
     box-sizing: border-box;
     border-radius: 100px;
     align-items: center;
@@ -219,7 +219,7 @@
     &__circle {
       width: 14px;
       height: 14px;
-      border: 2px solid  var(--primary-blue);
+      border: 2px solid var(--primary-blue);
       border-radius: 50%;
       background: var(--white);
       position: absolute;

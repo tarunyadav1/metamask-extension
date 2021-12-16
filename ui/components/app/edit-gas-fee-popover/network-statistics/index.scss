@@ -2,14 +2,14 @@
   margin: 24px 0 12px;
 
   &__info {
-    border-top: 1px solid  var(--ui-2);
-    border-bottom: 1px solid  var(--ui-2);
+    border-top: 1px solid var(--ui-2);
+    border-bottom: 1px solid var(--ui-2);
     height: 56px;
     display: flex;
     align-items: center;
 
     &__separator {
-      border-left: 1px solid  var(--ui-2);
+      border-left: 1px solid var(--ui-2);
       height: 65%;
     }
 

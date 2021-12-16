@@ -53,7 +53,7 @@
       @include Paragraph;
 
       direction: ltr;
-      border: 1px solid  var(--dusty-gray);
+      border: 1px solid var(--dusty-gray);
       border-radius: 4px;
       color: var(--mid-gray);
       height: 24px;
@@ -64,11 +64,11 @@
     }
 
     &__input--error {
-      border: 1px solid  var(--red);
+      border: 1px solid var(--red);
     }
 
     &__input--warning {
-      border: 1px solid  var(--orange);
+      border: 1px solid var(--orange);
     }
 
     &__input-arrows {
@@ -116,11 +116,11 @@
     }
 
     &__input-arrows--error {
-      border: 1px solid  var(--red);
+      border: 1px solid var(--red);
     }
 
     &__input-arrows--warning {
-      border: 1px solid  var(--orange);
+      border: 1px solid var(--orange);
     }
 
     input[type="number"] {

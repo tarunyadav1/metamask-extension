@@ -21,7 +21,7 @@
     text-transform: uppercase;
     color: var(--oslo-gray);
     padding: 3px 8px;
-    border: 1px solid  var(--oslo-gray);
+    border: 1px solid var(--oslo-gray);
     border-radius: 4px;
     display: inline-block;
   }
@@ -57,6 +57,6 @@
   }
 
   &--border {
-    border-bottom: 1px solid  var(--geyser);
+    border-bottom: 1px solid var(--geyser);
   }
 }

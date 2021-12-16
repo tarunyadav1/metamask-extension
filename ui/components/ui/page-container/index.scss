@@ -11,7 +11,7 @@
   &__header {
     display: flex;
     flex-flow: column;
-    border-bottom: 1px solid  var(--geyser);
+    border-bottom: 1px solid var(--geyser);
     padding: 16px;
     flex: 0 0 auto;
     position: relative;
@@ -53,7 +53,7 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    border-top: 1px solid  var(--geyser);
+    border-top: 1px solid var(--geyser);
     flex: 0 0 auto;
 
     footer {

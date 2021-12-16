@@ -40,7 +40,7 @@
 
 .btn-secondary {
   color: var(--Blue-500);
-  border: 1px solid  var(--hover-secondary);
+  border: 1px solid var(--hover-secondary);
   background-color: var(--white);
 
   &:hover {
@@ -61,7 +61,7 @@
 
 .btn-warning {
   color: var(--Orange-500);
-  border: 1px solid  var(--hover-orange);
+  border: 1px solid var(--hover-orange);
   background-color: var(--white);
 
   &:hover {
@@ -82,7 +82,7 @@
 
 .btn-danger {
   color: var(--Red-500);
-  border: 1px solid  var(--hover-red);
+  border: 1px solid var(--hover-red);
   background-color: var(--white);
 
   &:hover {
@@ -103,7 +103,7 @@
 
 .btn-danger-primary {
   color: var(--white);
-  border: 1px solid  var(--Red-500);
+  border: 1px solid var(--Red-500);
   background-color: var(--Red-500);
 
   &:hover {
@@ -126,7 +126,7 @@
 
 .btn-default {
   color: var(--Grey-500);
-  border: 1px solid  var(--hover-default);
+  border: 1px solid var(--hover-default);
 
   &:hover {
     border-color: var(--Grey-500);
@@ -146,7 +146,7 @@
 
 .btn-primary {
   color: var(--white);
-  border: 1px solid  var(--Blue-500);
+  border: 1px solid var(--Blue-500);
   background-color: var(--Blue-500);
 
   &:hover {
@@ -238,7 +238,7 @@ input[type="submit"][disabled] {
   }
 
   &.btn-secondary {
-    border: 1px solid  var(--Blue-500);
+    border: 1px solid var(--Blue-500);
 
     &--disabled,
     &[disabled] {
@@ -252,7 +252,7 @@ input[type="submit"][disabled] {
   }
 
   &.btn-default {
-    border: 1px solid  var(--Grey-500);
+    border: 1px solid var(--Grey-500);
 
     &--disabled,
     &[disabled] {
@@ -266,7 +266,7 @@ input[type="submit"][disabled] {
   }
 
   &.btn-danger {
-    border: 1px solid  var(--Red-500);
+    border: 1px solid var(--Red-500);
 
     &--disabled,
     &[disabled] {
@@ -280,7 +280,7 @@ input[type="submit"][disabled] {
   }
 
   &.btn-warning {
-    border: 1px solid  var(--Orange-500);
+    border: 1px solid var(--Orange-500);
 
     &--disabled,
     &[disabled] {

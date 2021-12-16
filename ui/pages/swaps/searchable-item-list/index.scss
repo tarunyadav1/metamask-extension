@@ -6,7 +6,7 @@
   &__search {
     > div {
       border: none;
-      border-bottom: 1px solid  var(--Grey-100);
+      border-bottom: 1px solid var(--Grey-100);
       border-radius: 0;
       height: 55px;
       font-size: 12px;
@@ -54,7 +54,7 @@
     padding: 8px 12px;
     box-sizing: border-box;
     cursor: pointer;
-    border-top: 1px solid  var(--Grey-100);
+    border-top: 1px solid var(--Grey-100);
     position: relative;
     min-height: 50px;
 
@@ -72,7 +72,7 @@
     }
 
     &--selected {
-      border: 1px solid  var(--malibu-blue) !important;
+      border: 1px solid var(--malibu-blue) !important;
     }
 
     &--disabled {

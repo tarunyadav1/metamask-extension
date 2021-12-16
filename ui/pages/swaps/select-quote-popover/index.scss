@@ -74,7 +74,7 @@
     cursor: pointer;
     color: var(--black);
     height: 49px;
-    border-bottom: 1px solid  var(--Grey-100);
+    border-bottom: 1px solid var(--Grey-100);
     margin-bottom: 8px;
     border-radius: 8px;
     background: var(--Grey-000);
@@ -82,7 +82,7 @@
     border: none;
 
     &:hover {
-      border: 1px solid  var(--Blue-500);
+      border: 1px solid var(--Blue-500);
       width: 101%;
       padding-right: 11px;
       padding-left: 19.5px;
@@ -90,7 +90,7 @@
 
     &--no-hover {
       &:hover {
-        border: 1px solid  var(--Grey-100);
+        border: 1px solid var(--Grey-100);
         width: 100%;
         padding-right: 12px;
         padding-left: 20px;
@@ -160,7 +160,7 @@
     &:hover {
       border-radius: 8px;
       background: var(--white);
-      border: 1px solid  var(--Blue-500);
+      border: 1px solid var(--Blue-500);
     }
   }
 

@@ -19,7 +19,7 @@
 
   &--open {
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.18);
-    border: 1px solid  var(--Grey-100);
+    border: 1px solid var(--Grey-100);
   }
 
   &__close-area {
@@ -92,7 +92,7 @@
 
   &__search-list--open {
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.18);
-    border: 1px solid  var(--Grey-100);
+    border: 1px solid var(--Grey-100);
   }
 
   &__default-dropdown-icon {
@@ -149,7 +149,7 @@
     padding: 16px 12px;
     box-sizing: border-box;
     cursor: pointer;
-    border-top: 1px solid  var(--Grey-100);
+    border-top: 1px solid var(--Grey-100);
     position: relative;
     z-index: 1;
     background: var(--white);

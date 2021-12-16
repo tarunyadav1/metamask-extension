@@ -7,7 +7,7 @@
 }
 
 .network-component.pointer {
-  border: 1px solid  var(--Grey-200);
+  border: 1px solid var(--Grey-200);
   border-radius: 82px;
   padding: 6px 3px;
   flex: 0 0 auto;
@@ -106,7 +106,7 @@
 }
 
 .menu-icon-circle--active {
-  border: 1px solid  var(--white);
+  border: 1px solid var(--white);
   background: rgba(100, 100, 100, 0.4);
 }
 
@@ -179,7 +179,7 @@
     position: absolute;
     top: 63px;
     right: 10px;
-    border: 1px solid  var(--dusty-gray);
+    border: 1px solid var(--dusty-gray);
     border-radius: 10px;
   }
 }

@@ -48,7 +48,7 @@
   border-radius: 50%;
   width: 70px;
   height: 70px;
-  border: 1px solid  var(--alto);
+  border: 1px solid var(--alto);
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -35px;
@@ -73,7 +73,7 @@
   .large-input {
     @include Paragraph;
 
-    border: 1px solid  var(--dusty-gray);
+    border: 1px solid var(--dusty-gray);
     border-radius: 4px;
     margin: 4px 0 20px;
   }
@@ -200,7 +200,7 @@
   transform: rotate(45deg);
   left: 107px;
   top: 294px;
-  box-shadow: 2px 2px 2px  var(--alto);
+  box-shadow: 2px 2px 2px var(--alto);
 }
 
 .customize-gas-tooltip-container input[type="number"]::-webkit-inner-spin-button {
@@ -246,7 +246,7 @@
 
   width: 178px;
   height: 28px;
-  border: 1px solid  var(--alto);
+  border: 1px solid var(--alto);
   color: var(--nile-blue);
   padding-left: 8px;
 }
@@ -434,7 +434,7 @@
     border-radius: 50%;
     width: 48px;
     height: 48px;
-    border: 1px solid  var(--alto);
+    border: 1px solid var(--alto);
     z-index: 25;
     padding: 4px;
     background-color: var(--white);
@@ -604,7 +604,7 @@
     @include H7;
 
     width: 100%;
-    border: 1px solid  var(--alto);
+    border: 1px solid var(--alto);
     border-radius: 4px;
     background-color: var(--white);
     color: var(--tundora);
@@ -624,7 +624,7 @@
       position: absolute;
       height: 220px;
       width: 100%;
-      border: 1px solid  var(--geyser);
+      border: 1px solid var(--geyser);
       border-radius: 4px;
       background-color: var(--white);
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
@@ -710,7 +710,7 @@
       position: absolute;
       height: 220px;
       width: 100%;
-      border: 1px solid  var(--geyser);
+      border: 1px solid var(--geyser);
       border-radius: 4px;
       background-color: var(--white);
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.11);
@@ -727,7 +727,7 @@
     }
 
     &__input-wrapper {
-      border: 1px solid  var(--alto);
+      border: 1px solid var(--alto);
       border-radius: 4px;
       height: 100%;
 
@@ -769,7 +769,7 @@
       position: relative;
       height: 54px;
       width: 100%;
-      border: 1px solid  var(--alto);
+      border: 1px solid var(--alto);
       border-radius: 4px;
       background-color: var(--white);
       color: var(--tundora);
@@ -812,7 +812,7 @@
 
     input:checked + &__button {
       background-color: var(--primary-blue);
-      border: 1px solid  var(--primary-blue);
+      border: 1px solid var(--primary-blue);
       color: var(--white);
     }
   }
@@ -842,7 +842,7 @@
     justify-content: center;
     height: 24px;
     width: 24px;
-    border: 1px solid  var(--primary-blue);
+    border: 1px solid var(--primary-blue);
     border-radius: 4px;
     background-color: var(--white);
     position: absolute;
@@ -867,7 +867,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border-top: 1px solid  var(--alto);
+    border-top: 1px solid var(--alto);
     background: var(--white);
     padding: 0 12px;
     flex-shrink: 0;
@@ -896,7 +896,7 @@
       @include H3;
 
       height: 52px;
-      border-bottom: 1px solid  var(--alto);
+      border-bottom: 1px solid var(--alto);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -938,7 +938,7 @@
       @include H3;
 
       height: 75px;
-      border-top: 1px solid  var(--alto);
+      border-top: 1px solid var(--alto);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1033,7 +1033,7 @@
     .customize-gas-input {
       height: 54px;
       width: 315px;
-      border: 1px solid  var(--geyser);
+      border: 1px solid var(--geyser);
       background-color: var(--white);
       padding-left: 15px;
     }
@@ -1091,7 +1091,7 @@
   justify-content: center;
   height: 24px;
   width: 24px;
-  border: 1px solid  var(--primary-blue);
+  border: 1px solid var(--primary-blue);
   border-radius: 4px;
   background-color: var(--white);
   position: absolute;

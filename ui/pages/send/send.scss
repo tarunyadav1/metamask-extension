@@ -40,7 +40,7 @@
     padding: 0.5rem;
     flex: 0 0 auto;
     background-color: var(--Grey-000);
-    border-bottom: 1px solid  var(--alto);
+    border-bottom: 1px solid var(--alto);
   }
 
   &__select-recipient-wrapper {
@@ -58,7 +58,7 @@
         @extend %row-nowrap;
 
         padding: 1rem;
-        border-bottom: 1px solid  var(--alto);
+        border-bottom: 1px solid var(--alto);
         border-radius: 0;
         align-items: center;
         justify-content: flex-start;
@@ -87,7 +87,7 @@
 
         padding: 0.5rem;
         text-align: center;
-        border-bottom: 1px solid  var(--alto);
+        border-bottom: 1px solid var(--alto);
         justify-content: flex-start;
       }
     }
@@ -102,10 +102,10 @@
       background-color: var(--Grey-000);
       color: var(--Grey-600);
       padding: 0.5rem 1rem;
-      border-bottom: 1px solid  var(--alto);
+      border-bottom: 1px solid var(--alto);
 
       &:first-of-type {
-        border-top: 1px solid  var(--alto);
+        border-top: 1px solid var(--alto);
       }
     }
 
@@ -115,7 +115,7 @@
 
       padding: 0.75rem 1rem;
       align-items: center;
-      border-bottom: 1px solid  var(--alto);
+      border-bottom: 1px solid var(--alto);
       cursor: pointer;
 
       &:hover {
@@ -170,7 +170,7 @@
     background: var(--white);
     border-radius: 0.5rem;
     padding: 0.75rem 0.5rem;
-    border: 1px solid  var(--Grey-100);
+    border: 1px solid var(--Grey-100);
     transition: border-color 150ms ease-in-out;
 
     &:focus-within {

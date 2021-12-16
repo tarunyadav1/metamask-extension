@@ -98,7 +98,7 @@ input.form-control {
   padding-left: 10px;
   font-size: 14px;
   height: 40px;
-  border: 1px solid  var(--alto);
+  border: 1px solid var(--alto);
   border-radius: 3px;
   width: 100%;
 
@@ -123,7 +123,7 @@ input.form-control {
   }
 
   &--error {
-    border: 1px solid  var(--monzo);
+    border: 1px solid var(--monzo);
   }
 }
 

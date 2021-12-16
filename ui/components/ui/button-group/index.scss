@@ -17,7 +17,7 @@
     text-overflow: ellipsis;
 
     &:first-child {
-      border-left: 1px solid  var(--alto);
+      border-left: 1px solid var(--alto);
       border-radius: 4px 0 0 4px;
     }
 
@@ -41,7 +41,7 @@
     @include H7;
 
     color: var(--Grey-700);
-    border: 1px solid  var(--Grey-100);
+    border: 1px solid var(--Grey-100);
     background: var(--white);
     border-radius: 25px;
     height: 25px;
@@ -56,7 +56,7 @@
     }
 
     &--danger {
-      border: 1px solid  var(--Red-500);
+      border: 1px solid var(--Red-500);
       color: var(--Red-500);
       background: var(--white);
     }
@@ -67,7 +67,7 @@
   }
 
   .radio-button--active.radio-button--danger {
-    border: 1px solid  var(--Red-500);
+    border: 1px solid var(--Red-500);
     color: white;
     background: var(--Red-500);
   }

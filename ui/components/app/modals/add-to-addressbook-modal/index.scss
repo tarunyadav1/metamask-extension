@@ -9,7 +9,7 @@
     @extend %col-nowrap;
 
     padding: 1.5rem;
-    border-bottom: 1px solid  var(--Grey-100);
+    border-bottom: 1px solid var(--Grey-100);
 
     &__header {
       @include H3;
@@ -25,7 +25,7 @@
     @include H4;
 
     background: var(--white);
-    border: 1px solid  var(--Grey-100);
+    border: 1px solid var(--Grey-100);
     box-sizing: border-box;
     border-radius: 8px;
     padding: 0.625rem 0.75rem;

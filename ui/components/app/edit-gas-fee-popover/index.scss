@@ -2,7 +2,7 @@
   height: 500px;
 
   &__wrapper {
-    border-top: 1px solid  var(--ui-grey);
+    border-top: 1px solid var(--ui-grey);
   }
 
   &__content {
@@ -36,7 +36,7 @@
     }
 
     &__separator {
-      border-top: 1px solid  var(--ui-grey);
+      border-top: 1px solid var(--ui-grey);
       margin: 8px 12px;
     }
   }

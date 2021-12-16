@@ -24,7 +24,7 @@
     border-bottom: 1px solid #dedede;
 
     &:hover {
-      border: 1px solid  var(--primary-blue);
+      border: 1px solid var(--primary-blue);
       cursor: pointer;
     }
   }
@@ -87,7 +87,7 @@
   &__input {
     @include H4;
 
-    border: 1px solid  var(--Grey-200);
+    border: 1px solid var(--Grey-200);
     border-radius: 6px;
     color: var(--Grey-800);
     padding: 0.875rem 1rem;
