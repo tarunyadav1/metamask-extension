@@ -95,7 +95,7 @@ export default function ConfirmTokenTransactionBase({
       onEdit={onEdit}
       identiconAddress={tokenAddress}
       title={title}
-      subtitleComponent={subtitleComponent}
+      subtitleComponent={subtitleComponent()}
       primaryTotalTextOverride={`${title} + ${ethTransactionTotal} ${nativeCurrency}`}
       primaryTotalTextOverrideMaxAmount={`${title} + ${ethTransactionTotalMaxAmount} ${nativeCurrency}`}
       secondaryTotalTextOverride={secondaryTotalTextOverride}
@@ -106,6 +106,7 @@ export default function ConfirmTokenTransactionBase({
 ConfirmTokenTransactionBase.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
+  subtitle: PropTypes.string,
   tokenAddress: PropTypes.string,
   toAddress: PropTypes.string,
   tokenAmount: PropTypes.string,

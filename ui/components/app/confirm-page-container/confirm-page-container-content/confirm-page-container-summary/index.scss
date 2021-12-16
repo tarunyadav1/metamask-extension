@@ -40,13 +40,13 @@
     align-items: center;
   }
 
-  &__identicon {
+  &__icon {
     flex: 0 0 auto;
     margin-right: 8px;
   }
 
   &__title-text {
-    @include H4;
+    @include H2;
 
     white-space: nowrap;
     overflow: hidden;
@@ -59,6 +59,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-left: 42px;
   }
 
   &--border {

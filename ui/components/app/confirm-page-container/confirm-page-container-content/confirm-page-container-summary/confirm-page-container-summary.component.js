@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Identicon from '../../../../ui/identicon';
-import { useGasFeeContext } from '../../../../../contexts/gasFee';
 
 const ConfirmPageContainerSummary = (props) => {
   const {
@@ -20,7 +19,26 @@ const ConfirmPageContainerSummary = (props) => {
     image,
   } = props;
 
-  const { supportsEIP1559V2 } = useGasFeeContext();
+  const renderImage = () => {
+    if (image) {
+      return (
+        <img
+          className="confirm-page-container-summary__icon"
+          width={36}
+          src={image}
+        />
+      );
+    } else if (identiconAddress) {
+      return (
+        <Identicon
+          className="confirm-page-container-summary__icon"
+          diameter={36}
+          address={identiconAddress}
+          image={image}
+        />
+      );
+    }
+  };
 
   return (
     <div className={classnames('confirm-page-container-summary', className)}>
@@ -35,26 +53,21 @@ const ConfirmPageContainerSummary = (props) => {
           </div>
         )}
       </div>
-      <div className="confirm-page-container-summary__title">
-        {identiconAddress && (
-          <Identicon
-            className="confirm-page-container-summary__identicon"
-            diameter={36}
-            address={identiconAddress}
-            image={image}
-          />
-        )}
-        {!hideTitle ? (
-          <div className="confirm-page-container-summary__title-text">
-            {titleComponent || title}
-          </div>
-        ) : null}
-      </div>
-      {!hideSubtitle && !supportsEIP1559V2 && (
-        <div className="confirm-page-container-summary__subtitle">
-          {subtitleComponent}
+      <div>
+        <div className="confirm-page-container-summary__title">
+          {renderImage()}
+          {!hideTitle ? (
+            <div className="confirm-page-container-summary__title-text">
+              {titleComponent || title}
+            </div>
+          ) : null}
         </div>
-      )}
+        {!hideSubtitle && (
+          <div className="confirm-page-container-summary__subtitle">
+            {subtitleComponent}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

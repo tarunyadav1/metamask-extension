@@ -8,12 +8,13 @@ import {
 import { formatCurrency } from './confirm-tx.util';
 
 export function toHex(value) {
-  if (!value) return value;
-  if (value !== typeof 'string') {
-    value = String(value);
+  let result = value;
+  if (!result) return result;
+  if (result !== typeof 'string') {
+    result = String(result);
   }
-  if (value.startsWith('0x')) return value;
-  return decimalToHex(value);
+  if (result.startsWith('0x')) return result;
+  return decimalToHex(result);
 }
 
 export function bnToHex(inputBn) {
