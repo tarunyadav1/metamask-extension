@@ -47,7 +47,7 @@ import Button from '../../ui/button';
 import { ASSET_TYPES, updateSendAsset } from '../../../ducks/send';
 
 export default function CollectibleDetails({ collectible }) {
-  const { image, name, description, address, tokenId } = collectible;
+  const { image, name, description, address, tokenId, standard } = collectible;
   const t = useI18nContext();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -87,6 +87,7 @@ export default function CollectibleDetails({ collectible }) {
   };
 
   const openSeaLink = getOpenSeaLink();
+  const sendDisabled = standard !== 'ERC721'
 
   const onSend = () => {
     dispatch(
@@ -172,7 +173,11 @@ export default function CollectibleDetails({ collectible }) {
                   : BLOCK_SIZES.HALF
               }
             >
-              <Button type="primary" onClick={onSend}>
+              <Button
+                type="primary"
+                onClick={onSend}
+                disabled={sendDisabled}
+              >
                 {t('send')}
               </Button>
             </Box>

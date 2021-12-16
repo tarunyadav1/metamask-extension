@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Jazzicon from '../jazzicon';
 import BlockieIdenticon from './blockieIdenticon';
-import { getFormattedIpfsUrl } from '@metamask/controllers/dist/util';
+import { getAssetImageURL } from '../../../helpers/utils/util';
 
 const getStyles = (diameter) => ({
   height: diameter,
@@ -69,17 +69,11 @@ export default class Identicon extends PureComponent {
   };
 
   renderImage() {
-    const {
-      className,
-      diameter,
-      image,
-      alt,
-      imageBorder,
-      ipfsGateway,
-    } = this.props;
+    const { className, diameter, alt, imageBorder, ipfsGateway } = this.props;
+    let { image } = this.props;
 
     if (image.startsWith('ipfs://ipfs/') || image.startsWith('ipfs://')) {
-      image = getFormattedIpfsUrl(ipfsGateway, image, true);
+      image = getAssetImageURL(image, ipfsGateway);
     }
 
     return (

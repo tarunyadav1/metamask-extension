@@ -621,7 +621,7 @@ export default class ConfirmTransactionBase extends Component {
                     <LoadingHeartBeat />
                     <strong key="editGasSubTextAmountLabel">
                       {t('editGasSubTextAmountLabel')}
-                    </strong>
+                    </strong>{' '}
                     {renderTotalMaxAmount()}
                   </div>
                 }
