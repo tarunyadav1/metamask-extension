@@ -81,7 +81,6 @@ const CONFIRM_SEND_TOKEN_PATH = '/send-token';
 const CONFIRM_DEPLOY_CONTRACT_PATH = '/deploy-contract';
 const CONFIRM_APPROVE_PATH = '/approve';
 const CONFIRM_TRANSFER_FROM_PATH = '/transfer-from';
-const CONFIRM_TRANSFER_FROM_COLLECTIBLE_PATH = '/transfer-from-collectible';
 const CONFIRM_TOKEN_METHOD_PATH = '/token-method';
 const SIGNATURE_REQUEST_PATH = '/signature-request';
 const DECRYPT_MESSAGE_REQUEST_PATH = '/decrypt-message-request';

@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Jazzicon from '../jazzicon';
-import BlockieIdenticon from './blockieIdenticon';
 import { getAssetImageURL } from '../../../helpers/utils/util';
+import BlockieIdenticon from './blockieIdenticon';
 
 const getStyles = (diameter) => ({
   height: diameter,
@@ -55,6 +55,10 @@ export default class Identicon extends PureComponent {
      * Add list of token in object
      */
     tokenList: PropTypes.object,
+    /**
+     * User preferred IPFS gateway
+     */
+    ipfsGateway: PropTypes.string,
   };
 
   static defaultProps = {

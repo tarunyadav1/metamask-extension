@@ -7,7 +7,6 @@ import {
   ETH_GAS_PRICE_FETCH_WARNING_KEY,
   GAS_PRICE_FETCH_FAILURE_ERROR_KEY,
   GAS_PRICE_EXCESSIVE_ERROR_KEY,
-  UNSENDABLE_ASSET_ERROR_KEY,
   INSUFFICIENT_FUNDS_FOR_GAS_ERROR_KEY,
 } from '../../../helpers/constants/error-keys';
 import { ASSET_TYPES } from '../../../ducks/send';
@@ -26,7 +25,6 @@ export default class SendContent extends Component {
   };
 
   static propTypes = {
-    isAssetSendable: PropTypes.bool,
     showHexData: PropTypes.bool,
     contact: PropTypes.object,
     isOwnedAccount: PropTypes.bool,
@@ -48,7 +46,6 @@ export default class SendContent extends Component {
       gasIsExcessive,
       isEthGasPrice,
       noGasPrice,
-      isAssetSendable,
       networkOrAccountNotSupports1559,
       getIsBalanceInsufficient,
       asset,

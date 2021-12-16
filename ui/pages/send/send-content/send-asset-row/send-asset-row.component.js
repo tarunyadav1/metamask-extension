@@ -24,6 +24,23 @@ export default class SendAssetRow extends Component {
     updateSendAsset: PropTypes.func.isRequired,
     nativeCurrency: PropTypes.string,
     nativeCurrencyImage: PropTypes.string,
+    collectibles: PropTypes.arrayOf(
+      PropTypes.shape({
+        address: PropTypes.string.isRequired,
+        tokenId: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        description: PropTypes.string,
+        image: PropTypes.string,
+        standard: PropTypes.string,
+        imageThumbnail: PropTypes.string,
+        imagePreview: PropTypes.string,
+        creator: PropTypes.shape({
+          address: PropTypes.string,
+          config: PropTypes.string,
+          profile_img_url: PropTypes.string,
+        }),
+      }),
+    ),
   };
 
   static contextTypes = {

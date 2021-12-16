@@ -120,6 +120,7 @@ export default class ConfirmTransactionBase extends Component {
     onEdit: PropTypes.func,
     subtitleComponent: PropTypes.node,
     title: PropTypes.string,
+    image: PropTypes.string,
     type: PropTypes.string,
     getNextNonce: PropTypes.func,
     nextNonce: PropTypes.number,

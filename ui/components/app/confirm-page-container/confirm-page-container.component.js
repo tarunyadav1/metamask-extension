@@ -39,6 +39,7 @@ export default class ConfirmPageContainer extends Component {
     showEdit: PropTypes.bool,
     subtitleComponent: PropTypes.node,
     title: PropTypes.string,
+    image: PropTypes.string,
     titleComponent: PropTypes.node,
     hideSenderToRecipient: PropTypes.bool,
     showAccountInHeader: PropTypes.bool,

@@ -13,7 +13,10 @@ import {
   addEth,
 } from '../../helpers/utils/confirm-tx.util';
 
-import { getTransactionData, sumHexes } from '../../helpers/utils/transactions.util';
+import {
+  getTransactionData,
+  sumHexes,
+} from '../../helpers/utils/transactions.util';
 
 import { conversionUtil } from '../../../shared/modules/conversion.utils';
 import { getAveragePriceEstimateInHexWEI } from '../../selectors/custom-gas';

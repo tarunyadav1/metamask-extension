@@ -44,11 +44,11 @@ import {
 } from '../../../../shared/constants/network';
 import { isEIP1559Transaction } from '../../../../shared/modules/transaction.utils';
 import { readAddressAsContract } from '../../../../shared/modules/contract-utils';
+import { isEqualCaseInsensitive } from '../../../../ui/helpers/utils/util';
 import TransactionStateManager from './tx-state-manager';
 import TxGasUtil from './tx-gas-utils';
 import PendingTransactionTracker from './pending-tx-tracker';
 import * as txUtils from './lib/util';
-import { isEqualCaseInsensitive } from '../../../../ui/helpers/utils/util';
 
 const hstInterface = new ethers.utils.Interface(abi);
 

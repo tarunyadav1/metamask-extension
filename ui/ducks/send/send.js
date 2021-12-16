@@ -303,7 +303,7 @@ async function estimateGasLimitForSend({
   }
 
   // paramsForGasEstimate.chainId = chainId;
-  
+
   try {
     // call into the background process that will simulate transaction
     // execution on the node and return an estimate of gasLimit
@@ -1412,10 +1412,10 @@ export function updateSendAsset({ type, details }) {
         state.send.account.address ?? getSelectedAddress(state),
       );
       // TODO delete
-      // if (details && details.isERC721 === undefined) {
-      //   const updatedAssetDetails = await updateTokenType(details.address);
-      //   details.isERC721 = updatedAssetDetails.isERC721;
-      // }
+      if (details && details.isERC721 === undefined) {
+        const updatedAssetDetails = await updateTokenType(details.address);
+        details.isERC721 = updatedAssetDetails.isERC721;
+      }
 
       await dispatch(hideLoadingIndication());
     } else if (type === ASSET_TYPES.COLLECTIBLE) {

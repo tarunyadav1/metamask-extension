@@ -16,6 +16,7 @@ import { ETH, PRIMARY } from '../../helpers/constants/common';
 export default function ConfirmTokenTransactionBase({
   image,
   title,
+  subtitle,
   toAddress,
   tokenAddress,
   tokenAmount = '0',

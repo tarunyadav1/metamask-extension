@@ -87,7 +87,7 @@ export default function CollectibleDetails({ collectible }) {
   };
 
   const openSeaLink = getOpenSeaLink();
-  const sendDisabled = standard !== 'ERC721'
+  const sendDisabled = standard !== 'ERC721';
 
   const onSend = () => {
     dispatch(
@@ -173,11 +173,7 @@ export default function CollectibleDetails({ collectible }) {
                   : BLOCK_SIZES.HALF
               }
             >
-              <Button
-                type="primary"
-                onClick={onSend}
-                disabled={sendDisabled}
-              >
+              <Button type="primary" onClick={onSend} disabled={sendDisabled}>
                 {t('send')}
               </Button>
             </Box>

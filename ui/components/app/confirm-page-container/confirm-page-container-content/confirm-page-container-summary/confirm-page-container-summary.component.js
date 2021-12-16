@@ -62,6 +62,7 @@ const ConfirmPageContainerSummary = (props) => {
 ConfirmPageContainerSummary.propTypes = {
   action: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  image: PropTypes.string,
   titleComponent: PropTypes.node,
   subtitleComponent: PropTypes.node,
   hideSubtitle: PropTypes.bool,
