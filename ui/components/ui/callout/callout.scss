@@ -15,7 +15,7 @@
 
   &--dismissible {
     &#{  $self }--first {
-      box-shadow: 0 -5px 5px -5px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 -5px 5px -5px rgba($black, 0.18);
     }
   }
 

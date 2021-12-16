@@ -106,15 +106,54 @@
   --localhost: #29b6af;
   --flask-purple: #8b45b6;
 
-  /* Colors that were used standalone in the UI */
+  // Named colors that we should use in the UI
   --app-background: #f7f7f7;
+  --app-header-background: var(--Grey-000);
+
+  --primary-text: #4d4d4d;
+  --primary-text-emphasized: #000;
+
+  --account-menu-text: #fff;
+  --account-button-background-hover-color: var(--Grey-000);
+
+  --asset-list-primary-text: var(--Black-100);
+  --asset-list-background-hover-color: var(--Grey-000);
+  --asset-breadcrumb-text: var(--Black-100);
+
+  --asset-menu-background: var(--white);
+
+  --send-header-background-color: var(--Grey-000);
+
+  --dropdown-list-background-color: #fff;
+  --dropdown-list-background-hover-color: var(--Grey-000);
+
+  --swaps-header-background-color: #fff;
+  --swaps-header-border-color: var(--Grey-100);
 }
 
-:root .theme-dark {
+:root.theme-dark {
   --app-background: var(--neutral-black);
+  --app-header-background: var(--neutral-black);
 
-  --Black-100: #ffffff;
-  --Grey-000: #24292e;
+  --primary-text: var(--ui-2);
+  --primary-text-emphasized: #fff;
+
+  --account-menu-text: var(--primary-text-emphasized);
+  --account-button-background-hover-color: #000;
+
+  --asset-list-primary-text: var(--primary-text);
+  --asset-list-background-hover-color: var(--neutral-black);
+  --asset-breadcrumb-text: var(--Grey-100);
+
+  --asset-menu-background: var(--Grey-200);
+
+  --send-header-background-color: #000;
+
+  --dropdown-list-background-color: #000;
+  --dropdown-list-background-hover-color: var(--neutral-black);
+
+  --swaps-header-background-color: var(--Grey-700);
+  --swaps-header-border-color: var(--neutral-black);
 }
 
 $color-map: (

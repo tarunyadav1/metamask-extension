@@ -46,7 +46,7 @@
     &__title {
       @include H5;
 
-      color: var(--black);
+      color: var(--primary-text-emphasized);
       font-weight: 500;
       display: flex;
       justify-content: center;
