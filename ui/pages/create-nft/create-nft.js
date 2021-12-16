@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { CollectibleMintingController } from '@metamask/controllers';
 
 import { DISPLAY, FLEX_DIRECTION } from '../../helpers/constants/design-system';
 import { getMostRecentOverviewPage } from '../../ducks/history/history';
@@ -9,6 +10,10 @@ import PageContainerHeader from '../../components/ui/page-container/page-contain
 import Inputs from './inputs';
 import Submit from './submit';
 
+const uploadDataToIpfs = new CollectibleMintingController({
+  onNetworkStateChange: () => null,
+}).uploadDataToIpfs;
+
 export default function CreateNft() {
   const history = useHistory();
   const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);
@@ -16,6 +21,13 @@ export default function CreateNft() {
 
   const onClose = () => {
     history.push(mostRecentOverviewPage);
+  };
+
+  const onSubmit = async (fileData) => {
+    console.log(fileData);
+    const nftData = await uploadDataToIpfs({ name: 'test', type: 'image/png' });
+    console.log(nftData);
+    setState('submit');
   };
 
   return (
@@ -32,11 +44,7 @@ export default function CreateNft() {
         display={DISPLAY.FLEX}
         flexDirection={FLEX_DIRECTION.COLUMN}
       >
-        {state === 'inputs' ? (
-          <Inputs onSubmit={() => setState('submit')} />
-        ) : (
-          <Submit />
-        )}
+        {state === 'inputs' ? <Inputs onSubmit={onSubmit} /> : <Submit />}
       </Box>
     </div>
   );

@@ -14,6 +14,7 @@ import TextField from '../../components/ui/text-field';
 
 export default function Inputs({ onSubmit }) {
   const [attributes, setAttributes] = useState([{ name: null, value: null }]);
+  const [file, setFile] = useState();
 
   const addAttribute = () => {
     setAttributes([...attributes, { name: null, value: null }]);
@@ -34,7 +35,7 @@ export default function Inputs({ onSubmit }) {
         type="file"
         id="file"
         onChange={(event) => {
-          console.log(event.target.files);
+          setFile(event.target.files[0]);
         }}
         className="create-nft__file-upload-input"
       />
@@ -118,7 +119,7 @@ export default function Inputs({ onSubmit }) {
         <Button
           type="primary"
           className="create-nft__continue-btn"
-          onClick={onSubmit}
+          onClick={() => onSubmit(file)}
         >
           Continue
         </Button>
