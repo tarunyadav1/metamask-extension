@@ -487,7 +487,7 @@ export const initializeSendState = createAsyncThunk(
 
     // Set a basic gasLimit in the event that other estimation fails
     let gasLimit =
-      asset.type === ASSET_TYPES.TOKEN
+      asset.type === ASSET_TYPES.TOKEN || asset.type === ASSET_TYPES.COLLECTIBLE
         ? GAS_LIMITS.BASE_TOKEN_ESTIMATE
         : GAS_LIMITS.SIMPLE;
     if (
@@ -1645,7 +1645,6 @@ export function signTransaction() {
             asset?.details?.tokenId,
             {
               ...txParams,
-              // gas: '200B20',
               to: undefined,
               data: undefined,
             },

@@ -27,10 +27,11 @@ const width =
 export default function CollectiblesItems({ collections = {} }) {
   const defaultDropdownState = {};
   const ipfsGateway = useSelector(getIpfsGateway);
-
-  Object.keys(collections).forEach((key) => {
-    defaultDropdownState[key] = true;
-  });
+  
+  // if there is only one collection present set it to open when component mounts
+  if (Object.keys(collections).length === 1) {
+    defaultDropdownState[Object.keys(collections)[0]] = true;
+  }
   const history = useHistory();
 
   const [dropdownState, setDropdownState] = useState(defaultDropdownState);

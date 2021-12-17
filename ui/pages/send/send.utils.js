@@ -164,7 +164,7 @@ function generateCollectibleTransferData({
       .call(
         abi.rawEncode(
           ['address', 'address', 'uint256'],
-          [fromAddress, toAddress, toHex(tokenId)],
+          [fromAddress, toAddress, tokenId],
         ),
         (x) => `00${x.toString(16)}`.slice(-2),
       )
