@@ -3,7 +3,6 @@ import React from 'react';
 import { TYPOGRAPHY } from '../../helpers/constants/design-system';
 import Box from '../../components/ui/box';
 import Button from '../../components/ui/button';
-import InfoTooltip from '../../components/ui/info-tooltip';
 import Typography from '../../components/ui/typography';
 
 export default function CreateNft() {
@@ -12,7 +11,7 @@ export default function CreateNft() {
       <Box display="block" className="create-nft__nft-img-wrapper">
         <img
           className="create-nft__nft-img"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzvKwk1CVZpdpf9lKOac7FeZVrKIAw2QIc3g&usqp=CAU"
+          src="./images/create_nft_team.png"
         />
       </Box>
       <Box
