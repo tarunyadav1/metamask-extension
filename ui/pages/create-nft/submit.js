@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { TYPOGRAPHY } from '../../helpers/constants/design-system';
 import Box from '../../components/ui/box';
+import Dropdown from '../../components/ui/dropdown';
 import Button from '../../components/ui/button';
 import Typography from '../../components/ui/typography';
 
 export default function CreateNft() {
+  const [network, setNetwork] = useState('rarible');
   return (
     <>
       <Box display="block" className="create-nft__nft-img-wrapper">
@@ -66,9 +68,14 @@ export default function CreateNft() {
         justifyContent="center"
         className="create-nft__network-label"
       >
-        <Typography className="create-nft__rarible-label">
-          Lazy mint on Rarible
-        </Typography>
+        <Dropdown
+          onChange={setNetwork}
+          options={[
+            { name: 'Lazy Mint with Rarible', value: 'rarible' },
+            { name: 'Mint with MetaMask', value: 'metamask' },
+          ]}
+          selectedOption={network}
+        />
       </Box>
       <Box
         display="flex"
@@ -77,11 +84,17 @@ export default function CreateNft() {
         marginBottom={4}
       >
         <Typography className="create-nft__fee-info">
-          Gas is free for now, you will once pay gas once you sell the NFT.
+          {network === 'rarible'
+            ? "By using Rarible's Lazy minting the gas is free for now. You will only pay a gas fee once you sell the NFT and it gets added to the blockchain. Your NFT might not show up in other wallets and marketplaces before that."
+            : "By Minting with MetaMask you'll deploy your own smart contract to the blockchain and the NFT will be available for use on NFT marketplaces. You'll need to pay network gas fees to deploy the contract - those are not MetaMask fees."}
         </Typography>
       </Box>
       <Box display="flex" flexDirection="column" marginTop={10}>
-        <Button type="primary">Lazy mint on Rarible</Button>
+        <Button type="primary">
+          {network === 'rarible'
+            ? 'Lazy mint on Rarible'
+            : 'Mint with MetaMask'}
+        </Button>
         <Box marginTop={4}>
           <Button type="secondary">Cancel</Button>
         </Box>
