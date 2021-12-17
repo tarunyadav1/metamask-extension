@@ -10,8 +10,6 @@ import {
 
 import { calcTokenAmount } from '../../helpers/utils/token-util';
 import { addHexPrefix } from '../../../app/scripts/lib/util';
-
-import { toHex } from '../../helpers/utils/conversions.util';
 import {
   TOKEN_TRANSFER_FUNCTION_SIGNATURE,
   COLLECTIBLE_TRANSFER_FROM_FUNCTION_SIGNATURE,

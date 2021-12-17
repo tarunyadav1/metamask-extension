@@ -2004,6 +2004,7 @@ describe('Send Slice', () => {
           draftTransaction: {},
           recipient: {},
           amount: {},
+          account: {},
         },
       };
 

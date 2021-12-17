@@ -38,6 +38,7 @@ const ConfirmPageContainerSummary = (props) => {
         />
       );
     }
+    return null;
   };
 
   return (

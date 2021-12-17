@@ -69,4 +69,8 @@ $spacer-break-small: 16px;
     flex: 0 0 $link-title-width;
     max-width: 0 0 $link-title-width;
   }
+
+  &__send-button {
+    margin-right: 8px;
+  }
 }

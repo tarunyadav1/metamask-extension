@@ -3,7 +3,6 @@
   background-color: #f9fafa;
   height: 120px;
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -55,6 +54,7 @@
 
   &__subtitle {
     @include H6;
+
     color: $oslo-gray;
     white-space: nowrap;
     overflow: hidden;

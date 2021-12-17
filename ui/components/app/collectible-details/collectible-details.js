@@ -45,6 +45,7 @@ import { ENVIRONMENT_TYPE_POPUP } from '../../../../shared/constants/app';
 import CollectibleOptions from '../collectible-options/collectible-options';
 import Button from '../../ui/button';
 import { ASSET_TYPES, updateSendAsset } from '../../../ducks/send';
+import InfoTooltip from '../../ui/info-tooltip';
 
 export default function CollectibleDetails({ collectible }) {
   const { image, name, description, address, tokenId, standard } = collectible;
@@ -88,6 +89,7 @@ export default function CollectibleDetails({ collectible }) {
 
   const openSeaLink = getOpenSeaLink();
   const sendDisabled = standard !== 'ERC721';
+  const inPopUp = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;
 
   const onSend = () => {
     dispatch(
@@ -99,6 +101,28 @@ export default function CollectibleDetails({ collectible }) {
       history.push(SEND_ROUTE);
     });
   };
+
+  const renderSendButton = () => {
+    return (
+      <Box
+        justifyContent={JUSTIFY_CONTENT.CENTER}
+        width={inPopUp ? BLOCK_SIZES.FULL : BLOCK_SIZES.HALF}
+      >
+        <Button
+          type="primary"
+          onClick={onSend}
+          disabled={sendDisabled}
+          className="collectible-details__send-button"
+        >
+          {t('send')}
+        </Button>
+        {sendDisabled ? (
+          <InfoTooltip position="top" contentText={t('sendingDisabled')} />
+        ) : null}
+      </Box>
+    );
+  };
+
   return (
     <>
       <AssetNavigation
@@ -131,6 +155,7 @@ export default function CollectibleDetails({ collectible }) {
           <Box
             flexDirection={FLEX_DIRECTION.COLUMN}
             className="collectible-details__top-section__info"
+            justifyContent={JUSTIFY_CONTENT.SPACE_BETWEEN}
           >
             <Typography
               color={COLORS.BLACK}
@@ -160,26 +185,14 @@ export default function CollectibleDetails({ collectible }) {
             <Typography
               color={COLORS.UI4}
               variant={TYPOGRAPHY.H6}
-              boxProps={{ margin: 0 }}
+              boxProps={{ margin: 0, marginBottom: 3 }}
             >
               {description}
             </Typography>
-            <Box
-              marginTop={6}
-              justifyContent={JUSTIFY_CONTENT.CENTER}
-              width={
-                getEnvironmentType() === ENVIRONMENT_TYPE_POPUP
-                  ? BLOCK_SIZES.THREE_FOURTHS
-                  : BLOCK_SIZES.HALF
-              }
-            >
-              <Button type="primary" onClick={onSend} disabled={sendDisabled}>
-                {t('send')}
-              </Button>
-            </Box>
+            {inPopUp ? null : renderSendButton()}
           </Box>
         </div>
-        <Box>
+        <Box marginBottom={2}>
           <Box display={DISPLAY.FLEX} flexDirection={FLEX_DIRECTION.ROW}>
             <Typography
               color={COLORS.BLACK}
@@ -254,6 +267,7 @@ export default function CollectibleDetails({ collectible }) {
               </a>
             </Typography>
           </Box>
+          {inPopUp ? renderSendButton() : null}
         </Box>
       </Box>
     </>

@@ -528,6 +528,17 @@ export const initializeSendState = createAsyncThunk(
       }
       balance = await getERC20Balance(asset.details, fromAddress);
     }
+
+    if (asset.type === ASSET_TYPES.COLLECTIBLE) {
+      if (asset.details === null) {
+        // If we're sending a collectible but details have not been provided we must
+        // abort and set the send slice into invalid status.
+        throw new Error(
+          'Send slice initialized as collectibles send without token details',
+        );
+      }
+     // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
+    }
     return {
       address: fromAddress,
       nativeBalance: account.balance,
@@ -860,11 +871,11 @@ const slice = createSlice({
     updateAsset: (state, action) => {
       state.asset.type = action.payload.type;
       state.asset.balance = action.payload.balance;
-      if (state.asset.type === ASSET_TYPES.TOKEN) {
+      if (
+        state.asset.type === ASSET_TYPES.TOKEN ||
+        state.asset.type === ASSET_TYPES.COLLECTIBLE
+      ) {
         state.asset.details = action.payload.details;
-      } else if (state.asset.type === ASSET_TYPES.COLLECTIBLE) {
-        state.asset.details = action.payload.details;
-        // TODO ANYTHING ELSE? (IF NOT JUST FOLD INTO IF BLOCK ABOVE)
       } else {
         // clear the details object when sending native currency
         state.asset.details = null;
@@ -1411,7 +1422,6 @@ export function updateSendAsset({ type, details }) {
         details,
         state.send.account.address ?? getSelectedAddress(state),
       );
-      // TODO delete
       if (details && details.isERC721 === undefined) {
         const updatedAssetDetails = await updateTokenType(details.address);
         details.isERC721 = updatedAssetDetails.isERC721;
@@ -1419,7 +1429,7 @@ export function updateSendAsset({ type, details }) {
 
       await dispatch(hideLoadingIndication());
     } else if (type === ASSET_TYPES.COLLECTIBLE) {
-      // TODO update balance?
+      // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
       balance = '0x1';
     } else {
       // if changing to native currency, get it from the account key in send
@@ -1709,7 +1719,7 @@ export function editTransaction(
       throw new Error(
         `send/editTransaction dispatched with assetType 'TOKEN' but missing assetData or assetDetails parameter`,
       );
-    } else {
+    } else if (assetType === ASSET_TYPES.TOKEN) {
       const {
         data,
         from,
@@ -1743,6 +1753,36 @@ export function editTransaction(
           gasPrice,
           from,
           amount: tokenAmountInHex,
+          address,
+          nickname,
+        }),
+      );
+    } else if (assetType === ASSET_TYPES.COLLECTIBLE) {
+      const {
+        data,
+        from,
+        to: tokenAddress,
+        gas: gasLimit,
+        gasPrice,
+      } = txParams;
+      const address = getTokenAddressParam(tokenData);
+      const nickname = getAddressBookEntry(state, address)?.name ?? '';
+
+      await dispatch(
+        updateSendAsset({
+          type: ASSET_TYPES.COLLECTIBLE,
+          details: { ...assetDetails, address: tokenAddress },
+        }),
+      );
+
+      await dispatch(
+        actions.editTransaction({
+          data,
+          id: transactionId,
+          gasLimit,
+          gasPrice,
+          from,
+          amount: '0x1',
           address,
           nickname,
         }),
