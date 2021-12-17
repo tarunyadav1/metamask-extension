@@ -129,6 +129,8 @@
 
   --swaps-header-background-color: #fff;
   --swaps-header-border-color: var(--Grey-100);
+
+  --network-list-selected-color: #000;
 }
 
 :root.theme-dark {
@@ -154,6 +156,8 @@
 
   --swaps-header-background-color: var(--Grey-700);
   --swaps-header-border-color: var(--neutral-black);
+
+  --network-list-selected-color: inherit;
 }
 
 $color-map: (

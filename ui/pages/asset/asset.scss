@@ -23,7 +23,7 @@
   background-color: inherit;
 
   &__chevron {
-    font-size: var(--font-size-paragraph);
+    font-size: $font-size-paragraph;
     padding: 0 10px 0 2px;
   }
 
@@ -34,7 +34,7 @@
 
 .asset-options {
   &__button {
-    font-size: var(--font-size-paragraph);
+    font-size: $font-size-paragraph;
     color: var(--asset-breadcrumb-text);
     background-color: inherit;
     padding: 2px 0 2px 8px;

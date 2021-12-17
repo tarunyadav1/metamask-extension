@@ -67,7 +67,7 @@
 
 .connected-accounts-options {
   &__button {
-    font-size: var(--font-size-h4);
+    font-size: $font-size-h4;
     background: inherit;
     color: var(--Grey-500);
   }

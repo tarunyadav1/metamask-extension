@@ -45,7 +45,7 @@
     background: transparent;
     text-align: center;
     width: 100%;
-    font-size: var(--font-size-h5);
+    font-size: $font-size-h5;
 
     &:focus {
       text-align: left;
