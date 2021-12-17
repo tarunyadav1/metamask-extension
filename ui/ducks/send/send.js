@@ -537,7 +537,7 @@ export const initializeSendState = createAsyncThunk(
           'Send slice initialized as collectibles send without token details',
         );
       }
-     // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
+      // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
     }
     return {
       address: fromAddress,
