@@ -16,39 +16,73 @@ export default function CreateNft() {
         />
       </Box>
       <Box
-        margin={[4, 0]}
+        margin={[4, 0, 2]}
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-start"
+        justifyContent="center"
+        className="create-nft__network-label"
+      >
+        <Typography
+          variant={TYPOGRAPHY.H3}
+          align="left"
+          className="create-nft__nft-name"
+          margin={[4, 0]}
+        >
+          Hackathon Team
+        </Typography>
+        <Typography
+          variant={TYPOGRAPHY.H6}
+          className="create-nft__nft-description"
+          margin={[2, 0]}
+        >
+          These are all the awesome team members for create NFT Hackathon team
+        </Typography>
+        <Box className="create-nft__nft-attrs" margin={[2, 0, 4]}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            margin={[1, 0]}
+          >
+            <strong>Team Size</strong>
+            <span>6</span>
+          </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            margin={[1, 0]}
+          >
+            <strong>Team Location</strong>
+            <span>Global</span>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        margin={[8, 0, 2]}
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
         className="create-nft__network-label"
       >
-        <Typography variant={TYPOGRAPHY.H4} color="#24292E">
-          Create NFT on
+        <Typography className="create-nft__rarible-label">
+          Lazy mint on Rarible
         </Typography>
-        <Typography className="create-nft__rarible-label">Rarible</Typography>
       </Box>
-      <Typography className="create-nft__gas-fee-label">
-        <strong>Estimated gas fee:</strong> &gt; $0.01
-      </Typography>
-      <Box display="flex" alignItems="center" justifyContent="center">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        marginBottom={4}
+      >
         <Typography className="create-nft__fee-info">
-          Gas is a network fee, not a MetaMask fee
+          Gas is free for now, you will once pay gas once you sell the NFT.
         </Typography>
-        <InfoTooltip
-          position="top"
-          contentText="Gas fees are paid to crypto miners who process transactions on the Ethereum network. MetaMask does not profit from gas fees.."
-        />
       </Box>
-      <Typography className="create-nft__link-btn">
-        Use a different network
-      </Typography>
-      <Typography className="create-nft__warning" margin={[4, 4]}>
-        NFTs created on this network may not be available on NFT marketplaces
-        like OpenSea.
-      </Typography>
       <Box display="flex" flexDirection="column" marginTop={10}>
-        <Button type="primary">Continue on Rarible</Button>
+        <Button type="primary">Lazy mint on Rarible</Button>
         <Box marginTop={4}>
           <Button type="secondary">Cancel</Button>
         </Box>

@@ -89,6 +89,8 @@
     font-weight: 400;
     font-size: 14px;
     color: #6A737D;
+    font-style: italic;
+    text-align: center;
   }
 
   &__gas-fee-label {
@@ -103,8 +105,20 @@
     color: #24292E;
   }
 
-  &__network-label {
+  &__nft-attrs {
     color: #24292E;
+    width: 100%;
+    font-size: 14px;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__nft-description {
+    font-weight: 400;
+    font-size: 14px;
+    color: #6A737D;
   }
 }
 

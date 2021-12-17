@@ -10,9 +10,9 @@ import PageContainerHeader from '../../components/ui/page-container/page-contain
 import Inputs from './inputs';
 import Submit from './submit';
 
-const uploadDataToIpfs = new CollectibleMintingController({
+const { uploadDataToIpfs } = new CollectibleMintingController({
   onNetworkStateChange: () => null,
-}).uploadDataToIpfs;
+});
 
 export default function CreateNft() {
   const history = useHistory();
@@ -24,9 +24,14 @@ export default function CreateNft() {
   };
 
   const onSubmit = async (fileData) => {
-    console.log(fileData);
-    const nftData = await uploadDataToIpfs({ name: 'test', type: 'image/png' });
-    console.log(nftData);
+    if (fileData) {
+      const { name, type, webkitRelativePath } = fileData;
+      await uploadDataToIpfs({
+        name,
+        type,
+        uri: webkitRelativePath,
+      });
+    }
     setState('submit');
   };
 

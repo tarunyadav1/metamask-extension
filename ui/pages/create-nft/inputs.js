@@ -29,6 +29,7 @@ export default function Inputs({ onSubmit }) {
           <Box className="create-nft__upload-text">
             browse files from your computer.
           </Box>
+          <Box marginTop={1}>{file?.name}</Box>
         </div>
       </label>
       <input
