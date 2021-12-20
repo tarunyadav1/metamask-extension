@@ -92,6 +92,10 @@ export default function ConfirmApprove() {
   const supportsEIP1559V2 =
     EIP_1559_V2_ENABLED && networkAndAccountSupports1559;
 
+  // use token address to get the data we want without needing to add to state
+  // check if the token exists in either tokens or collectibles and use that data
+  // then if not pass to a method "getTokenStandardAndDetails"
+
   const currentToken = (tokens &&
     tokens.find(({ address }) =>
       isEqualCaseInsensitive(tokenAddress, address),

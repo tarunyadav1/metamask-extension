@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     clearConfirmTransaction: () => dispatch(clearConfirmTransaction()),
     getContractMethodData: (data) => dispatch(getContractMethodData(data)),
-    getTokenParams: (tokenAddress) => dispatch(getTokenParams(tokenAddress)),
+    getTokenParams: (tokenAddress, transactionData) => dispatch(getTokenParams(tokenAddress, transactionData)),
     setDefaultHomeActiveTabName: (tabName) =>
       dispatch(setDefaultHomeActiveTabName(tabName)),
   };

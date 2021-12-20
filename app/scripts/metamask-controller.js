@@ -995,6 +995,7 @@ export default class MetamaskController extends EventEmitter {
       alertController,
       approvalController,
       appStateController,
+      assetsContractController,
       collectiblesController,
       collectibleDetectionController,
       currencyRateController,
@@ -1142,6 +1143,11 @@ export default class MetamaskController extends EventEmitter {
       ),
       setAdvancedGasFee: preferencesController.setAdvancedGasFee.bind(
         preferencesController,
+      ),
+
+      // AssetsContractController
+      getTokenStandard: assetsContractController.getTokenStandard.bind(
+        assetsContractController,
       ),
 
       // CollectiblesController

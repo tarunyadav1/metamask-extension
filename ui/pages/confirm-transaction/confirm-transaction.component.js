@@ -32,6 +32,12 @@ import {
   removePollingTokenFromAppState,
 } from '../../store/actions';
 import ConfTx from './conf-tx';
+import { getTokenData } from '../../helpers/utils/transactions.util';
+import {
+  calcTokenAmount,
+  getTokenValueParam,
+} from '../../helpers/utils/token-util';
+import console from 'console';
 
 export default class ConfirmTransaction extends Component {
   static contextTypes = {
@@ -98,10 +104,9 @@ export default class ConfirmTransaction extends Component {
       history.replace(mostRecentOverviewPage);
       return;
     }
-
     getContractMethodData(data);
     if (isTokenMethodAction) {
-      getTokenParams(to);
+      getTokenParams(to, data);
     }
     const txId = transactionId || paramsTransactionId;
     if (txId) {

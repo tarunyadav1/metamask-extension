@@ -7,8 +7,8 @@ import {
   fetchLocale,
   loadRelativeTimeFormatLocaleData,
 } from '../helpers/utils/i18n-helper';
-import { getMethodDataAsync } from '../helpers/utils/transactions.util';
-import { getSymbolAndDecimals } from '../helpers/utils/token-util';
+import { getMethodDataAsync, getTokenData } from '../helpers/utils/transactions.util';
+import { calcTokenAmount, getSymbolAndDecimals, getTokenValueParam } from '../helpers/utils/token-util';
 import { isEqualCaseInsensitive } from '../helpers/utils/util';
 import switchDirection from '../helpers/utils/switch-direction';
 import {
@@ -26,7 +26,10 @@ import {
 } from '../selectors';
 import { computeEstimatedGasLimit, resetSendState } from '../ducks/send';
 import { switchedToUnconnectedAccount } from '../ducks/alerts/unconnected-account';
-import { getUnconnectedAccountAlertEnabledness } from '../ducks/metamask/metamask';
+import {
+  getCollectibles,
+  getUnconnectedAccountAlertEnabledness,
+} from '../ducks/metamask/metamask';
 import { toChecksumHexAddress } from '../../shared/modules/hexstring-utils';
 import {
   DEVICE_NAMES,
@@ -2665,6 +2668,12 @@ export function loadingMethodDataFinished() {
   };
 }
 
+export function getTokenStandard(address, tokenId) {
+  return async () => {
+    return await promisifiedBackground.getTokenStandard(address, tokenId);
+  };
+}
+
 export function getContractMethodData(data = '') {
   return (dispatch, getState) => {
     const prefixedData = addHexPrefix(data);
@@ -2707,30 +2716,44 @@ export function loadingTokenParamsFinished() {
   };
 }
 
-export function getTokenParams(tokenAddress) {
-  return (dispatch, getState) => {
-    const tokenList = getTokenList(getState());
-    const existingTokens = getState().metamask.tokens;
-    const existingToken = existingTokens.find(({ address }) =>
-      isEqualCaseInsensitive(tokenAddress, address),
-    );
+export function getTokenParams(tokenAddress, transactionData) {
+  return async (dispatch, getState) => {
+    const tokenData = getTokenData(transactionData);
+    const tokenValue = getTokenValueParam(tokenData);
+    // TODO Rename these methods because this actually gives tokenId when ERC721
+    const tokenId = calcTokenAmount(tokenValue).toString(10);
 
-    if (existingToken) {
-      return Promise.resolve({
-        symbol: existingToken.symbol,
-        decimals: existingToken.decimals,
-      });
+    const tokenStandard = dispatch(getTokenStandard(tokenAddress, tokenId));
+    if (tokenStandard === 'ERC721' || tokenStandard === 'ERC1155') {
+      const existingCollectibles = getCollectibles(getState());
+      const existingCollectible = existingCollectibles.find(({ address }) =>
+        isEqualCaseInsensitive(tokenAddress, address),
+      );
+      if (existingCollectible) {
+        // TODO
+      }
+    } else if (tokenStandard === 'ERC20') {
+      const tokenList = getTokenList(getState());
+      const existingTokens = getState().metamask.tokens;
+      const existingToken = existingTokens.find(({ address }) =>
+        isEqualCaseInsensitive(tokenAddress, address),
+      );
+      if (existingToken) {
+        return Promise.resolve({
+          symbol: existingToken.symbol,
+          decimals: existingToken.decimals,
+        });
+      }
+
+      dispatch(loadingTokenParamsStarted());
+      log.debug(`loadingTokenParams`);
+      return getSymbolAndDecimals(tokenAddress, tokenList).then(
+        ({ symbol, decimals }) => {
+          dispatch(addToken(tokenAddress, symbol, Number(decimals)));
+          dispatch(loadingTokenParamsFinished());
+        },
+      );
     }
-
-    dispatch(loadingTokenParamsStarted());
-    log.debug(`loadingTokenParams`);
-
-    return getSymbolAndDecimals(tokenAddress, tokenList).then(
-      ({ symbol, decimals }) => {
-        dispatch(addToken(tokenAddress, symbol, Number(decimals)));
-        dispatch(loadingTokenParamsFinished());
-      },
-    );
   };
 }
 
