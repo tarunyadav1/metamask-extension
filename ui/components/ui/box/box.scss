@@ -31,7 +31,7 @@ $attributes: padding, margin, gap;
 
   @each $variant, $color in design-system.$color-map {
     &--border-color-#{$variant} {
-      border-color: $color;
+      border-color: var($color);
     }
   }
 
@@ -149,7 +149,7 @@ $attributes: padding, margin, gap;
   // background
   @each $variant, $color in design-system.$color-map {
     &--background-color-#{$variant} {
-      background-color: $color;
+      background-color: var($color);
     }
   }
 }
