@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect(() => {
+  checkAndUpdateCollectiblesOwnershipStatus()
+}) } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -31,7 +33,7 @@ import {
 import AssetNavigation from '../../../pages/asset/components/asset-navigation';
 import { getCollectibleContracts } from '../../../ducks/metamask/metamask';
 import { DEFAULT_ROUTE, SEND_ROUTE } from '../../../helpers/constants/routes';
-import { removeAndIgnoreCollectible } from '../../../store/actions';
+import { checkAndUpdateCollectiblesOwnershipStatus, removeAndIgnoreCollectible } from '../../../store/actions';
 import {
   GOERLI_CHAIN_ID,
   KOVAN_CHAIN_ID,
@@ -48,7 +50,15 @@ import { ASSET_TYPES, updateSendAsset } from '../../../ducks/send';
 import InfoTooltip from '../../ui/info-tooltip';
 
 export default function CollectibleDetails({ collectible }) {
-  const { image, name, description, address, tokenId, standard } = collectible;
+  const {
+    image,
+    name,
+    description,
+    address,
+    tokenId,
+    standard,
+    isCurrentlyOwned,
+  } = collectible;
   const t = useI18nContext();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -71,6 +81,10 @@ export default function CollectibleDetails({ collectible }) {
     history.push(DEFAULT_ROUTE);
   };
 
+  useEffect(() => {
+    checkAndUpdateCollectiblesOwnershipStatus()
+  })
+
   const getOpenSeaLink = () => {
     switch (currentNetwork) {
       case MAINNET_CHAIN_ID:
@@ -92,6 +106,18 @@ export default function CollectibleDetails({ collectible }) {
   const inPopUp = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;
 
   const onSend = () => {
+    const { address: contractAddress, tokenId } = collectible;
+    let isOwner;
+    try {
+      isOwner = isCollectibleOwner(
+        state.send.account.address ?? getSelectedAddress(state),
+        contractAddress,
+        tokenId,
+      );
+    } catch (error) {
+      // ignore
+    }
+
     dispatch(
       updateSendAsset({
         type: ASSET_TYPES.COLLECTIBLE,
@@ -103,6 +129,9 @@ export default function CollectibleDetails({ collectible }) {
   };
 
   const renderSendButton = () => {
+    if (isCurrentlyOwned === false) {
+      return null;
+    }
     return (
       <Box
         justifyContent={JUSTIFY_CONTENT.CENTER}

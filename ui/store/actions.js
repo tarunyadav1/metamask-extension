@@ -1391,6 +1391,29 @@ export function removeCollectible(address, tokenID, dontShowLoadingIndicator) {
   };
 }
 
+export function checkAndUpdateCollectiblesOwnershipStatus() {
+  return async (dispatch) => {
+    try {
+      await promisifiedBackground.checkAndUpdateCollectiblesOwnershipStatus();
+    } catch (error) {
+      log.error(error);
+      dispatch(displayWarning(error.message));
+    } finally {
+      await forceUpdateMetamaskState(dispatch);
+    }
+  };
+}
+
+export function isCollectibleOwner(userAddress, contractAddress, tokenId) {
+  return async () => {
+    return await promisifiedBackground.isCollectibleOwner(
+      userAddress,
+      contractAddress,
+      tokenId,
+    );
+  };
+}
+
 export function removeToken(address) {
   return async (dispatch) => {
     dispatch(showLoadingIndication());

@@ -56,6 +56,8 @@ import {
   updateTransaction,
   addPollingTokenToAppState,
   removePollingTokenFromAppState,
+  checkAndUpdateCollectiblesOwnershipStatus,
+  isCollectibleOwner,
 } from '../../store/actions';
 import { setCustomGasLimit } from '../gas/gas.duck';
 import {
@@ -319,10 +321,6 @@ async function estimateGasLimitForSend({
       error.message.includes('Transaction execution error.') ||
       error.message.includes(
         'gas required exceeds allowance or always failing transaction',
-      ) ||
-      // TODO determine whether there is a way to estimate gas for a collectible transfer without signing the data?
-      error.message.includes(
-        'ERC721: transfer caller is not owner nor approved',
       );
     if (simulationFailed) {
       const estimateWithBuffer = addGasBuffer(
@@ -538,6 +536,7 @@ export const initializeSendState = createAsyncThunk(
         );
       }
       // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
+      checkAndUpdateCollectiblesOwnershipStatus();
     }
     return {
       address: fromAddress,
@@ -1429,7 +1428,6 @@ export function updateSendAsset({ type, details }) {
 
       await dispatch(hideLoadingIndication());
     } else if (type === ASSET_TYPES.COLLECTIBLE) {
-      // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
       balance = '0x1';
     } else {
       // if changing to native currency, get it from the account key in send
