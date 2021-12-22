@@ -56,8 +56,6 @@ import {
   updateTransaction,
   addPollingTokenToAppState,
   removePollingTokenFromAppState,
-  checkAndUpdateCollectiblesOwnershipStatus,
-  isCollectibleOwner,
 } from '../../store/actions';
 import { setCustomGasLimit } from '../gas/gas.duck';
 import {
@@ -304,8 +302,6 @@ async function estimateGasLimitForSend({
     bufferMultiplier = CHAIN_ID_TO_GAS_LIMIT_BUFFER_MAP[chainId];
   }
 
-  // paramsForGasEstimate.chainId = chainId;
-
   try {
     // call into the background process that will simulate transaction
     // execution on the node and return an estimate of gasLimit
@@ -535,8 +531,7 @@ export const initializeSendState = createAsyncThunk(
           'Send slice initialized as collectibles send without token details',
         );
       }
-      // TODO CHECK AND UPDATE OWNERSHIP ONCE CONTROLLER v23.0.0 published
-      checkAndUpdateCollectiblesOwnershipStatus();
+      balance = '0x1';
     }
     return {
       address: fromAddress,
@@ -1646,20 +1641,18 @@ export function signTransaction() {
         const collectibleContract = global.eth
           .contract(abiERC721)
           .at(asset.details.address);
-        try {
-          collectibleContract.transferFrom(
-            selectedAddress,
-            address,
-            asset?.details?.tokenId,
-            {
-              ...txParams,
-              to: undefined,
-              data: undefined,
-            },
-          );
-        } catch (error) {
-          console.log('errror', error);
-        }
+        
+        collectibleContract.transferFrom(
+          selectedAddress,
+          address,
+          asset?.details?.tokenId,
+          {
+            ...txParams,
+            to: undefined,
+            data: undefined,
+          },
+        );
+
         dispatch(showConfTxPage());
         dispatch(hideLoadingIndication());
       } catch (error) {

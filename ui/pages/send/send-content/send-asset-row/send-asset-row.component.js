@@ -20,7 +20,7 @@ export default class SendAssetRow extends Component {
     ).isRequired,
     accounts: PropTypes.object.isRequired,
     selectedAddress: PropTypes.string.isRequired,
-    sendAssetAddress: PropTypes.string,
+    sendAsset: PropTypes.object,
     updateSendAsset: PropTypes.func.isRequired,
     nativeCurrency: PropTypes.string,
     nativeCurrencyImage: PropTypes.string,
@@ -51,11 +51,15 @@ export default class SendAssetRow extends Component {
   state = {
     isShowingDropdown: false,
     sendableTokens: [],
+    sendableCollectibles: [],
   };
 
   async componentDidMount() {
     const sendableTokens = this.props.tokens.filter((token) => !token.isERC721);
-    this.setState({ sendableTokens });
+    const sendableCollectibles = this.props.collectibles.filter(
+      (collectible) => collectible.isCurrentlyOwned,
+    );
+    this.setState({ sendableTokens, sendableCollectibles });
   }
 
   openDropdown = () => this.setState({ isShowingDropdown: true });
@@ -74,6 +78,7 @@ export default class SendAssetRow extends Component {
             action: 'Send Screen',
             name: 'User clicks "Assets" dropdown',
           },
+          // TODO UPDATE THIS EVENT
           customVariables: {
             assetSelected: token ? ERC20 : this.props.nativeCurrency,
           },
@@ -88,7 +93,6 @@ export default class SendAssetRow extends Component {
 
   render() {
     const { t } = this.context;
-    const { collectibles } = this.props;
 
     return (
       <SendRowWrapper label={`${t('asset')}:`}>
@@ -99,7 +103,8 @@ export default class SendAssetRow extends Component {
           >
             {this.renderSendAsset()}
           </div>
-          {[this.state.sendableTokens, ...collectibles].length > 0
+          {[...this.state.sendableTokens, ...this.state.sendableCollectibles]
+            .length > 0
             ? this.renderAssetDropdown()
             : null}
         </div>
@@ -108,18 +113,28 @@ export default class SendAssetRow extends Component {
   }
 
   renderSendAsset() {
-    const { sendAssetAddress, tokens, collectibles } = this.props;
+    const {
+      sendAsset: { details, type },
+      tokens,
+      collectibles,
+    } = this.props;
 
-    const token = tokens.find(({ address }) =>
-      isEqualCaseInsensitive(address, sendAssetAddress),
-    );
-    const collectible = collectibles.find(({ address }) =>
-      isEqualCaseInsensitive(address, sendAssetAddress),
-    );
-    if (collectible) {
-      return this.renderCollectible(collectible);
-    } else if (token) {
-      return this.renderToken(token);
+    if (type === 'TOKEN') {
+      const token = tokens.find(({ address }) =>
+        isEqualCaseInsensitive(address, details.address),
+      );
+      if (token) {
+        return this.renderToken(token);
+      }
+    } else if (type === 'COLLECTIBLE') {
+      const collectible = collectibles.find(
+        ({ address, tokenId }) =>
+          isEqualCaseInsensitive(address, details.address) &&
+          tokenId === details.tokenId,
+      );
+      if (collectible) {
+        return this.renderCollectible(collectible);
+      }
     }
     return this.renderNativeCurrency();
   }
@@ -137,7 +152,7 @@ export default class SendAssetRow extends Component {
             {this.state.sendableTokens.map((token) =>
               this.renderToken(token, true),
             )}
-            {this.props.collectibles.map((collectible) =>
+            {this.state.sendableCollectibles.map((collectible) =>
               this.renderCollectible(collectible, true),
             )}
           </div>
@@ -155,14 +170,17 @@ export default class SendAssetRow extends Component {
       nativeCurrencyImage,
     } = this.props;
 
+    const { sendableTokens, sendableCollectibles } = this.state;
+
     const balanceValue = accounts[selectedAddress]
       ? accounts[selectedAddress].balance
       : '';
 
+    const sendableAssets = [...sendableTokens, ...sendableCollectibles];
     return (
       <div
         className={
-          this.state.sendableTokens.length > 0
+          sendableAssets.length > 0
             ? 'send-v2__asset-dropdown__asset'
             : 'send-v2__asset-dropdown__single-asset'
         }
@@ -189,7 +207,7 @@ export default class SendAssetRow extends Component {
             />
           </div>
         </div>
-        {!insideDropdown && this.state.sendableTokens.length > 0 && (
+        {!insideDropdown && sendableAssets.length > 0 && (
           <i className="fa fa-caret-down fa-lg send-v2__asset-dropdown__caret" />
         )}
       </div>

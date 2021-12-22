@@ -1,6 +1,4 @@
-import React, { useEffect(() => {
-  checkAndUpdateCollectiblesOwnershipStatus()
-}) } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -33,7 +31,10 @@ import {
 import AssetNavigation from '../../../pages/asset/components/asset-navigation';
 import { getCollectibleContracts } from '../../../ducks/metamask/metamask';
 import { DEFAULT_ROUTE, SEND_ROUTE } from '../../../helpers/constants/routes';
-import { checkAndUpdateCollectiblesOwnershipStatus, removeAndIgnoreCollectible } from '../../../store/actions';
+import {
+  checkAndUpdateSingleCollectibleOwnershipStatus,
+  removeAndIgnoreCollectible,
+} from '../../../store/actions';
 import {
   GOERLI_CHAIN_ID,
   KOVAN_CHAIN_ID,
@@ -82,8 +83,9 @@ export default function CollectibleDetails({ collectible }) {
   };
 
   useEffect(() => {
-    checkAndUpdateCollectiblesOwnershipStatus()
-  })
+    // TODO bump controllers version to use this method once v23.1.0 is cut
+    checkAndUpdateSingleCollectibleOwnershipStatus(collectible);
+  }, [collectible]);
 
   const getOpenSeaLink = () => {
     switch (currentNetwork) {
@@ -106,18 +108,6 @@ export default function CollectibleDetails({ collectible }) {
   const inPopUp = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;
 
   const onSend = () => {
-    const { address: contractAddress, tokenId } = collectible;
-    let isOwner;
-    try {
-      isOwner = isCollectibleOwner(
-        state.send.account.address ?? getSelectedAddress(state),
-        contractAddress,
-        tokenId,
-      );
-    } catch (error) {
-      // ignore
-    }
-
     dispatch(
       updateSendAsset({
         type: ASSET_TYPES.COLLECTIBLE,
@@ -130,7 +120,7 @@ export default function CollectibleDetails({ collectible }) {
 
   const renderSendButton = () => {
     if (isCurrentlyOwned === false) {
-      return null;
+      return <div style={{ height: '30px' }} />;
     }
     return (
       <Box
@@ -183,41 +173,45 @@ export default function CollectibleDetails({ collectible }) {
           </Card>
           <Box
             flexDirection={FLEX_DIRECTION.COLUMN}
-            className="collectible-details__top-section__info"
+            className="collectible-details__top-section-info"
             justifyContent={JUSTIFY_CONTENT.SPACE_BETWEEN}
           >
-            <Typography
-              color={COLORS.BLACK}
-              variant={TYPOGRAPHY.H4}
-              fontWeight={FONT_WEIGHT.BOLD}
-              boxProps={{ margin: 0, marginBottom: 4 }}
-            >
-              {name}
-            </Typography>
-            <Typography
-              color={COLORS.UI3}
-              variant={TYPOGRAPHY.H5}
-              boxProps={{ margin: 0, marginBottom: 4 }}
-              overflowWrap={OVERFLOW_WRAP.BREAK_WORD}
-            >
-              {`#${tokenId}`}
-            </Typography>
-            <Typography
-              color={COLORS.BLACK}
-              variant={TYPOGRAPHY.H6}
-              fontWeight={FONT_WEIGHT.BOLD}
-              className="collectible-details__description"
-              boxProps={{ margin: 0, marginBottom: 2 }}
-            >
-              {t('description')}
-            </Typography>
-            <Typography
-              color={COLORS.UI4}
-              variant={TYPOGRAPHY.H6}
-              boxProps={{ margin: 0, marginBottom: 3 }}
-            >
-              {description}
-            </Typography>
+            <div>
+              <Typography
+                color={COLORS.BLACK}
+                variant={TYPOGRAPHY.H4}
+                fontWeight={FONT_WEIGHT.BOLD}
+                boxProps={{ margin: 0, marginBottom: 3 }}
+              >
+                {name}
+              </Typography>
+              <Typography
+                color={COLORS.UI3}
+                variant={TYPOGRAPHY.H5}
+                boxProps={{ margin: 0 }}
+                overflowWrap={OVERFLOW_WRAP.BREAK_WORD}
+              >
+                {`#${tokenId}`}
+              </Typography>
+            </div>
+            <div>
+              <Typography
+                color={COLORS.BLACK}
+                variant={TYPOGRAPHY.H6}
+                fontWeight={FONT_WEIGHT.BOLD}
+                className="collectible-details__description"
+                boxProps={{ margin: 0, marginBottom: 2 }}
+              >
+                {t('description')}
+              </Typography>
+              <Typography
+                color={COLORS.UI4}
+                variant={TYPOGRAPHY.H6}
+                boxProps={{ margin: 0, marginBottom: 3 }}
+              >
+                {description}
+              </Typography>
+            </div>
             {inPopUp ? null : renderSendButton()}
           </Box>
         </div>
@@ -307,6 +301,7 @@ CollectibleDetails.propTypes = {
   collectible: PropTypes.shape({
     address: PropTypes.string.isRequired,
     tokenId: PropTypes.string.isRequired,
+    isCurrentlyOwned: PropTypes.bool,
     name: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,

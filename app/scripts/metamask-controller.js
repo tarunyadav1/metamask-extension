@@ -1161,7 +1161,11 @@ export default class MetamaskController extends EventEmitter {
         collectiblesController,
       ),
 
-      checkAndUpdateCollectiblesOwnershipStatus: collectiblesController.checkAndUpdateCollectiblesOwnershipStatus.bind(
+      checkAndUpdateAllCollectiblesOwnershipStatus: collectiblesController.checkAndUpdateAllCollectiblesOwnershipStatus.bind(
+        collectiblesController,
+      ),
+
+      checkAndUpdateSingleCollectibleOwnershipStatus: collectiblesController.checkAndUpdateSingleCollectibleOwnershipStatus.bind(
         collectiblesController,
       ),
 
