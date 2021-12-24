@@ -7,11 +7,11 @@ import {
   showModal,
   updateCustomNonce,
   getNextNonce,
-  getAssetDetails,
 } from '../../store/actions';
 import { getTokenData } from '../../helpers/utils/transactions.util';
 import {
   calcTokenAmount,
+  getAssetDetails,
   getTokenAddressParam,
   getTokenValueParam,
 } from '../../helpers/utils/token-util';
@@ -23,6 +23,7 @@ import {
   getTokens,
   getNativeCurrency,
   isAddressLedger,
+  getCollectibles,
 } from '../../ducks/metamask/metamask';
 import {
   transactionFeeSelector,
@@ -36,6 +37,7 @@ import {
   getRpcPrefsForCurrentProvider,
   getIsMultiLayerFeeNetwork,
   checkNetworkAndAccountSupports1559,
+  getTokenList,
 } from '../../selectors';
 import { useApproveTransaction } from '../../hooks/useApproveTransaction';
 import { currentNetworkTxListSelector } from '../../selectors/transactions';
@@ -46,7 +48,7 @@ import Loading from '../../components/ui/loading-screen';
 import { isEqualCaseInsensitive } from '../../helpers/utils/util';
 import { getCustomTxParamsData } from './confirm-approve.util';
 import ConfirmApproveContent from './confirm-approve-content';
-import { ERC20 } from '../../helpers/constants/common';
+import { ERC20, ERC1155, ERC721 } from '../../helpers/constants/common';
 
 const isAddressLedgerByFromAddress = (address) => (state) => {
   return isAddressLedger(state, address);
@@ -56,19 +58,20 @@ const isAddressLedgerByFromAddress = (address) => (state) => {
 const EIP_1559_V2_ENABLED =
   process.env.EIP_1559_V2 === true || process.env.EIP_1559_V2 === 'true';
 
-export default function ConfirmApprove() {
+export default function ConfirmApprove({ transaction }) {
   const dispatch = useDispatch();
   const { id: paramsTransactionId } = useParams();
   const {
     id: transactionId,
     txParams: { to: tokenAddress, data, from } = {},
-  } = useSelector(txDataSelector);
-
+  } = transaction;
   const currentCurrency = useSelector(getCurrentCurrency);
   const nativeCurrency = useSelector(getNativeCurrency);
   const currentNetworkTxList = useSelector(currentNetworkTxListSelector);
   const subjectMetadata = useSelector(getSubjectMetadata);
   const tokens = useSelector(getTokens);
+  const collectibles = useSelector(getCollectibles);
+  const tokenList = useSelector(getTokenList);
   const useNonceField = useSelector(getUseNonceField);
   const nextNonce = useSelector(getNextSuggestedNonce);
   const customNonceValue = useSelector(getCustomNonceValue);
@@ -78,13 +81,15 @@ export default function ConfirmApprove() {
   const networkAndAccountSupports1559 = useSelector(
     checkNetworkAndAccountSupports1559,
   );
+  const [currentAsset, setCurrentAsset] = useState(null);
+  const [customPermissionAmount, setCustomPermissionAmount] = useState('');
 
   const fromAddressIsLedger = useSelector(isAddressLedgerByFromAddress(from));
 
-  const transaction =
-    currentNetworkTxList.find(
-      ({ id }) => id === (Number(paramsTransactionId) || transactionId),
-    ) || {};
+  // const transaction =
+  //   currentNetworkTxList.find(
+  //     ({ id }) => id === (Number(paramsTransactionId) || transactionId),
+  //   ) || {};
   const {
     ethTransactionTotal,
     fiatTransactionTotal,
@@ -97,25 +102,55 @@ export default function ConfirmApprove() {
   // use token address to get the data we want without needing to add to state
   // check if the token exists in either tokens or collectibles and use that data
   // then if not pass to a method "getTokenStandardAndDetails"
-  const currentAsset = await getAssetDetails(tokenAddress, data);
 
-  const assetStandard = currentAsset?.standard;
-  // TODO create branching logic here based on the standard!
-  const assetName = currentAsset?.name;
-  const assetAddress = currentAsset?.address;
-  const { tokensWithBalances } = useTokenTracker([currentAsset]);
-  const tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
-  const tokenSymbol = currentAsset?.symbol;
-  const decimals = Number(currentAsset?.decimals);
-  const tokenImage = currentAsset?.image;
-  const tokenData = getTokenData(data);
-  const tokenValue = getTokenValueParam(tokenData);
-  const toAddress = getTokenAddressParam(tokenData);
-  const tokenAmount =
-    tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
+  useEffect(() => {
+    async function getAndSetAssetDetails() {
+      const assetDetails = await getAssetDetails(
+        tokenAddress,
+        data,
+        collectibles,
+        tokens,
+        tokenList,
+      );
+      setCurrentAsset(assetDetails);
+    }
+    getAndSetAssetDetails();
+  }, []);
 
-  const [customPermissionAmount, setCustomPermissionAmount] = useState('');
+  let assetStandard,
+    assetName,
+    assetAddress,
+    tokenTrackerBalance,
+    tokenSymbol,
+    decimals,
+    tokenImage,
+    tokenValue,
+    toAddress,
+    tokenAmount,
+    tokenData;
 
+  if (currentAsset) {
+    assetStandard = currentAsset?.standard;
+    // TODO create branching logic here based on the standard!
+    assetAddress = currentAsset?.address;
+    tokenData = getTokenData(data);
+    tokenSymbol = currentAsset?.symbol;
+    tokenImage = currentAsset?.image;
+    toAddress = getTokenAddressParam(tokenData);
+
+    if (assetStandard === ERC721 || assetStandard === ERC1155) {
+      assetName = currentAsset?.name;
+    }
+    if (assetStandard === ERC20) {
+      // const { tokensWithBalances } = useTokenTracker([currentAsset]);
+      // tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
+      decimals = Number(currentAsset?.decimals.toString(10));
+      tokenValue = getTokenValueParam(tokenData);
+      // TODO this calculation is screwed up
+      tokenAmount =
+        tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
+    }
+  }
   const previousTokenAmount = useRef(tokenAmount);
 
   const {
@@ -152,6 +187,7 @@ export default function ConfirmApprove() {
   }, [customNonceValue, nextNonce]);
 
   const [isContract, setIsContract] = useState(false);
+
   const checkIfContract = useCallback(async () => {
     const { isContractAddress } = await readAddressAsContract(
       global.eth,
@@ -159,6 +195,7 @@ export default function ConfirmApprove() {
     );
     setIsContract(isContractAddress);
   }, [setIsContract, toAddress]);
+
   useEffect(() => {
     checkIfContract();
   }, [checkIfContract]);
@@ -169,10 +206,10 @@ export default function ConfirmApprove() {
   const { iconUrl: siteImage = '' } = subjectMetadata[origin] || {};
 
   let tokensText;
-  if(assetStandard === ERC20){
+  if (assetStandard === ERC20) {
     tokensText = `${Number(tokenAmount)} ${tokenSymbol}`;
-  } else if (assetStandard === ERC721 || assetStandard === ERC1155){
-    tokensText = assetName
+  } else if (assetStandard === ERC721 || assetStandard === ERC1155) {
+    tokensText = assetName;
   }
 
   const tokenBalance = tokenTrackerBalance
@@ -183,7 +220,9 @@ export default function ConfirmApprove() {
     : null;
 
   // NEED TO SORT OUT WHAT IS NEEDED HERE AND WHAT ISN'T
-  return tokenSymbol === undefined && assetName === undefined && assetAddress === undefined ? (
+  return tokenSymbol === undefined &&
+    assetName === undefined &&
+    assetAddress === undefined ? (
     <Loading />
   ) : (
     <GasFeeContextProvider transaction={transaction}>

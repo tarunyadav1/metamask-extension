@@ -6,6 +6,8 @@ import {
 } from '../../../shared/modules/conversion.utils';
 import * as util from './util';
 import { formatCurrency } from './confirm-tx.util';
+import { getTokenStandardAndDetails } from '../../store/actions';
+import { getTokenData } from './transactions.util';
 
 const DEFAULT_SYMBOL = '';
 
@@ -211,4 +213,67 @@ export function getTokenFiatAmount(
     result = currentTokenInFiat;
   }
   return result;
+}
+
+export async function getAssetDetails(
+  tokenAddress,
+  transactionData,
+  existingCollectibles,
+  existingTokens,
+  tokenList,
+) {
+  const tokenData = getTokenData(transactionData);
+  const tokenValue = getTokenValueParam(tokenData);
+  // TODO Rename these methods because this actually gives tokenId when ERC721
+  const tokenId = calcTokenAmount(tokenValue).toString(10);
+  let tokenDetails;
+  try {
+    tokenDetails = await getTokenStandardAndDetails(tokenAddress, tokenId);
+  } catch (error) {
+    console.log('error', error);
+  }
+  if (
+    tokenDetails?.standard === 'ERC721' ||
+    tokenDetails?.standard === 'ERC1155'
+  ) {
+    const existingCollectible = existingCollectibles.find(({ address }) =>
+      util.isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingCollectible) {
+      return {
+        address: existingCollectible?.address,
+        description: existingCollectible?.description,
+        favorite: existingCollectible?.favorite,
+        image: existingCollectible?.image,
+        isCurrentlyOwned: existingCollectible?.isCurrentlyOwned,
+        name: existingCollectible?.name,
+        tokenId: existingCollectible?.tokenId,
+        standard: tokenDetails?.standard,
+      };
+    } else {
+      return tokenDetailss;
+    }
+  } else if (tokenDetails?.standard === 'ERC20') {
+    const existingToken = existingTokens.find(({ address }) =>
+      util.isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingToken) {
+      return {
+        symbol: existingToken?.symbol,
+        decimals: existingToken?.decimals,
+        standard: tokenDetails?.standard,
+      };
+    }
+
+    // TODO this dispatch doesn't appear to have a case in reducer
+    const { symbol, decimals } = await getSymbolAndDecimals(
+      tokenAddress,
+      tokenList,
+    );
+    return {
+      symbol,
+      decimals,
+      standard: tokenDetails?.standard,
+    };
+  }
 }

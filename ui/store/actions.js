@@ -2724,65 +2724,62 @@ export function loadingTokenParamsFinished() {
   };
 }
 
-export async function getAssetDetails(tokenAddress, transactionData) {
-  // return async (dispatch, getState) => {
-  const tokenData = getTokenData(transactionData);
-  const tokenValue = getTokenValueParam(tokenData);
-  // TODO Rename these methods because this actually gives tokenId when ERC721
-  const tokenId = calcTokenAmount(tokenValue).toString(10);
-  let tokenDetails;
-  try {
-    tokenDetails = await getTokenStandardAndDetails(tokenAddress, tokenId);
-  } catch (error) {
-    // TODO
-    console.log('error', error);
-  }
-  if (
-    tokenDetails?.standard === 'ERC721' ||
-    tokenDetails?.standard === 'ERC1155'
-  ) {
-    const existingCollectibles = getCollectibles(getState());
-    const existingCollectible = existingCollectibles.find(({ address }) =>
-      isEqualCaseInsensitive(tokenAddress, address),
-    );
-    if (existingCollectible) {
-      return Promise.resolve({
-        address: existingCollectible?.address,
-        description: existingCollectible?.description,
-        favorite: existingCollectible?.favorite,
-        image: existingCollectible?.image,
-        isCurrentlyOwned: existingCollectible?.isCurrentlyOwned,
-        name: existingCollectible?.name,
-        standard: existingCollectible?.standard,
-        tokenId: existingCollectible?.tokenId,
-      });
-    } else {
-      return Promise.resolve(tokenDetails);
-    }
-  } else if (tokenDetails?.standard === 'ERC20') {
-    const tokenList = getTokenList(getState());
-    const existingTokens = getState().metamask.tokens;
-    const existingToken = existingTokens.find(({ address }) =>
-      isEqualCaseInsensitive(tokenAddress, address),
-    );
-    if (existingToken) {
-      return Promise.resolve({
-        symbol: existingToken.symbol,
-        decimals: existingToken.decimals,
-      });
-    }
+// export async function getAssetDetails(tokenAddress, transactionData) {
+//   // return async (dispatch, getState) => {
+//   const tokenData = getTokenData(transactionData);
+//   const tokenValue = getTokenValueParam(tokenData);
+//   // TODO Rename these methods because this actually gives tokenId when ERC721
+//   const tokenId = calcTokenAmount(tokenValue).toString(10);
+//   let tokenDetails;
+//   try {
+//     tokenDetails = await getTokenStandardAndDetails(tokenAddress, tokenId);
+//   } catch (error) {
+//     // TODO
+//     console.log('error', error);
+//   }
+//   if (
+//     tokenDetails?.standard === 'ERC721' ||
+//     tokenDetails?.standard === 'ERC1155'
+//   ) {
+//     const existingCollectibles = getCollectibles(
+//       promisifiedBackground.getState(),
+//     );
+//     const existingCollectible = existingCollectibles.find(({ address }) =>
+//       isEqualCaseInsensitive(tokenAddress, address),
+//     );
+//     if (existingCollectible) {
+//       return {
+//         address: existingCollectible?.address,
+//         description: existingCollectible?.description,
+//         favorite: existingCollectible?.favorite,
+//         image: existingCollectible?.image,
+//         isCurrentlyOwned: existingCollectible?.isCurrentlyOwned,
+//         name: existingCollectible?.name,
+//         standard: existingCollectible?.standard,
+//         tokenId: existingCollectible?.tokenId,
+//       };
+//     } else {
+//       return tokenDetails;
+//     }
+//   } else if (tokenDetails?.standard === 'ERC20') {
+//     const tokenList = getTokenList(promisifiedBackground.getState());
+//     const existingTokens = promisifiedBackground.getState().metamask.tokens;
+//     const existingToken = existingTokens.find(({ address }) =>
+//       isEqualCaseInsensitive(tokenAddress, address),
+//     );
+//     if (existingToken) {
+//       return {
+//         symbol: existingToken.symbol,
+//         decimals: existingToken.decimals,
+//       };
+//     }
 
-    // TODO this dispatch doesn't appear to have a case in reducer
-    // dispatch(loadingTokenParamsStarted());
-    log.debug(`loadingTokenParams`);
-    return getSymbolAndDecimals(tokenAddress, tokenList).then(
-      ({ symbol, decimals }) => {
-        // dispatch(addToken(tokenAddress, symbol, Number(decimals)));
-        // dispatch(loadingTokenParamsFinished());
-      },
-    );
-  }
-}
+//     // TODO this dispatch doesn't appear to have a case in reducer
+//     // dispatch(loadingTokenParamsStarted());
+//     log.debug(`loadingTokenParams`);
+//     return await getSymbolAndDecimals(tokenAddress, tokenList);
+//   }
+// }
 
 export function setSeedPhraseBackedUp(seedPhraseBackupState) {
   return (dispatch) => {
