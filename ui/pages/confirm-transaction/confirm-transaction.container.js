@@ -9,7 +9,7 @@ import { isTokenMethodAction } from '../../helpers/utils/transactions.util';
 
 import {
   getContractMethodData,
-  getTokenParams,
+  getAssetDetails,
   setDefaultHomeActiveTabName,
 } from '../../store/actions';
 import { unconfirmedTransactionsListSelector } from '../../selectors';
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     clearConfirmTransaction: () => dispatch(clearConfirmTransaction()),
     getContractMethodData: (data) => dispatch(getContractMethodData(data)),
-    getTokenParams: (tokenAddress, transactionData) => dispatch(getTokenParams(tokenAddress, transactionData)),
+    getAssetDetails: (tokenAddress, transactionData) => getAssetDetails(tokenAddress, transactionData),
     setDefaultHomeActiveTabName: (tabName) =>
       dispatch(setDefaultHomeActiveTabName(tabName)),
   };

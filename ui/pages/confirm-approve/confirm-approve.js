@@ -7,6 +7,7 @@ import {
   showModal,
   updateCustomNonce,
   getNextNonce,
+  getAssetDetails,
 } from '../../store/actions';
 import { getTokenData } from '../../helpers/utils/transactions.util';
 import {
@@ -45,6 +46,7 @@ import Loading from '../../components/ui/loading-screen';
 import { isEqualCaseInsensitive } from '../../helpers/utils/util';
 import { getCustomTxParamsData } from './confirm-approve.util';
 import ConfirmApproveContent from './confirm-approve-content';
+import { ERC20 } from '../../helpers/constants/common';
 
 const isAddressLedgerByFromAddress = (address) => (state) => {
   return isAddressLedger(state, address);
@@ -95,20 +97,17 @@ export default function ConfirmApprove() {
   // use token address to get the data we want without needing to add to state
   // check if the token exists in either tokens or collectibles and use that data
   // then if not pass to a method "getTokenStandardAndDetails"
+  const currentAsset = await getAssetDetails(tokenAddress, data);
 
-  const currentToken = (tokens &&
-    tokens.find(({ address }) =>
-      isEqualCaseInsensitive(tokenAddress, address),
-    )) || {
-    address: tokenAddress,
-  };
-
-  const { tokensWithBalances } = useTokenTracker([currentToken]);
+  const assetStandard = currentAsset?.standard;
+  // TODO create branching logic here based on the standard!
+  const assetName = currentAsset?.name;
+  const assetAddress = currentAsset?.address;
+  const { tokensWithBalances } = useTokenTracker([currentAsset]);
   const tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
-
-  const tokenSymbol = currentToken?.symbol;
-  const decimals = Number(currentToken?.decimals);
-  const tokenImage = currentToken?.image;
+  const tokenSymbol = currentAsset?.symbol;
+  const decimals = Number(currentAsset?.decimals);
+  const tokenImage = currentAsset?.image;
   const tokenData = getTokenData(data);
   const tokenValue = getTokenValueParam(tokenData);
   const toAddress = getTokenAddressParam(tokenData);
@@ -169,7 +168,13 @@ export default function ConfirmApprove() {
 
   const { iconUrl: siteImage = '' } = subjectMetadata[origin] || {};
 
-  const tokensText = `${Number(tokenAmount)} ${tokenSymbol}`;
+  let tokensText;
+  if(assetStandard === ERC20){
+    tokensText = `${Number(tokenAmount)} ${tokenSymbol}`;
+  } else if (assetStandard === ERC721 || assetStandard === ERC1155){
+    tokensText = assetName
+  }
+
   const tokenBalance = tokenTrackerBalance
     ? calcTokenAmount(tokenTrackerBalance, decimals).toString(10)
     : '';
@@ -177,7 +182,8 @@ export default function ConfirmApprove() {
     ? getCustomTxParamsData(data, { customPermissionAmount, decimals })
     : null;
 
-  return tokenSymbol === undefined ? (
+  // NEED TO SORT OUT WHAT IS NEEDED HERE AND WHAT ISN'T
+  return tokenSymbol === undefined && assetName === undefined && assetAddress === undefined ? (
     <Loading />
   ) : (
     <GasFeeContextProvider transaction={transaction}>

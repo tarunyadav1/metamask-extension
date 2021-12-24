@@ -7,8 +7,15 @@ import {
   fetchLocale,
   loadRelativeTimeFormatLocaleData,
 } from '../helpers/utils/i18n-helper';
-import { getMethodDataAsync, getTokenData } from '../helpers/utils/transactions.util';
-import { calcTokenAmount, getSymbolAndDecimals, getTokenValueParam } from '../helpers/utils/token-util';
+import {
+  getMethodDataAsync,
+  getTokenData,
+} from '../helpers/utils/transactions.util';
+import {
+  calcTokenAmount,
+  getSymbolAndDecimals,
+  getTokenValueParam,
+} from '../helpers/utils/token-util';
 import { isEqualCaseInsensitive } from '../helpers/utils/util';
 import switchDirection from '../helpers/utils/switch-direction';
 import {
@@ -2668,10 +2675,11 @@ export function loadingMethodDataFinished() {
   };
 }
 
-export function getTokenStandard(address, tokenId) {
-  return async () => {
-    return await promisifiedBackground.getTokenStandard(address, tokenId);
-  };
+export async function getTokenStandardAndDetails(address, tokenId) {
+  return await promisifiedBackground.getTokenStandardAndDetails(
+    address,
+    tokenId,
+  );
 }
 
 export function getContractMethodData(data = '') {
@@ -2716,45 +2724,64 @@ export function loadingTokenParamsFinished() {
   };
 }
 
-export function getTokenParams(tokenAddress, transactionData) {
-  return async (dispatch, getState) => {
-    const tokenData = getTokenData(transactionData);
-    const tokenValue = getTokenValueParam(tokenData);
-    // TODO Rename these methods because this actually gives tokenId when ERC721
-    const tokenId = calcTokenAmount(tokenValue).toString(10);
-
-    const tokenStandard = dispatch(getTokenStandard(tokenAddress, tokenId));
-    if (tokenStandard === 'ERC721' || tokenStandard === 'ERC1155') {
-      const existingCollectibles = getCollectibles(getState());
-      const existingCollectible = existingCollectibles.find(({ address }) =>
-        isEqualCaseInsensitive(tokenAddress, address),
-      );
-      if (existingCollectible) {
-        // TODO
-      }
-    } else if (tokenStandard === 'ERC20') {
-      const tokenList = getTokenList(getState());
-      const existingTokens = getState().metamask.tokens;
-      const existingToken = existingTokens.find(({ address }) =>
-        isEqualCaseInsensitive(tokenAddress, address),
-      );
-      if (existingToken) {
-        return Promise.resolve({
-          symbol: existingToken.symbol,
-          decimals: existingToken.decimals,
-        });
-      }
-
-      dispatch(loadingTokenParamsStarted());
-      log.debug(`loadingTokenParams`);
-      return getSymbolAndDecimals(tokenAddress, tokenList).then(
-        ({ symbol, decimals }) => {
-          dispatch(addToken(tokenAddress, symbol, Number(decimals)));
-          dispatch(loadingTokenParamsFinished());
-        },
-      );
+export async function getAssetDetails(tokenAddress, transactionData) {
+  // return async (dispatch, getState) => {
+  const tokenData = getTokenData(transactionData);
+  const tokenValue = getTokenValueParam(tokenData);
+  // TODO Rename these methods because this actually gives tokenId when ERC721
+  const tokenId = calcTokenAmount(tokenValue).toString(10);
+  let tokenDetails;
+  try {
+    tokenDetails = await getTokenStandardAndDetails(tokenAddress, tokenId);
+  } catch (error) {
+    // TODO
+    console.log('error', error);
+  }
+  if (
+    tokenDetails?.standard === 'ERC721' ||
+    tokenDetails?.standard === 'ERC1155'
+  ) {
+    const existingCollectibles = getCollectibles(getState());
+    const existingCollectible = existingCollectibles.find(({ address }) =>
+      isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingCollectible) {
+      return Promise.resolve({
+        address: existingCollectible?.address,
+        description: existingCollectible?.description,
+        favorite: existingCollectible?.favorite,
+        image: existingCollectible?.image,
+        isCurrentlyOwned: existingCollectible?.isCurrentlyOwned,
+        name: existingCollectible?.name,
+        standard: existingCollectible?.standard,
+        tokenId: existingCollectible?.tokenId,
+      });
+    } else {
+      return Promise.resolve(tokenDetails);
     }
-  };
+  } else if (tokenDetails?.standard === 'ERC20') {
+    const tokenList = getTokenList(getState());
+    const existingTokens = getState().metamask.tokens;
+    const existingToken = existingTokens.find(({ address }) =>
+      isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingToken) {
+      return Promise.resolve({
+        symbol: existingToken.symbol,
+        decimals: existingToken.decimals,
+      });
+    }
+
+    // TODO this dispatch doesn't appear to have a case in reducer
+    // dispatch(loadingTokenParamsStarted());
+    log.debug(`loadingTokenParams`);
+    return getSymbolAndDecimals(tokenAddress, tokenList).then(
+      ({ symbol, decimals }) => {
+        // dispatch(addToken(tokenAddress, symbol, Number(decimals)));
+        // dispatch(loadingTokenParamsFinished());
+      },
+    );
+  }
 }
 
 export function setSeedPhraseBackedUp(seedPhraseBackupState) {

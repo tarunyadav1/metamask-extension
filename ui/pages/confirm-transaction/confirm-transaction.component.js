@@ -37,7 +37,6 @@ import {
   calcTokenAmount,
   getTokenValueParam,
 } from '../../helpers/utils/token-util';
-import console from 'console';
 
 export default class ConfirmTransaction extends Component {
   static contextTypes = {
@@ -55,7 +54,7 @@ export default class ConfirmTransaction extends Component {
     getContractMethodData: PropTypes.func,
     transactionId: PropTypes.string,
     paramsTransactionId: PropTypes.string,
-    getTokenParams: PropTypes.func,
+    getAssetDetails: PropTypes.func,
     isTokenMethodAction: PropTypes.bool,
     setDefaultHomeActiveTabName: PropTypes.func,
   };
@@ -84,7 +83,7 @@ export default class ConfirmTransaction extends Component {
       getContractMethodData,
       transactionId,
       paramsTransactionId,
-      getTokenParams,
+      getAssetDetails,
       isTokenMethodAction,
     } = this.props;
 
@@ -105,8 +104,11 @@ export default class ConfirmTransaction extends Component {
       return;
     }
     getContractMethodData(data);
+    let tokenParams;
     if (isTokenMethodAction) {
-      getTokenParams(to, data);
+      getAssetDetails(to, data).then((res) => {
+        tokenParams = res;
+      });
     }
     const txId = transactionId || paramsTransactionId;
     if (txId) {
