@@ -49,6 +49,7 @@ import { isEqualCaseInsensitive } from '../../helpers/utils/util';
 import { getCustomTxParamsData } from './confirm-approve.util';
 import ConfirmApproveContent from './confirm-approve-content';
 import { ERC20, ERC1155, ERC721 } from '../../helpers/constants/common';
+import { useAssetDetails } from '../../hooks/useAssetDetails';
 
 const isAddressLedgerByFromAddress = (address) => (state) => {
   return isAddressLedger(state, address);
@@ -63,7 +64,11 @@ export default function ConfirmApprove({ transaction }) {
   const { id: paramsTransactionId } = useParams();
   const {
     id: transactionId,
-    txParams: { to: tokenAddress, data, from } = {},
+    txParams: {
+      to: tokenAddress,
+      data: transactionData,
+      from: fromAddress,
+    } = {},
   } = transaction;
   const currentCurrency = useSelector(getCurrentCurrency);
   const nativeCurrency = useSelector(getNativeCurrency);
@@ -84,7 +89,7 @@ export default function ConfirmApprove({ transaction }) {
   const [currentAsset, setCurrentAsset] = useState(null);
   const [customPermissionAmount, setCustomPermissionAmount] = useState('');
 
-  const fromAddressIsLedger = useSelector(isAddressLedgerByFromAddress(from));
+  const fromAddressIsLedger = useSelector(isAddressLedgerByFromAddress(fromAddress));
 
   // const transaction =
   //   currentNetworkTxList.find(
@@ -103,54 +108,70 @@ export default function ConfirmApprove({ transaction }) {
   // check if the token exists in either tokens or collectibles and use that data
   // then if not pass to a method "getTokenStandardAndDetails"
 
-  useEffect(() => {
-    async function getAndSetAssetDetails() {
-      const assetDetails = await getAssetDetails(
-        tokenAddress,
-        data,
-        collectibles,
-        tokens,
-        tokenList,
-      );
-      setCurrentAsset(assetDetails);
-    }
-    getAndSetAssetDetails();
-  }, []);
+  // useEffect(() => {
+  //   async function getAndSetAssetDetails() {
+  //     const assetDetails = await getAssetDetails(
+  //       tokenAddress,
+  //       transactionData,
+  //       collectibles,
+  //       tokens,
+  //       tokenList,
+  //     );
+  //     setCurrentAsset(assetDetails);
+  //   }
+  //   getAndSetAssetDetails();
+  // }, []);
 
-  let assetStandard,
+  // // TODO wrap this all in a hook (useCurrentAsset)
+  // let assetStandard,
+  //   assetName,
+  //   assetAddress,
+  //   tokenTrackerBalance,
+  //   tokenSymbol,
+  //   decimals,
+  //   tokenImage,
+  //   tokenValue,
+  //   toAddress,
+  //   tokenAmount,
+  //   tokenData;
+
+  // if (currentAsset) {
+  //   assetStandard = currentAsset?.standard;
+  //   assetAddress = currentAsset?.address;
+  //   tokenSymbol = currentAsset?.symbol;
+  //   tokenImage = currentAsset?.image;
+  //   tokenData = getTokenData(transactionData);
+  //   toAddress = getTokenAddressParam(tokenData);
+
+  //   if (assetStandard === ERC721 || assetStandard === ERC1155) {
+  //     assetName = currentAsset?.name;
+  //   }
+  //   if (assetStandard === ERC20) {
+  //     const { tokensWithBalances } = useTokenTracker([
+  //       { ...currentAsset, address: tokenAddress },
+  //     ]);
+  //     tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
+  //     decimals = Number(currentAsset?.decimals.toString(10));
+  //     tokenValue = getTokenValueParam(tokenData);
+  //     // TODO this calculation is screwed up
+  //     tokenAmount =
+  //       tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
+  //   }
+  // }
+  const {
+    assetStandard,
     assetName,
     assetAddress,
-    tokenTrackerBalance,
+    userBalance,
     tokenSymbol,
     decimals,
     tokenImage,
     tokenValue,
     toAddress,
     tokenAmount,
-    tokenData;
+    tokenData,
+  } = useAssetDetails(tokenAddress, transactionData, fromAddress);
 
-  if (currentAsset) {
-    assetStandard = currentAsset?.standard;
-    // TODO create branching logic here based on the standard!
-    assetAddress = currentAsset?.address;
-    tokenData = getTokenData(data);
-    tokenSymbol = currentAsset?.symbol;
-    tokenImage = currentAsset?.image;
-    toAddress = getTokenAddressParam(tokenData);
-
-    if (assetStandard === ERC721 || assetStandard === ERC1155) {
-      assetName = currentAsset?.name;
-    }
-    if (assetStandard === ERC20) {
-      // const { tokensWithBalances } = useTokenTracker([currentAsset]);
-      // tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
-      decimals = Number(currentAsset?.decimals.toString(10));
-      tokenValue = getTokenValueParam(tokenData);
-      // TODO this calculation is screwed up
-      tokenAmount =
-        tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
-    }
-  }
   const previousTokenAmount = useRef(tokenAmount);
 
   const {
@@ -212,11 +233,14 @@ export default function ConfirmApprove({ transaction }) {
     tokensText = assetName;
   }
 
-  const tokenBalance = tokenTrackerBalance
-    ? calcTokenAmount(tokenTrackerBalance, decimals).toString(10)
+  const tokenBalance = userBalance
+    ? calcTokenAmount(userBalance, decimals).toString(10)
     : '';
   const customData = customPermissionAmount
-    ? getCustomTxParamsData(data, { customPermissionAmount, decimals })
+    ? getCustomTxParamsData(transactionData, {
+        customPermissionAmount,
+        decimals,
+      })
     : null;
 
   // NEED TO SORT OUT WHAT IS NEEDED HERE AND WHAT ISN'T
@@ -268,7 +292,7 @@ export default function ConfirmApprove({ transaction }) {
                   }),
                 )
               }
-              data={customData || data}
+              data={customData || transactionData}
               toAddress={toAddress}
               currentCurrency={currentCurrency}
               nativeCurrency={nativeCurrency}

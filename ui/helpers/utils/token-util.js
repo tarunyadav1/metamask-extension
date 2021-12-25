@@ -217,6 +217,7 @@ export function getTokenFiatAmount(
 
 export async function getAssetDetails(
   tokenAddress,
+  currentUserAddress,
   transactionData,
   existingCollectibles,
   existingTokens,
@@ -228,7 +229,11 @@ export async function getAssetDetails(
   const tokenId = calcTokenAmount(tokenValue).toString(10);
   let tokenDetails;
   try {
-    tokenDetails = await getTokenStandardAndDetails(tokenAddress, tokenId);
+    tokenDetails = await getTokenStandardAndDetails(
+      tokenAddress,
+      currentUserAddress,
+      tokenId,
+    );
   } catch (error) {
     console.log('error', error);
   }
@@ -261,6 +266,7 @@ export async function getAssetDetails(
       return {
         symbol: existingToken?.symbol,
         decimals: existingToken?.decimals,
+        balance: tokenDetails?.balance,
         standard: tokenDetails?.standard,
       };
     }
