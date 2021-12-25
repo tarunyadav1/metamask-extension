@@ -179,6 +179,8 @@ export default class ConfirmApproveContent extends Component {
       toAddress,
       isContract,
     } = this.props;
+
+    // TODO make branching logic based on asset standard
     const displayedAddress = isContract
       ? `${t('contract')} (${addressSummary(toAddress)})`
       : addressSummary(toAddress);

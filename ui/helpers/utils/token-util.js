@@ -235,6 +235,7 @@ export async function getAssetDetails(
       tokenId,
     );
   } catch (error) {
+    // TODO how to handle expected unable to determine token standard case
     console.log('error', error);
   }
   if (
@@ -271,7 +272,6 @@ export async function getAssetDetails(
       };
     }
 
-    // TODO this dispatch doesn't appear to have a case in reducer
     const { symbol, decimals } = await getSymbolAndDecimals(
       tokenAddress,
       tokenList,

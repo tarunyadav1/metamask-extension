@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import ConfirmTransactionBase from '../confirm-transaction-base';
 import { EDIT_GAS_MODES } from '../../../shared/constants/gas';
 import {
@@ -8,26 +7,16 @@ import {
   updateCustomNonce,
   getNextNonce,
 } from '../../store/actions';
-import { getTokenData } from '../../helpers/utils/transactions.util';
-import {
-  calcTokenAmount,
-  getAssetDetails,
-  getTokenAddressParam,
-  getTokenValueParam,
-} from '../../helpers/utils/token-util';
+import { calcTokenAmount } from '../../helpers/utils/token-util';
 import { readAddressAsContract } from '../../../shared/modules/contract-utils';
 import { GasFeeContextProvider } from '../../contexts/gasFee';
 import { TransactionModalContextProvider } from '../../contexts/transaction-modal';
-import { useTokenTracker } from '../../hooks/useTokenTracker';
 import {
-  getTokens,
   getNativeCurrency,
   isAddressLedger,
-  getCollectibles,
 } from '../../ducks/metamask/metamask';
 import {
   transactionFeeSelector,
-  txDataSelector,
   getCurrentCurrency,
   getSubjectMetadata,
   getUseNonceField,
@@ -37,15 +26,12 @@ import {
   getRpcPrefsForCurrentProvider,
   getIsMultiLayerFeeNetwork,
   checkNetworkAndAccountSupports1559,
-  getTokenList,
 } from '../../selectors';
 import { useApproveTransaction } from '../../hooks/useApproveTransaction';
-import { currentNetworkTxListSelector } from '../../selectors/transactions';
 import AdvancedGasFeePopover from '../../components/app/advanced-gas-fee-popover';
 import EditGasFeePopover from '../../components/app/edit-gas-fee-popover';
 import EditGasPopover from '../../components/app/edit-gas-popover/edit-gas-popover.component';
 import Loading from '../../components/ui/loading-screen';
-import { isEqualCaseInsensitive } from '../../helpers/utils/util';
 import { getCustomTxParamsData } from './confirm-approve.util';
 import ConfirmApproveContent from './confirm-approve-content';
 import { ERC20, ERC1155, ERC721 } from '../../helpers/constants/common';
@@ -61,22 +47,16 @@ const EIP_1559_V2_ENABLED =
 
 export default function ConfirmApprove({ transaction }) {
   const dispatch = useDispatch();
-  const { id: paramsTransactionId } = useParams();
   const {
-    id: transactionId,
     txParams: {
       to: tokenAddress,
       data: transactionData,
-      from: fromAddress,
+      from: userAddress,
     } = {},
   } = transaction;
   const currentCurrency = useSelector(getCurrentCurrency);
   const nativeCurrency = useSelector(getNativeCurrency);
-  const currentNetworkTxList = useSelector(currentNetworkTxListSelector);
   const subjectMetadata = useSelector(getSubjectMetadata);
-  const tokens = useSelector(getTokens);
-  const collectibles = useSelector(getCollectibles);
-  const tokenList = useSelector(getTokenList);
   const useNonceField = useSelector(getUseNonceField);
   const nextNonce = useSelector(getNextSuggestedNonce);
   const customNonceValue = useSelector(getCustomNonceValue);
@@ -86,15 +66,12 @@ export default function ConfirmApprove({ transaction }) {
   const networkAndAccountSupports1559 = useSelector(
     checkNetworkAndAccountSupports1559,
   );
-  const [currentAsset, setCurrentAsset] = useState(null);
   const [customPermissionAmount, setCustomPermissionAmount] = useState('');
 
-  const fromAddressIsLedger = useSelector(isAddressLedgerByFromAddress(fromAddress));
+  const fromAddressIsLedger = useSelector(
+    isAddressLedgerByFromAddress(userAddress),
+  );
 
-  // const transaction =
-  //   currentNetworkTxList.find(
-  //     ({ id }) => id === (Number(paramsTransactionId) || transactionId),
-  //   ) || {};
   const {
     ethTransactionTotal,
     fiatTransactionTotal,
@@ -104,60 +81,6 @@ export default function ConfirmApprove({ transaction }) {
   const supportsEIP1559V2 =
     EIP_1559_V2_ENABLED && networkAndAccountSupports1559;
 
-  // use token address to get the data we want without needing to add to state
-  // check if the token exists in either tokens or collectibles and use that data
-  // then if not pass to a method "getTokenStandardAndDetails"
-
-  // useEffect(() => {
-  //   async function getAndSetAssetDetails() {
-  //     const assetDetails = await getAssetDetails(
-  //       tokenAddress,
-  //       transactionData,
-  //       collectibles,
-  //       tokens,
-  //       tokenList,
-  //     );
-  //     setCurrentAsset(assetDetails);
-  //   }
-  //   getAndSetAssetDetails();
-  // }, []);
-
-  // // TODO wrap this all in a hook (useCurrentAsset)
-  // let assetStandard,
-  //   assetName,
-  //   assetAddress,
-  //   tokenTrackerBalance,
-  //   tokenSymbol,
-  //   decimals,
-  //   tokenImage,
-  //   tokenValue,
-  //   toAddress,
-  //   tokenAmount,
-  //   tokenData;
-
-  // if (currentAsset) {
-  //   assetStandard = currentAsset?.standard;
-  //   assetAddress = currentAsset?.address;
-  //   tokenSymbol = currentAsset?.symbol;
-  //   tokenImage = currentAsset?.image;
-  //   tokenData = getTokenData(transactionData);
-  //   toAddress = getTokenAddressParam(tokenData);
-
-  //   if (assetStandard === ERC721 || assetStandard === ERC1155) {
-  //     assetName = currentAsset?.name;
-  //   }
-  //   if (assetStandard === ERC20) {
-  //     const { tokensWithBalances } = useTokenTracker([
-  //       { ...currentAsset, address: tokenAddress },
-  //     ]);
-  //     tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
-  //     decimals = Number(currentAsset?.decimals.toString(10));
-  //     tokenValue = getTokenValueParam(tokenData);
-  //     // TODO this calculation is screwed up
-  //     tokenAmount =
-  //       tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
-  //   }
-  // }
   const {
     assetStandard,
     assetName,
@@ -166,11 +89,9 @@ export default function ConfirmApprove({ transaction }) {
     tokenSymbol,
     decimals,
     tokenImage,
-    tokenValue,
     toAddress,
     tokenAmount,
-    tokenData,
-  } = useAssetDetails(tokenAddress, transactionData, fromAddress);
+  } = useAssetDetails(tokenAddress, userAddress, transactionData);
 
   const previousTokenAmount = useRef(tokenAmount);
 
@@ -233,6 +154,7 @@ export default function ConfirmApprove({ transaction }) {
     tokensText = assetName;
   }
 
+  //TODO It should be okay if this is undefined?
   const tokenBalance = userBalance
     ? calcTokenAmount(userBalance, decimals).toString(10)
     : '';
@@ -243,7 +165,7 @@ export default function ConfirmApprove({ transaction }) {
       })
     : null;
 
-  // NEED TO SORT OUT WHAT IS NEEDED HERE AND WHAT ISN'T
+  // TODO modify the ConfirmApproveContent with branching logic based on asset standard
   return tokenSymbol === undefined &&
     assetName === undefined &&
     assetAddress === undefined ? (

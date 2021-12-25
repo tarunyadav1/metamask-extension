@@ -10,9 +10,8 @@ import {
 } from '../helpers/utils/token-util';
 import { getTokenData } from '../helpers/utils/transactions.util';
 import { getTokenList } from '../selectors';
-import { useTokenTracker } from './useTokenTracker';
 
-export function useAssetDetails(tokenAddress, transactionData, fromAddress) {
+export function useAssetDetails(tokenAddress, userAddress, transactionData) {
   const tokens = useSelector(getTokens);
   const collectibles = useSelector(getCollectibles);
   const tokenList = useSelector(getTokenList);
@@ -21,7 +20,7 @@ export function useAssetDetails(tokenAddress, transactionData, fromAddress) {
     async function getAndSetAssetDetails() {
       const assetDetails = await getAssetDetails(
         tokenAddress,
-        fromAddress,
+        userAddress,
         transactionData,
         collectibles,
         tokens,
@@ -35,31 +34,25 @@ export function useAssetDetails(tokenAddress, transactionData, fromAddress) {
   let assetStandard,
     assetName,
     assetAddress,
-    // tokenTrackerBalance,
     tokenSymbol,
     decimals,
     tokenImage,
     userBalance,
     tokenValue,
     toAddress,
-    tokenAmount,
-    tokenData;
+    tokenAmount;
 
   if (currentAsset) {
+      const tokenData = getTokenData(transactionData);
     assetStandard = currentAsset?.standard;
     assetAddress = currentAsset?.address;
     tokenSymbol = currentAsset?.symbol;
     tokenImage = currentAsset?.image;
-    tokenData = getTokenData(transactionData);
     toAddress = getTokenAddressParam(tokenData);
     if (assetStandard === ERC721 || assetStandard === ERC1155) {
       assetName = currentAsset?.name;
     }
     if (assetStandard === ERC20) {
-      // const { tokensWithBalances } = useTokenTracker([
-      //   { ...currentAsset, address: tokenAddress },
-      // ]);
-      // tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
       userBalance = currentAsset?.balance;
       decimals = Number(currentAsset?.decimals.toString(10));
       tokenValue = getTokenValueParam(tokenData);
@@ -73,13 +66,11 @@ export function useAssetDetails(tokenAddress, transactionData, fromAddress) {
     assetName,
     assetAddress,
     userBalance,
-    // tokenTrackerBalance,
     tokenSymbol,
     decimals,
     tokenImage,
     tokenValue,
     toAddress,
     tokenAmount,
-    tokenData,
   };
 }

@@ -48,6 +48,7 @@ export default class EditApprovalPermission extends PureComponent {
     const { name, address } = selectedIdentity || {};
     const { selectedOptionIsUnlimited } = this.state;
 
+     // TODO make branching logic based on asset standard
     return (
       <div className="edit-approval-permission">
         <div className="edit-approval-permission__header">
