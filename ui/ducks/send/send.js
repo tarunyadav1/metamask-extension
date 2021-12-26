@@ -56,6 +56,7 @@ import {
   updateTransaction,
   addPollingTokenToAppState,
   removePollingTokenFromAppState,
+  isCollectibleOwner,
 } from '../../store/actions';
 import { setCustomGasLimit } from '../gas/gas.duck';
 import {
@@ -1075,7 +1076,7 @@ const slice = createSlice({
       state.recipient.mode = action.payload;
     },
     resetSendState: () => initialState,
-    validateAmountField: (state) => {
+    validateAmountField: async (state) => {
       switch (true) {
         // set error to INSUFFICIENT_FUNDS_ERROR if the account balance is lower
         // than the total price of the transaction inclusive of gas fees.
@@ -1097,13 +1098,17 @@ const slice = createSlice({
           }):
           state.amount.error = INSUFFICIENT_TOKENS_ERROR;
           break;
-        case state.asset.type === ASSET_TYPES.COLLECTIBLE &&
-          !isTokenBalanceSufficient({
-            tokenBalance: state.asset.balance ?? '0x0',
-            amount: state.amount.value,
-            decimals: state.asset.details.decimals,
-          }):
-          state.amount.error = INSUFFICIENT_TOKENS_ERROR;
+        case state.asset.type === ASSET_TYPES.COLLECTIBLE:
+          if (
+            await !isCollectibleOwner(
+              ownerAddress,
+              collectibleAddress,
+              collectibleId,
+            )
+          ) {
+            // TODO create a new error message
+            state.amount.error = INSUFFICIENT_TOKENS_ERROR;
+          }
           break;
         // if the amount is negative, set error to NEGATIVE_ETH_ERROR
         // TODO: change this to NEGATIVE_ERROR and remove the currency bias.
@@ -1641,7 +1646,7 @@ export function signTransaction() {
         const collectibleContract = global.eth
           .contract(abiERC721)
           .at(asset.details.address);
-        
+
         collectibleContract.transferFrom(
           selectedAddress,
           address,

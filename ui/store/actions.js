@@ -1395,6 +1395,18 @@ export async function checkAndUpdateAllCollectiblesOwnershipStatus() {
   await promisifiedBackground.checkAndUpdateCollectiblesOwnershipStatus();
 }
 
+export async function isCollectibleOwner(
+  ownerAddress,
+  collectibleAddress,
+  collectibleId,
+) {
+  return await promisifiedBackground.isCollectibleOwner(
+    ownerAddress,
+    collectibleAddress,
+    collectibleId,
+  );
+}
+
 export async function checkAndUpdateSingleCollectibleOwnershipStatus(
   collectible,
 ) {
@@ -1402,16 +1414,6 @@ export async function checkAndUpdateSingleCollectibleOwnershipStatus(
     collectible,
     false,
   );
-}
-
-export function isCollectibleOwner(userAddress, contractAddress, tokenId) {
-  return async () => {
-    return await promisifiedBackground.isCollectibleOwner(
-      userAddress,
-      contractAddress,
-      tokenId,
-    );
-  };
 }
 
 export function removeToken(address) {
