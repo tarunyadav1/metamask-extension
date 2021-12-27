@@ -20,6 +20,7 @@ import {
   KNOWN_RECIPIENT_ADDRESS_WARNING,
   MIN_GAS_LIMIT_HEX,
   NEGATIVE_ETH_ERROR,
+  NOT_OWNER_OF_COLLECTIBLE_ERROR,
 } from '../../pages/send/send.constants';
 
 import {
@@ -1099,14 +1100,19 @@ const slice = createSlice({
           state.amount.error = INSUFFICIENT_TOKENS_ERROR;
           break;
         case state.asset.type === ASSET_TYPES.COLLECTIBLE:
-          if (
-            await !isCollectibleOwner(
-              ownerAddress,
-              collectibleAddress,
-              collectibleId,
-            )
-          ) {
-            // TODO create a new error message
+          let isCurrentOwner = false;
+          try {
+            isCurrentOwner = await isCollectibleOwner(
+              state.account.address,
+              state.asset.details.address,
+              state.asset.details.tokenId,
+            );
+          } catch (error) {
+            if (!error.message.includes('Unable to verify ownership.')) {
+              throw error;
+            }
+          }
+          if (!isCurrentOwner) {
             state.amount.error = INSUFFICIENT_TOKENS_ERROR;
           }
           break;
